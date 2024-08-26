@@ -1,0 +1,11 @@
+huggingface_hub==0.22.2
+python-dotenv
+langchain
+langchain-openai
+langchain-community
+langchain-text-splitters
+chromadb
+gradio
+openai
+uvicorn
+pydantic
