@@ -1,9 +1,10 @@
 
-# Mifos Web-App Chatbot
+
+# Mifos Chatbot
 
 ## Project Overview
 
-The Mifos Web-App Chatbot is a cutting-edge project exploring the use of generative AI to enhance community support mechanisms for implementers and adopters of Mifos and Fineract. As the Mifos community has grown, so has the complexity of its applications. This chatbot aims to provide swift, accurate support to users, especially those new to the projects.
+The Mifos Chatbot is a cutting-edge project exploring the use of generative AI to enhance community support mechanisms for implementers and adopters of Mifos and Fineract. As the Mifos community has grown, so has the complexity of its applications. This chatbot aims to provide swift, accurate support to users, especially those new to the projects.
 
 ### Background
 
@@ -27,7 +28,7 @@ The Mifos Web-App Chatbot is a cutting-edge project exploring the use of generat
 - Natural language processing to understand user queries
 - Integration with OpenAI's GPT models for generating responses
 - Vector embeddings for efficient information retrieval from the codebase
-- Support for multiple file types including TypeScript, HTML, Markdown, and JavaScript
+- Support for multiple file types including TypeScript, HTML, Markdown, Kotlin and JavaScript
 - User-friendly interface built with Gradio
 
 ## Technology Stack
@@ -43,7 +44,7 @@ The Mifos Web-App Chatbot is a cutting-edge project exploring the use of generat
 1. Clone the repository:
    ```
    git clone https://github.com/openMF/community-ai.git
-   cd mifos-web-app-chatbot
+   cd Web-App
    ```
 
 2. Install required dependencies:
@@ -72,7 +73,13 @@ To run the chatbot locally, the ipynb file can be used. The Gradio interface wil
 
 OR
 
-To use the deployed version of the chatbot, visit the following link: [Mifos Web-App Chatbot][(https://huggingface.co/spaces/MifosBot/Web-App)]
+To use the deployed version of the chatbot, visit the following link: [Web-App](https://huggingface.co/spaces/MifosBot/Web-App)
+
+[Mifos-Mobile](https://huggingface.co/spaces/MifosBot/Mifos-Mobile)
+
+[Mobile-Wallet](https://huggingface.co/spaces/MifosBot/Mobile-Wallet)
+
+[Android-Client](https://huggingface.co/spaces/MifosBot/Android-Client)
 
 ## Project Structure
 
@@ -83,7 +90,7 @@ To use the deployed version of the chatbot, visit the following link: [Mifos Web
 
 ## How It Works
 
-1. The chatbot processes and indexes the Mifos Web-App codebase, creating vector embeddings for efficient retrieval.
+1. The chatbot processes and indexes the Mifos codebase, creating vector embeddings for efficient retrieval.
 2. When a user asks a question, the system finds the most relevant code snippets or documentation.
 3. The chatbot then uses GPT models to generate a human-like response based on the retrieved information.
 4. Responses focus on file organization, key components, and project structure.
@@ -94,4 +101,4 @@ We welcome contributions to improve the Mifos Web-App Chatbot. Please feel free 
 
 ---
 
-For more information about Mifos and Fineract, visit [https://mifos.org/](https://mifos.org/)
+For more information about Mifos and Fineract, visit [https://mifos.org/](https://mifos.org/) or [Mifos Slack Channel](https://mifos.slack.com/)
