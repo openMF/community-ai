@@ -1,3 +1,4 @@
+
 # Mifos Web-App Chatbot
 
 ## Project Overview
@@ -75,7 +76,7 @@ To use the deployed version of the chatbot, visit the following link: [Mifos Web
 
 ## Project Structure
 
-- `CodeCommentingScript.py`: Main script containing the logic for data pre-processing as explained in ![Report] (https://gist.github.com/shubhampal62/f7e5331dc58af05f19e959f847c9d3e5)
+- `CodeCommentingScript.py`: Main script containing the logic for data pre-processing as explained in this [report](https://gist.github.com/shubhampal62/f7e5331dc58af05f19e959f847c9d3e5)
 - `web-app/`: Directory containing the Mifos Web-App files for analysis
 - `web_app_vector_storage_metadata/`: Directory for storing vector embeddings
 - `requirements.txt`: List of Python dependencies
