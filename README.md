@@ -73,7 +73,9 @@ To run the chatbot locally, the ipynb file can be used. The Gradio interface wil
 
 OR
 
-To use the deployed version of the chatbot, visit the following link: [Web-App](https://huggingface.co/spaces/MifosBot/Web-App)
+To use the deployed version of the chatbot, visit the following link: 
+
+[Web-App](https://huggingface.co/spaces/MifosBot/Web-App)
 
 [Mifos-Mobile](https://huggingface.co/spaces/MifosBot/Mifos-Mobile)
 
