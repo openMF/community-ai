@@ -1,0 +1,1892 @@
+SLACK CONVERSATION MESSAGES
+==========================
+
+[2025-03-17 00:46:38] User: U08HZ2R9JAE
+:wave: Hello, team! I am Aidin Miralmasi, and I am willing to contribute to projects, as it was written that we are expected to introduce ourselves and discuss projects. I am willing to discuss the project Bank Statement Analysis Phase 2 (AI) , as mentors are <@U016XM2CX7X><@U06LUAYUWGH> .  I would like to discuss project scopes and criteria needed. Thanks.
+
+[2025-03-13 12:13:34] User: U5JP6FGS0
+*REGISTER: 2025 Mifos Summer Intern AMA (Ask Me Anything) Session (GSOC and C4GT) - Thursday March 20 at 1500 UTC*
+
+Each year to help aspiring interns learn more about Mifos, get clarifications about our projects, and ask any questions to improve their applications, we host an Ask Me Anything session with our mentors. Any applicant for either GSOC or C4GT should attend and be prepared with any questions you might have.
+
+Register via Zoom at <https://us02web.zoom.us/webinar/register/4617418479058/WN_zBH_P3--TzKaGFKWFES3zw>
+
+[2025-03-08 23:53:22] User: U08GXF0A9JQ
+Hello everyone! My name is Haoyang Li. I finished my bachelor degree in Computer Science (major) and Economics (minor) at New York University last year. Currently, I am pursuing a master degree in Computer and Information Science at the University of Pennsylvania. I am interested in contributing to Mifos’ Online Banking App 5.0 - Customer Loan Management Portal project for GSoC 2025.
+My primary programming language is Java. I am also experienced with SQL, Git, and front-end technologies (HTML, CSS, JavaScript, React, Angular, etc.) from my previous internships and projects. I am highly interested in Fintech and software engineering. One of my internships was to work as a software developer for China Merchants Bank. I am eager to leverage these skills and experience to contribute meaningfully to Mifos.
+Since this is my first time participating in GSoC, I wish to get some advice or guidance from mentors. If there is anything I should do or could help with before drafting the project proposal, please let me know. Thank you very much! <!subteam^S072CEBD8N7>
+
+[2025-03-07 16:07:17] User: U08GFHE4F38
+*Hello Mentors!* <@U06LUAYUWGH> <@U016XM2CX7X> <@UACD0HJAG>
+I’m *Anushka Sharma*, and I’m highly passionate about AI-related projects. After exploring a few opportunities, I found *3.1.7 Voice-Driven Banking via Large Acoustic Models (LAMs) (AI)* and *3.2.2 Bank Statement Analysis Phase 2 (AI)* particularly exciting.
+With a *strong foundation in AI and machine learning*, I have actively developed *AI-driven applications* using *Python, TensorFlow, Keras, and Hugging Face*. Additionally, my experience with *Django, SQL, AWS, and frontend technologies (HTML, CSS, JavaScript, React)* allows me to build *robust, scalable, and user-friendly applications* that seamlessly integrate AI models into real-world use cases.
+I have previously collaborated with *<@U06LUAYUWGH>* during *GSSoC*, and I would love the opportunity to work with him again—alongside *<@U016XM2CX7X> and <@UACD0HJAG>*—to contribute meaningfully to these projects.
+Looking forward to discussing this further!
+*My Details:*
+ *GitHub*: <http://github.com/anushka7220|github.com/anushka7220>
+ *LinkedIn:<https://www.linkedin.com/in/anushka37/|LinkedIn>*
+ *Resume:* <https://drive.google.com/file/d/1OhnwW5vWy7giIdNPm7X3o74EXA_B1duv/view?usp=sharing|Anushka's resume>
+ *Email*: <mailto:anushkasharma3704@gmail.com|anushkasharma3704@gmail.com>
+Excited to connect and contribute!
+
+[2025-03-04 19:59:08] User: U08GJSHJD08
+Hello everyone, I am youssef a second-year computer science student. I have done 2 software engineering internships at digital banks and I also have experience in cyber security, I am ranked in the top 2% worldwide on tryhackme platform. I am interested in Fintech and cyber security, I would love to contribute to the Reactive loan risk assessment engine project for Mifos, and I am seeking guidance from mentors and would love to know if there are any tasks or contributions I can do before the proposal stage <!subteam^S072CEBD8N7> <@U5JP6FGS0> , Thank you!
+
+[2025-03-03 22:41:54] User: U08FE78F2LT
+*Hi everyone,*
+I’m Vishnu Gurrapu, a frontend developer skilled in JavaScript, TypeScript, and building dynamic user interfaces. I have experience working with modern frameworks like Angular and React, focusing on creating efficient and scalable UIs.
+I’m eager to contribute to Mifos and collaborate with the community! The *Optimize Payment Hub EE Operations UI with new Micro Front-Ends* project caught my interest, and I’d love to get involved. Could someone provide guidance on the current scope and the best way for a newcomer to begin?
+<@U5JP6FGS0> <@U5J6V6U2C> <@U06FTE8BRD0>
+
+[2025-03-03 22:23:52] User: U08G3Q7R4U9
+Hi everyone,
+I’m *Perumal Raj*, a Java and Spring Boot developer with experience in *Spring, Microservices, and Oracle*. I’m excited to contribute to Mifos and learn from the community!
+I’m interested in the *Reactive Loan Risk Assessment Engine* project and would love to get started. Could someone guide me on the current scope and what would be a good first step for a newcomer?<@U5JP6FGS0>
+
+[2025-03-03 18:13:23] User: U08FM3NQLB0
+Hi everyone,
+My name is *Rohit* and I am an *Android Developer* working with Kotlin and Java. I am excited to connect with mentors, and the fellow contributors from the Mifos community.
+I'll be contributing to Android projects and seeking guidance from mentors.
+
+[2025-03-02 19:54:26] User: U08FHKXB9L6
+*Hello Everyone,*
+I am Flavio, a passionate developer with experience in both frontend and backend technologies. I have worked with *Angular and TypeScript* to build responsive user interfaces and have developed *web applications in Java using Spring Boot*, designing and implementing RESTful APIs for seamless communication between client and server.
+As an *enthusiast of finance and competitive programming* I am eager to apply my problem-solving skills and technical expertise to contribute to this initiative.
+
+I would love to connect with the mentors and the community to explore how I can contribute effectively.
+Looking forward to collaborating with you all!
+
+Thanks,
+Flavio
+
+[2025-03-02 08:01:07] User: U08GC3CPBPA
+Hello Everyone,
+I am Rohan, I am a Graduate Data Science Student ,
+I have experience in financial fraud detection systems developed in a fintech startup., I am interested in working on "Fraud & Risk Management & Transaction Monitoring POC (Tazama) (AI)" Project.
+I have setup payments-hub-ee services with helm charts but from the description my understanding is that a new microservice and repository needs to be created to gather the transactions flowing through the system.
+I would love to connect with the mentors for the project.
+
+Thanks,
+Rohan
+
+[2025-03-01 23:24:18] User: U08F8RDD6LX
+Hello everyone !! I am Om Swastik currently pursuing B.Tech at IIT(BHU). I am interseted in Contributing the "Fraud & Risk Management & Transaction Monitoring POC (Tazama) (AI)"  Project. I have experience in NLP ,CV and used Huggingface transformers and  Pytorch . want to contribute in this project can anyone guide me from here should I start ? @metors?
+
+[2025-03-01 20:28:10] User: U08FQ77GGN6
+Hey Team,
+
+I'm Jeyasenthuran, You can call me jey :), currently in my third year of Computer Science at NIT Trichy, India. My expertise and passion lie in frontend development, LLMs, CI/CD and algorithms. I have substantial experience working with diverse technology stacks, including React/Next.js, Tailwind CSS, Strapi CMS, TypeScript/JavaScript, Node and Golang. Additionally, I'm well-versed in Docker containerization and have fundamental knowledge of Kubernetes. Pleasure to join this community !
+
+Here's my github to get to know more about me: <https://github.com/purrate|Github>
+
+[2025-03-01 13:12:32] User: U08CRUR6N59
+hello <@U06LUAYUWGH> <@U016XM2CX7X> <@UACD0HJAG>
+
+I'm Saswat Susmoy, I'm interested in contributing to the "Voice-Driven Banking via Large Acoustic Models (LAMs) (AI)" project.
+
+I'd love to know in which repo or tasks I can work on for the evaluation. I have also briefly documented the technical approach for the project which we can improve through suggestions and iterations. I would be happy to build a sample or a prototype for the same
+
+[2025-02-28 02:47:31] User: U08FE8G0WPM
+hello <@U016XM2CX7X>
+I’m Bishoy Wadea, a third-year Computer Engineering student and a former Microsoft intern. I’m highly interested in contributing to the LAM (Large Action Model) for Fineract (AI)
+project.
+Before the proposal stage, I’d love to know which areas I can help with to demonstrate my reliability and skills. I’m considering developing a prototype to showcase my capabilities—would that be a valuable approach?
+Looking forward to your guidance. Thanks!
+
+[2025-02-28 01:40:51] User: U089AKLMRRA
+Hey everyone!
+
+For those who've passed the GSoC program before, it would be awesome if you could drop some knowledge! Sharing your proposals and any tips that boosted your chances of getting accepted would be helpful.
+
+Thanks a lot!
+Ahmed.
+
+[2025-02-27 23:40:38] User: U04PVU38B9D
+***BREAKING NEWS***
+
+Mifos Initiative is delighted to have been accepted as a Google Summer of Code mentoring organisation for  GSOC2025. Congratulations to all the 185 organisations that have been successful. We look forward to working for a 13th year with a cohort of interns this summer, they always bring so much to our community and put an incredible amount of effort into their contributions. This means so much for Mifos and the individuals who will be impacted as we address Financial Inclusion.
+<https://summerofcode.withgoogle.com/programs/2025-ao/organizations>
+
+[2025-02-26 18:28:06] User: U0897S8C8KS
+I am Basma Elhoseny a computer engineering graduated from Cairo university 
+And currently a MSC student interested AI 
+
+I am interested  in AI development either NLp or Computer Vision 
+I am excited to contribute and be part of your community
+
+Any guidance plz ?
+
+[2025-02-26 18:26:43] User: U0897S8C8KS
+Hey guys 
+
+[2025-02-17 20:37:57] User: U079Z7R5NTG
+Hello everyone,
+I'm Samar Allam, a 3rd-year Computer Engineering student from Egypt.
+
+My Skills:
+
+Frontend: HTML, CSS, Bootstrap, JavaScript, TypeScript
+
+Backend: C#, SQL Server, <http://ASP.NET|ASP.NET> (MVC, REST API) , flask
+
+Other Languages: Python, C++
+
+ Are there any projects that align with my current skills?
+And if not what extra skills should I learn  to be able to contribute  in general and specifically for GSoC?
+
+I appreciate any guidance you can provide.
+
+[2025-02-17 18:19:19] User: U08BNV97DJ8
+Hey everyone, I’m Lakshan Krithik, a Computer Science student specializing in AI/ML with expertise in Java, Python, and backend development. My strong problem-solving skills, honed through competitive programming, enable me to write efficient, optimized code. I’m also proficient in Spring Boot and microservices for building scalable and robust backend systems.
+
+I’m excited to contribute to Mifos, especially backend development, microservices, and scalability. Looking forward to collaborating and making meaningful contributions!
+
+[2025-02-16 01:35:05] User: U08E623TXK2
+Hi all, I’m Arnav Mangla, a 3rd-year CompSci student from India. I have experience working with Android, some KMP, Java, Kotlin, WebDev (MERN), and machine learning. Looking forward to contributing to Mifos!
+
+[2025-02-15 12:57:37] User: U08DG4Y8W82
+Hi everyone, My Name is Supreet Prajapati. I am a 3rd year undergrad in Electronics Engineering. I have been working as *Android and Compose Multiplatform* Developer, having skillset in techstack like, *Kotlin, Compose, Node.JS, MongoDB, Room Database*. Definitely love to contribute to Mifos in Near GSoc event this year. Would love to connect to people with resonating interests.
+
+[2025-02-14 17:08:44] User: U08CXKNA9L6
+Hello, I am Pranav Deshmukh, I am from India. I am currently in my 3rd year studying Computer Engineering. I am skilled in ReactJs, Typescript, Nextjs, Framer, Nodejs. I am looking forward to contribute in MIFOS in GSOC 25.
+
+[2025-02-14 07:13:05] User: U06487TSB54
+Hello, My name is Ufuoma Ejemudaro from Nigeria. I am in my 3rd year currently studying computer science and mathematics, I am a software developer skilled in Java, Kotlin, Jetpack compose, XML. I have a keen interest in the vision of Mifos. I am excited to Contribution to MIFOs in GSoC 2025.
+
+[2025-02-10 20:43:57] User: U08CL7F4DC2
+Hello everyone! :wave:
+I’m Azah Norbline from Cameroon, a Software QA Tester and programmer skilled in *Java*, *Python*, *VueJs*, *AngularJs*. Excited to join MiFOS for GSOC and contribute to its mission of financial inclusion. Looking forward to collaborating with you all!
+
+[2025-02-10 18:09:55] User: U08C4SHA6GP
+Hello everyone, I'm Abdelrhman, a pre-final year Computer Science student from Egypt.
+I have experience with Java Spring and am familiar with Angular.
+I'm excited to contribute to Mifos in GSoC 2025.
+I have learned about Mifos' vision, and I will start becoming familiar with the codebase and begin solving issues.
+
+[2025-02-08 01:28:14] User: U0862FDRGRK
+<@U5JP6FGS0> Hello :wave: 
+
+Interested in helping the UI screenshot update
+
+[2025-02-08 01:03:54] User: U5JP6FGS0
+*REQUEST FOR HELP: Update UI Screenshots in Mifos X User Manual* 
+
+For any of our aspiring interns or any of volunteers or individuals looking to contribute we have a set of small but meaningful tasks that would be super helpful to the community and a good way of starting to familiarize yourself with the capabilities of Mifos X.
+
+We are seeking volunteers to finalize updating of screenshots throughout our user manual to reflect the current web app UI as a good percentage of screenshots were updated but throughout the user manual there are still a number of screenshots from our legacy community app UI. This would involve the following:
+
+1. Log into the demo instance that we’re populating with clean sample data
+2. For the section you’re assigned, follow the steps in the user manual to reproduce the screenshots in the new UI. All the flows should be the same, just the screens are different and navigation slightly different. 
+3. You would then take the screenshot and insert into the documentation in gitbook the updated screenshot. 
+Multiple people could work on this in parallel on the various sections that still need updating.
+
+Please reach out if interested in helping and will share the next steps to get involved.
+
+[2025-02-07 03:26:33] User: U0862FDRGRK
+Hi everyone! :wave:
+I'm Sitam Meur, a passionate programmer with a strong interest in Artificial Intelligence and Machine Learning. I'm eager to contribute to the Mifos Initiative during GSoC 2025 and excited about the opportunity to make a difference through open-source solutions.
+I look forward to the chance to collaborate!
+
+
+
+[2025-02-02 17:46:19] User: U08A5RQ77EG
+I have gone through the 2025 idea list. Can you please tell me a way of contacting the project mentors?
+
+[2025-02-02 17:45:29] User: U08A5RQ77EG
+Hi everyone, I’m Aryan, a pre-final year student at IIT (BHU) Varanasi. I have experience in AI/ML research and benchmark creation, with contributions to Code4GovTech DMP'24 and publication at ICLR. I’m excited to bring my skills in Python, vision pipelines, and multiagent systems to Mifos AI projects.
+
+[2025-01-23 00:07:14] User: U08AGUF4T4G
+Hello everyone,  I’m Sonu Verma, a passionate Android developer with interest in Kotlin and Jetpack Compose. I am eager to contribute to the Mifos Initiative during GSoC 2025.  I am excited about the opportunity to contribute and make a difference through open-source solutions.
+Looking forward to the chance to collaborate!
+
+[2025-01-18 08:14:36] User: U089S0QBH0Q
+<!here>,
+Hello everyone, I am Devarsh Shah. I am a passionate DevOps enthusiast with a keen interest in working with Docker, Kubernetes, Terraform, and AWS in the cloud.
+
+I came across Mifos through the Mojaloop Foundation after being selected as a C4GT intern. Now, I am eager to participate in the Google Internship at the Mifos Initiative.
+
+Could you please guide me on how to get started with contributing to Mifos? I have already signed up for the onboarding call scheduled for next week.
+
+Thank you!
+
+[2025-01-14 16:22:15] User: U0897S8C8KS
+:wave: Hello, team!
+
+I am Basma Elhoseny AI/SW Computer Engineering Student with experience in AI/ web
+
+I want to ask about the idealists for GSoC'25
+
+[2025-01-11 11:27:44] User: U08858ASXUM
+Hi everyone I am Kranthi, I have knowledge on multiple programming languages java, C++ and web development. I would like to join you guys and I hope could you please give me guidance how to contribute to the Mifos. and how to solve the Issues, I hope this message looking forward to you.
+
+[2025-01-08 03:28:17] User: U087P3R5WJW
+Hi I am Disha, and I have knowledge about multiple programming languages java ,python, C, and basic web dev. I would love to join you guys and hope to receive guidance and experience. Looking forward to this, hope to be a great contributor to mifos. Let's solve some issues together
+
+[2024-12-17 14:33:27] User: U085C1W3WJH
+I hope this message finds you well. My name is Aayush Kumar, and I have a strong foundation in *DevOps* and *Backend Development*, along with hands-on experience in *Generative AI* technologies, including RAGs (Retrieval-Augmented Generation), LLMs (Large Language Models), and Multimodal Agents.
+I am deeply enthusiastic about leveraging my skills to contribute to *Mifos* and its impactful open-source initiatives. I believe this would be an excellent opportunity for me to collaborate with the community, make a meaningful difference, and gain valuable experience in the process.
+I would greatly appreciate it if you could guide me on where to start, how I can align my skill set with Mifos’ goals, and contribute effectively to the organization. Any pointers on existing projects, areas needing contributions, or mentorship opportunities would be immensely helpful.
+Thank you for your time and consideration. I look forward to hearing from you and to becoming a productive contributor to the Mifos community.
+
+[2024-12-13 13:59:59] User: U084Z7BLFFC
+can anyone help me to select which repo I can contribute
+
+[2024-12-13 13:57:23] User: U084Z7BLFFC
+I am setting up the environment currently, if any one need any help regarding solving an issue please let me know
+
+[2024-12-13 13:55:52] User: U084Z7BLFFC
+Hi I am Adarsh, I have good foundational knowledge of Spring-boot, Spring Security and Java. I want to contribute to Mifos. if there is any help required regarding any issue please let me know. I am a beginner and want to participate for GSOC 2025. Thanks in advance for your time and help!
+
+[2024-12-12 23:42:46] User: U085JV26LQG
+Hello everyone , My name is Shourya and i am an engineering student from India .I am interested in Mifos for gsoc and further and i had some general questions to ask if someone can kindly guide me where to do that would be great.....excited to be working here
+
+[2024-12-11 23:14:15] User: U0846VBMZ2R
+I have currently set up Mifos Mobile and was going through some screens, and I have some suggestions about them. Right now, I am also setting up the web app.
+
+[2024-12-10 22:22:40] User: U04PVU38B9D
+They would normally be created in Jira for the relevant project.  Which project is it?
+
+[2024-12-10 21:47:27] User: U0846VBMZ2R
+Can we create UI/UX-related issues in the Mifos project repositories? If yes, do we need to follow specific guidelines or processes when proposing such issues to ensure they align with the community's standards and priorities?
+
+[2024-12-09 15:00:24] User: U0841EHJB46
+Hi Developers! I am Shivam Pande, 3rd year CS student at MIT Manipal. I was interested in contributing to Mifos. Technologies I have worked with are flutter, sql, Javascript, C++. Can i get some help in deciding which repository or projects should be suitable to contribute to? Thanks and eger to work with you all
+
+[2024-12-05 15:53:26] User: U083Q43FW69
+Hi! I’m new to open source and eager to contribute. While exploring this organization, I noticed multiple repositories. How do I decide which repository to contribute to, and which ones are participating in GSoC?
+
+[2024-11-20 21:38:48] User: U080MSJDTQV
+Hello Everyone,
+
+I’m Tushar Verma, a Computer Science Engineering student at Newton School of Technology. I’ve been following Mifos projects like mifos-mobile and mobile-wallet since my 12th standard, and I’m deeply inspired by the Mifos Community’s vision and mission. The opportunity to contribute to such impactful projects excites me, which is why I’ve started learning key technologies like Jetpack Compose to better equip myself.
+
+Finance is a domain I’m passionate about, and I aspire to build a career in it. I look forward to working with the Mifos Community, contributing my skills, and being part of their journey toward financial inclusion for all.
+
+[2024-11-15 15:55:05] User: U04PVU38B9D
+Hi all,  We have finished our GSOC for 2024 but are already looking forwards to hopefully participating and having some great new projects in GSOC 2025.  Its great to already see interest is gathering for this:chart_with_upwards_trend:.
+
+For those that want to get ahead and understand more about Mifos and its projects to enhance their applications, or just contribute I would highly recommend signing up for one of our Monthly volunteering calls.  On these calls we give an overview of Mifos and its projects to help you identify where you may want to start.   Our next volunteering call is on the 10th December 3pm UTC.  To receive these details go to this page and click "sign up to be a volunteer":  <https://mifos.org/take-action/volunteer/>
+
+As we will explain on the call some of the best ways to get started is join our slack channels - congratulations if you are reading this you already have done this step:white_check_mark:.  But also download the code :technologist:try installing it and get a feel for it.  All our code is in Github ready to download  and we also have Mifos Gazelle which eases installation and if you have issues the community can help you <#C0F5D59L3|> is a good place to start or we have more dedicated channels on specific areas you can join (any issues joining reach out to me).
+
+Although we will list projects when GSOC opens up we are always interesting in community ideas for new projects so if you have a thought about a project we should consider next year please do let one of the Mifos team know and we can work with you to see how it might fit.
+
+[2024-11-15 15:36:52] User: U08116M8HL2
+Hello everyone! I am Aadit Pujari, a computer engineering student at VJTI. I am really interested in the impactful work of The Mifos Initiative and would love to learn more about the platform while contributing to its mission. My domains of interest are Machine Learning and Finance, and I am excited to apply my knowledge in these areas to help build open-source financial solutions that promote financial inclusion. Looking forward to connecting with the community and making a positive impact together! Any piece of advice on how I can begin contributing and learning is really appreciated!!
+
+[2024-11-13 23:49:01] User: U080NA7BZ9B
+Hello, my name is Parth. I am a third-year Computer Science and Engineering student with a passion for solving real-life problems through technology. and a strong foundation in Data Structures and Algorithms. I'm also exploring new project ideas to enhance my experience and build impactful solutions. I'm excited about this collaborate and learn from this community
+my skills: C, Golang(Basic), Java, servlet, Hibernate, spring boot
+
+[2024-11-13 00:13:30] User: U080MDZ8412
+hello team, i am anshika gupta and i am really exited to be part of  this community for gsoc i am passionate about android development with kotlin ,i am student of engineering,i have experience of building small android projects like todo app,quize app,how can i contribute for gsoc
+
+[2024-10-22 21:39:48] User: U07ECHYJYD8
+<@U07ECHYJYD8> has left the channel
+
+[2024-10-06 23:30:35] User: U07Q689N52B
+Hello everyone!
+My name is Rohit, and I’m currently pursuing a degree in computer science. I have a strong passion for development and am eager to contribute to the Mifos project. I have experience with Java, JavaScript, Angular, and Kotlin, and I’m excited about the opportunity to collaborate and learn from this community!
+
+[2024-05-16 15:52:32] User: U073N54R5HT
+Respected Mentors,As a newbie im looking to contribute to Mifos, getting started with Java projects how should I start?
+
+[2024-05-02 09:53:41] User: U06V5P5UL6B
+Hard luck, I wasn't able to get my proposal accepted for GSoc. Anyways it was great to know how Mifos works and makes an impact in the society. Congratulations everyone those who made it and best wishes for your journey ahead with GSoC and Mifos!
+
+[2024-04-24 14:57:44] User: U06V5P5UL6B
+I'm eager to explore collaboration opportunities and contribute to Mifos's project, "Generative AI to Improve Mifos Documentation". My expertise lies in NLP and LLMs . Moreover, my coursework has equipped me with practical insights into finance.
+The Mifos Initiative's vision  to democratize financial services is one of its kind, and I'm genuinely excited about the prospect of making a meaningful impact! :innocent:
+
+[2024-04-22 20:13:04] User: U06PP90RM0W
+Greetings everyone,
+I just wanted to know if the proposal rankings would be shared with everyone.
+
+Thanks & Regards
+
+[2024-04-19 01:18:01] User: U06KD5WM16Y
+Greetings everyone, hope you're all doing well.
+
+I'm curious if there have been any updates regarding the interview process for the GSoC application, and if there are any tips on how to get ready for it.
+
+Thank you!
+
+[2024-04-02 20:32:15] User: U06RASAEUB0
+Hello everyone!
+My name is Chikondi Banda and I'm a computer science student pursuing my degree with the University of Greenwich.
+My interests lie in Fintech and android app development, and I'm interested in contributing to the <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Extend-and-Evolve-UI-Library-of-common-components-across-all-Mobile-Apps|UI Library common components> project.
+
+[2025-03-14 17:39:19] User: U08CL7F4DC2
+<@U08GXF0A9JQ>, welcome to the community!
+For GSoC, it’s a good idea to start by exploring the <https://github.com/openMF|Mifos project> in detail. Here’s how you can get started:
+1. Review the GitHub repository for the <https://github.com/openMF/web-self-service-app/|Online Banking App - Web>  to understand the codebase and ongoing issues.
+2. Start small by fixing a bug or contributing to an open issue to familiarize yourself with the project workflow.
+3. Join the <#C5JR5LRDY|> channel to connect with the community and stay updated.
+Since this is your first time participating in GSoC, don’t hesitate to ask for clarification or guidance from mentors. They’re usually very supportive and happy to help newcomers.
+
+[2025-03-15 02:01:23] User: U08GXF0A9JQ
+Got it. Thank you very much for the advice!
+
+[2025-03-03 18:33:20] User: U07UPR49S3V
+<@U08FM3NQLB0> Hi, welcome!
+We have dedicated channels for mobile development: *<#C06JPGZG1EK|>, <#C04TGN96CR4|>, <#C5TTJS4BX|>, and <#C06FC73DZPW|>*.
+Don't forget to join our daily stand-up call—the link is available in the GitHub README.
+
+[2025-03-03 18:39:45] User: U08FM3NQLB0
+Thanks for the reference <@U07UPR49S3V>.
+
+[2025-03-03 21:04:11] User: U5JQB8AUT
+Also join out daily stand up, and todays stand up going to happen in one hour 
+
+[2025-03-03 21:04:30] User: U5JQB8AUT
+<@U07UPR49S3V> share the registration link
+
+[2025-03-03 21:05:38] User: U07UPR49S3V
+<@U08FM3NQLB0> Please register for our daily standup (at 10 PM IST) on this zoom link <https://us02web.zoom.us/j/85210635154?pwd=Lj3R9vPAl5pco8jSXv0KuyyDgPT8Mr.1>
+
+[2025-03-03 21:16:02] User: U08FM3NQLB0
+Thanks, I have registered for the standup. Well, what is this standup about?
+
+[2025-03-03 21:19:42] User: U5JQB8AUT
+It's mobile stand up, I assign task
+
+[2025-03-03 21:20:51] User: U07UPR49S3V
+The standup is about the following:
+• Helping newcomers get started based on their skill levels
+• Assigning new tasks, providing updates on assigned tasks, and assisting contributors if they are stuck
+• Planning new projects or tasks related to mobile development
+
+[2025-03-03 21:22:22] User: U08FM3NQLB0
+Okay, got it. Thanks for explanation.
+
+[2025-03-04 21:26:29] User: U08FM3NQLB0
+I won't be able to join in today's standup because of some work.
+
+[2025-03-04 21:28:33] User: U08FM3NQLB0
+Can I comment on the issues of my interest on Jira to get me assigned if I find any before the next standup? I'll attend the standup tomorrow for sure :slightly_smiling_face:
+
+[2024-04-02 06:05:27] User: U06RW2ZSVJT
+Hello, im interested in working on the :Integration with Open Banking and Open Payment Standards. <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Integration-with-Open-Banking-and-Open-Payment-Standards|https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Integration-with-Open-Ban[…]and-Open-Payment-Standards>
+
+[2024-04-01 19:24:20] User: U06PUQMRZ28
+<@U06PUQMRZ28> has left the channel
+
+[2024-03-26 16:07:56] User: U06QTPH6PQW
+Hello, I am interested on working "Generative AI to Improve Mifos Documentation" project. I am studying BS Artificial Intelligence (Junior year). I have written the purposal and want to discuss it <@U016XM2CX7X> <@UACD0HJAG>
+
+[2024-03-25 20:15:49] User: U06LHRZV657
+<https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Mifos-Mobile-6.0---Mobile-Banking-App>
+
+[2024-03-25 20:14:27] User: U06LHRZV657
+I am interested to contribute in Mifos Mobile 6.0 - Mobile Banking App
+
+[2024-03-25 19:53:49] User: U06LHRZV657
+Hi , I hope this message finds you well. My name is Tanay Jha, and I currently serve as the CTO at Jainmaitri.  I'm reaching out to express my keen interest to contribute in mifos Android Projects, which I plan to propose for Google Summer of Code 2024. As someone who has successfully launched a complete app at Jainmaitri from scratch, I believe I bring a valuable blend of technical skills and practical experience to the table. You can find the app I've developed at Jainmaitri through the following link: <https://play.google.com/store/apps/details?id=com.jainmaitri.app&pcampaignid=web_share>
+
+[2024-03-24 17:43:01] User: U06PP90RM0W
+I just started drafting my proposal and wanted to know if there is any preference for font type, text-size or the max number of pages for the proposal.
+
+[2024-03-21 13:08:17] User: U01DUM0AMEF
+<@UK81XQZK7> and <@U04S10L7TQD> would you please assist <@U06KD5WM16Y>
+
+[2024-03-21 02:17:25] User: U06KD5WM16Y
+Hey everyone!
+
+For those who've passed the GSoC program before, it would be awesome if you could drop some knowledge! Sharing your proposals and any tips that boosted your chances of getting accepted would be super helpful.
+
+Thanks a lot!
+Zeyad.
+
+[2024-03-18 08:46:12] User: U06PVCBBMJ7
+<@U5JRP3L6N>
+
+Hello Sir,
+I'm interested to Contribute in <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Phase-2--of-Lombok-to-Reduce-Boilerplate-Code-and--Mapstruct-to-map-REST-DTO-to-Entity-Objects|Phase 2 of Lombok to Reduce Boilerplate Code and Mapstruct to map REST DTO to Entity Objects>
+here's my social links
+[<http://github.com/smit-joshi814|GitHub>] [<https://www.linkedin.com/in/smit-joshi814/|LinkedIn> ]
+
+i would love to know more about the project & further improvements.
+Thank You :blush:.
+
+[2024-03-16 09:59:22] User: U06PVCBBMJ7
+Hello There,
+I'm Computer Science Student at GLS University,
+i am highly motivated to be part of GSOC'24 and Mifos Community.
+I'm interested to Contribute in <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Phase-2--of-Lombok-to-Reduce-Boilerplate-Code-and--Mapstruct-to-map-REST-DTO-to-Entity-Objects|Phase 2  of Lombok to Reduce Boilerplate Code and  Mapstruct to map REST DTO to Entity Objects>
+here's my social links
+[<http://github.com/smit-joshi814|GitHub> ] [<https://www.linkedin.com/in/smit-joshi814/|LinkedIn> ]
+
+i would love to know more about the project & further improvements.
+
+[2024-03-15 19:21:25] User: U06Q1RTGQUR
+Hey Team
+I'm nour a computer engineering student at Cairo university,
+I'm highly motivated to be part of GSOC'24 and Mifos community,
+i got throught the ideas list and got interested in `Generative AI to Improve Mifos Documentation`
+i would like to get start with and qualification tasks or code base if any
+[<https://github.com/nouralmulhem|github>] [<https://www.linkedin.com/in/nour-almulhem-1817251b0/|linkedin>]
+
+[2024-03-15 15:21:00] User: U06LF6W1MPC
+how can i know the length of the project ?
+for this project (Micro Front-ends Proof of Concept for Fineract 1.x  & Mifos X) for example? Or the project of Mifos enhancement
+
+[2024-03-15 12:47:11] User: U0657NEUXMM
+Hello everyone,
+I'm excited about the <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Fraud-%26-Risk-Management-%26-Transaction-Monitoring-POC-(AI)|Fraud & Risk Management & Transaction Monitoring POC (AI)> project and eager to contribute. I have a few ideas and queries and would appreciate any available mentors to discuss them with me. Could someone help me get started?
+
+[2024-03-12 05:52:06] User: U06KD5WM16Y
+Hey everyone. During my journey to understand the flow of the *Fineract* project, I found the following videos which helped me to figure out multiple things, and found it useful to share, if it would help anyone.
+• <https://youtu.be/8qp3zQGh5s4|Modularizing Fineract>
+• <https://youtu.be/fn9uhpOWrHk|Monolith to Microservices: Modularizing Fineract 1.x>
+• <https://youtu.be/sfp7ox3wMKk|Expanding Fineract capabilities>
+*I took some bullet points here as a summary, but for sure the videos are much more valuable.*
+
+• <@U5JRP3L6N>  is the release manager of Fineract and he contributes with frequent electricity outages (No excuses for you xD)
+• After community growth and time passes, things get more complicated with monolithic architecture (`Loan.java` exceeded 7000 LOC)
+    ◦ For that, the need for modularity and separation comes into the scene, check this <https://martinfowler.com/bliki/images/microservice-verdict/productivity.png|Picture>.
+• The flow of the application goes as follows:
+    ◦ Requests are sent from the client to the Fineract server.
+    ◦ API layer (RESTful APIs developed with JAX-RS) receives the request
+    ◦ When receiving PUT or POST requests the attached JSON is stored as a string blob and is converted manually with GSON library to Java POJO.
+    ◦ A portion of the requests are translated into commands.
+    ◦ The commands are related to CQRS pattern for separation between Reads & Writes. (e.g. `GLAccountReadPlatformService` and `GLAccountWritePlatformService`)
+    ◦ The commands go to a spring injectable service for command processing (handler packages) which delegates the command to the service layer to be executed.
+    ◦ The execution flow happens synchronously.
+    ◦ Check this <https://github.com/apache/fineract/assets/87117386/d66494ec-41b2-467d-9ba3-4c6de7a4f2a0|image>
+• The code structure consists of around 12 top-level categories listed <https://github.com/apache/fineract/assets/87117386/c11b5493-b0f4-4973-ab4b-dbe01e7c5e31|here>
+• Identifiable patterns in the codebase:
+    ◦ api => The API layer that receives the client requests and is implemented with JAX-RS, which exposes some end-points that the client communicates with.
+    ◦ data => The *D*ata *T*ransfer *O*bjects which encapsulates the data and transports it among different parts of the application.
+    ◦ domain => Contain entities that map between database tables and java classes and contain some legacy logic in some files :)
+    ◦ serialization => responsible for de/serializing between JSON files and java POJOs 
+    ◦ exception => hold the project custom exceptions.
+    ◦ utility => some utility classes that contain some shared and reusable code.
+    ◦ handler => delegate the commands to the suitable service.
+    ◦ mapper => contains the mapper classes that are responsible for mapping between entities and DTOs.
+    ◦ service => the service layer which applies the business logic.
+Finally, I'd like to highlight that these insights are just personal effort, there's a high possibility of mistakes (any feedback would be very appreciated). For sure I strongly recommend referring to the videos and <https://fineract.apache.org/docs/current/|documentation> where you will find more info about the history and the challenges for scalability and consistency and how they have been tackled.
+
+Special thanks to <@U5JP6FGS0> and <@U5JRP3L6N> for these wonderful sessions <3
+
+[2024-03-10 02:47:30] User: U06MSBY3LSZ
+Hi everyone, I have been familiarising myself with the web-self-service-app and the web-app and I am keen to work on these projects; <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Online-Banking-App-5.0---Customer-Loan-Management-Portal|Online Banking App 5.0 - Customer Loan Management Portal>, <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Micro-Front-ends-Proof-of-Concept-for-Fineract-1.x--%26-Mifos-X|Micro Front-ends Proof of Concept for Fineract 1.x  & Mifos X>, <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Digital-Bank-UI-using-New-Micro-Front-End-Components|Digital Bank UI using New Micro Front-End Components>
+I am have current experience working with React, Next and Angular, and willing to improve on these skills to get myself up to task. How can I get in touch with the mentors of these projects to send in/vet my proposal? Unfortunately missed the introductory meeting as I had exams that just ended, kindly help me out thanks!
+
+[2024-03-09 01:56:38] User: U06J174LM98
+anyone kindly help me in this please
+
+[2024-03-08 22:34:50] User: U06J174LM98
+Hello everyone, myself harsh sharma 3 year undergraduate at bits pilani.  With a solid foundation in AngularJS and ReactJS, coupled with experience in CI/CD pipeline implementation, I am excited about the opportunity to apply my skills to this project. My proficiency in these technologies positions me well to contribute effectively to the development and enhancement of the UI components crucial for a digital banking platform. Could anyone tell me how will  i contact to digital bank ui project mentors. i also personally message to the mentors but didn't get any response from them. i am highly enthusiastic for the contribution in mifos organization. please help me in this <@U5JP6FGS0>
+
+[2024-03-08 22:11:34] User: U5JP6FGS0
+<@U06LRBW4JS1> I will be circulating the recording soon. Stay tuned for the link.
+
+[2024-03-08 20:30:03] User: U06LRBW4JS1
+Hey Everyone, I could not attend the introductory meeting, can someone please help me with recording or some meeting minutes if something of that sort is available
+
+[2024-03-08 13:32:00] User: U06MRLFJ7E1
+Hello everyone, is there any dedicated channel for the web projects?
+
+[2024-03-08 11:43:39] User: U06NXGJC0TB
+Hello everyone, I'm Michael and I am interested in contibuting to projects related to security such as:
+<https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Fix-Critical-Vulnerabilities-from-Static-Analysis-and-Vulnerability-Scanning-of-Apache-Fineract-1.x|Fix Critical Vulnerabilities from Static Analysis and Vulnerability Scanning of Apache Fineract 1.x>
+<https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Security-Penetration-testing-for-Payment-Hub-EE|Security Penetration testing for Payment Hub EE>
+I am familiar with tools and methodologies related to pentesting, vulnerability scanning, etc. I'm currently familiarizing myself to Mifos and other helpful resources to work on these projects. :blush:
+
+[2024-03-05 20:14:31] User: U06ME6FNRJB
+Greetings,
+I'm Apurv Sonawane, and my interest lies in the Digital Bank UI using New Micro Front-End Components project. Could someone kindly verify if this project is included in the GSoC 2024 listings? The project description indicated the year 2023, and I would appreciate confirmation.
+Thank you!
+
+[2024-03-05 17:45:56] User: U06MPN2NXSP
+Hello everyone,
+I’m Shubham Chauhan, currently pursuing an integrated Master of Technology in Mathematics and Computing at IIT(ISM), Dhanbad. I’m keen to participate in the medium-sized project: *Bank Statement Analysis (AI)*. My background includes experience in NLP, transformer architectures, Computer Vision (CV), and classical ML algorithms (including Gradient Boosting). Additionally, I have some knowledge of finance.
+After thoroughly reviewing the project details, I’d like to seek further clarification, discuss my approaches, and address any queries. Could you please guide me on whom to contact for assistance?
+Thank you, and I look forward to contributing to this exciting project! :star2::female-technologist::male-technologist:
+
+[2024-03-05 12:52:28] User: U06NL9G3RQ8
+Hi. I am Aayush Narayan Singh and I am a second year mechanical student at Bits Pilani. I want to start with this project. Can anyone guide me in the direction of how to start with this project?
+
+[2024-03-05 02:45:46] User: U06MSBY3LSZ
+Hi everyone!
+I am Farhan Navas and I am currently a Computer Science undergraduate at the National University Of Singapore (NUS). I am really excited to be a part of GSoC and work with the rest of you guys at The Mifos Initiative. I have been passionate about full-stack web development way before university begain, and I have had past experience working with Java, Python and quite a few Javascript frameworks such as ReactJS, NextJS, Vue and Angular. I hope I can be of help to the community and will try my best to contribute to this open-source project. Thank you for this opportunity!
+Best Regards,
+Farhan Navas
+
+[2024-03-04 07:54:05] User: U064YUQ0F16
+Hi Everyone, I'm interested in the project : <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas#Line-of-Credit-Feature/Credit-Line|Line of Credit Feature/Credit Line> . I've noticed that there isn't a mentor assigned to this project. Could someone please advise me on whom I should contact to gain a better understanding of the project? Thank you.
+
+[2024-03-04 02:02:00] User: U06MVR8RU1X
+Hi everyone,
+I am Tushar Choudhary, a junior at Jawaharlal Nehru University pursuing a Bachelors in Technology in Computer Science Engineering
+I have good experience with Spring and i want to contribute to Mifos by contributing to the finreact platform as it perfectly aligns with my skills although i am a full stack developer and am well versed with technologies like angular i can also contribute to the web app but the backend fineract intrigues my interest a lot more. I'll be glad if someone can point me in the right direction as i hope to get started in contributing
+
+[2024-03-03 12:38:25] User: U06N2TNDN00
+Hello,
+Is there any recorded video of this session. I missed it and it would be helpful if it has a recorded session.
+
+[2024-03-03 12:35:13] User: U06N2TNDN00
+Hello mifos,
+My name is Sanjay ram, and I am thrilled to be a part of the Google Summer of Code application process.
+I am currently a Sastra University student majoring in Computer Science. My passion lies in java, android and web, and I am eager to contribute my skills and enthusiasm to an open-source project during the GSoC program.
+During the application process, I have applied to work on Extend Surveys & SPM Framework under the mentorship of <@U028RBRCP9B>. I believe that my background in java and spring aligns well with the project's requirements.
+I look forward to engaging with the community, learning from experienced mentors, and contributing to the success of the project. If you have any questions or if there's anything specific you'd like to know about me, please feel free to ask.
+Thank you for the opportunity, and I'm eager to connect with fellow GSoC participants and the open-source community.
+Best regards,
+Sanjay Ram G,
+<mailto:sanjayramgs07@gmail.com|sanjayramgs07@gmail.com>
+
+[2024-02-28 01:37:36] User: U5JP6FGS0
+*Mifos 2024 GSOC Ask Me Anything (AMA) Session:*
+
+We’ll be posting more details to our blog and ideas page soon about this year’s GSOC program but please mark your calendar and register for our AMA session *March 7 at 3pm GMT* via Zoom Webinar:
+
+<https://us02web.zoom.us/webinar/register/8217090642604/WN_aSwYxKEASxSvaZNE84jWAg>
+
+[2024-02-27 23:56:01] User: U030D3U7DB9
+Hi <@U06LRBW4JS1>
+Join the ai-ml channel. If you need help getting started, post questions there.
+<https://join.slack.com/share/enQtNjcwMDQ4MjMwODE0Ny1jZWEwMzhkYzhiNTIzNzkyYjY1Mjk1MDgwZjY3ZTFkYjM1YmZlMmVkNjM0ZDljY2NkYWY4NTBlN2JkMTA2YzE0>
+
+[2024-02-27 18:25:08] User: U06LRBW4JS1
+Hi Guys, This is Ashutosh Sharma a Dual Degree student from IIT Kanpur. I wanted contribute to the project "Bank Statement Analysis (AI)". Can someone help me with same as I would be really intrested in the project.
+
+[2024-02-26 15:13:22] User: U06LWAVQQ5P
+Hi, I seen GSoC projects, I found project LAM (Large Action Model) for Fineract (AI) is most relevant to my skills. So, from  where should I start working on this project?
+
+[2024-02-25 22:15:04] User: U06LWAVQQ5P
+:wave: Hello Everyone!!
+I am Aum Kansara from India :flag-in:.
+Just seen this project on GSoC and Github.
+Really excited to collaborate with you all and working on Mifos.
+
+[2024-02-22 19:29:08] User: U06KQ7KK9D5
+My name is Rahul Yadav, and I am currently pursuing my Master's degree in Computer Science at the University of North Carolina, Charlotte. My academic and professional journey is built on a robust foundation in computer science, enhanced by four years of dedicated experience as a MEAN Stack Developer with a focus on MongoDB, AWS, Python, and DevOps. In addition to my expertise in full-stack development, I have developed and maintained applications as an Android Developer during my undergraduate studies.
+Despite my rich background in software development and extensive experience with version control tools such as GitHub and GitLab, one area I have yet to explore is contributing to open-source projects—a venture I am deeply interested in pursuing.
+I see the Google Summer of Code (GSOC) 2024 and the chance to contribute to The Mifos Initiative as an ideal launchpad into the open-source world. I am enthusiastic about applying my skills, including my proficiency in Python, to make meaningful contributions to open-source projects. Engaging with the global developer community through GSOC and The Mifos Initiative presents a fantastic opportunity to learn, collaborate, and contribute to projects that have a wide-reaching impact.
+GitHub: <https://github.com/Rahulxx01>
+LinkedIn: <https://www.linkedin.com/in/rahulxx01/>
+
+[2024-02-22 11:04:33] User: U04R4PEKFC6
+<@U5JP6FGS0> <@U5JQB8AUT> can I get to know whether the project idea of "Extend and evolve UI library" is under consideration this year and who are the possible active mentors on the channel?
+
+[2024-02-22 11:02:24] User: U04R4PEKFC6
+Great to see Mifos in the list of mentoring organisations for this year too!
+
+[2024-02-09 13:05:43] User: U06J8LJPE72
+<@U5JQB8AUT> Do you recommend any resources to understand the project flow for beginner. Are there any diagram available to visualize the flow.
+
+[2024-02-08 12:52:40] User: U06J8LJPE72
+Hey guys, I am new to this project can anyone assign me good first issue or something.
+
+[2024-02-07 10:51:16] User: U06J8LJPE72
+Hello guys, I need a little help.
+
+[2025-03-01 23:36:01] User: U5JQB8AUT
+Welcome to community <@U08F8RDD6LX>
+<@U5JP6FGS0> can we create a respective channel for projects so we can move conversation as students are comming
+
+[2025-03-04 01:22:39] User: U08F8RDD6LX
+<@U5JQB8AUT> sir , Can you guide where we can discuss ?
+
+[2025-03-04 01:30:39] User: U5JQB8AUT
+<@U5JP6FGS0> can you create a channel and add me and mentor
+
+[2025-03-06 13:04:16] User: U08F8RDD6LX
+<@U5JQB8AUT>  <@UACD0HJAG>, <@U016XM2CX7X> .. sir any guidance for the Project ?
+
+[2025-03-09 14:01:21] User: U08F8RDD6LX
+<@U5JQB8AUT> ?
+
+[2023-11-29 21:25:44] User: U04QU8Z7SGJ
+<@U04QU8Z7SGJ> has left the channel
+
+[2023-10-31 01:57:20] User: U051KQM626L
+Hello guys, I am wrapping up my GSoC work and was looking for any final work product links/blogs of current/past Mifos GSoC contributors for reference. Could you share your blogs/links, I’d love to take a look
+
+[2023-10-07 22:27:15] User: U05RX0UHL2D
+Will be joining GSOC in 2024 hehe
+
+[2023-10-07 22:26:43] User: U05RX0UHL2D
+hii guys!!!!!!!!!1
+
+[2023-09-30 12:45:14] User: U05U65PR831
+Also have knowledge of technologies like C and Java
+
+[2023-09-30 12:44:31] User: U05U65PR831
+Hii!!     A newbie here .  I would like to be guided on how can i contribute to this organization . I would be greatly obliged if you can tell me where to start from . Ready to learn anything new if it contributes towards the good .
+
+[2023-09-18 20:40:44] User: U05GV281MQQ
+Hi <@U04QJA5HTHU> <@U5JP6FGS0> Do Mifos only used upstream projects related to Java Backend like Fineract etc. I searched on the main repo of Mifos but cannot able to find any  suitable that contains proper issues  related to Java  . Can anyone help to  find the projects or Do i need to directly contribute to the upstream project ?
+
+[2023-09-15 21:34:36] User: U05SGHR0F9B
+:wave: Hello, team! Mitesh this side, came across Mifos through GSoC, also i am too particularly into android, would love to explore more about the organisation and products , Cheers!
+
+[2023-09-08 18:36:41] User: U05RX0UHL2D
+:wave: Hello, team!
+
+[2023-09-03 00:19:04] User: U05QRULBH5J
+Hi!!
+I recently came across this organization on the GSOC organization page. I would like to know what are some ways I can contribute to the organisation.
+I am willing to learn any new technology even if it's totally new to me but I just need some guidance on where to start.
+
+[2023-08-02 13:24:48] User: U04H6LZ3Y0Z
+<https://github.com/openMF/web-app|https://github.com/openMF/web-app>
+
+[2023-08-02 10:54:56] User: U05K2MEHU87
+Could you please send me some links of some web app repos
+
+[2023-08-02 10:32:45] User: U04QJA5HTHU
+Sure <@U05K2MEHU87>, any OSS code base is in first glance rather overwhelming, so you’re on the right track. :+1:
+Start from “Good-First-Issues”, they are easy and are raised while keeping a beginner in mind.
+
+[2023-08-02 01:18:23] User: U05K2MEHU87
+Could you please help me with that
+
+[2023-08-02 01:18:10] User: U05K2MEHU87
+But it's overwhelming for me when I saw the web app I can understand only some of them
+
+[2023-08-02 01:17:41] User: U05K2MEHU87
+I can build some projects in mean stack
+
+[2023-08-01 12:50:38] User: U04QJA5HTHU
+Hey Sai, why don’t you try running/building our <https://github.com/openMF|projects> first, see what piques your interest. What tech stack you feel comfortable with.
+As an organisation, for programs like GSoC, we do prefer candidates who are active in contributing to our existing projects.
+
+[2023-08-01 12:03:03] User: U05K2MEHU87
+And crack gsoc
+
+[2023-08-01 12:02:34] User: U05K2MEHU87
+Hii could you please help me with the contributions I am new to open source and wanted to contribute to this project
+
+[2023-07-21 21:14:02] User: U051KQM626L
+Hi all! I am working on the Fineract modularization project and I am looking for a pair-programming partner. If you’re interested to know more about the project or if you just want to pair up with Java programming - feel free to hit me up
+
+[2023-07-14 21:09:23] User: U01DUM0AMEF
+In a weekly GSOC standby with the team and all is going well:
+
+[2023-06-12 23:35:23] User: U5JP6FGS0
+In case you all missed this email regarding our Figma for Education account:
+
+I signed up for a Figma for Education free plan for Google Summer of Code. Everybody should be able to sign up for an account on our team plan but can you please use your school account as all users should be students.
+
+Here’s the link to join our Google Summer of Code team:
+
+<https://www.figma.com/team_invite/redeem/nNX7IAShMik7PguSbJ21ai>
+
+[2023-06-02 00:24:54] User: U5JP6FGS0
+Hi all. Notes document for tomorrow’s check-in: <https://mifosforge.jira.com/wiki/spaces/RES/pages/3376513025/June+2+2023+Weekly+Check-In>
+
+[2023-05-26 21:48:56] User: U01DUM0AMEF
+Shares yours too, you took them at deferent seconds.
+
+[2023-05-26 21:48:12] User: U5JP6FGS0
+Thanks <@U01DUM0AMEF> you beat me to it. Was about to share :slightly_smiling_face:
+
+[2023-04-04 18:45:40] User: U04SBLMAD1B
+Please refer to this link :
+<https://mifosforge.jira.com/wiki/spaces/RES/pages/4456638/Application+Template>
+
+[2023-04-04 18:13:59] User: U04BR11AJAE
+were i found proposal structure?
+
+[2023-04-04 10:56:02] User: U5JP6FGS0
+<@U04R4PEKFC6> <@U030D3U7DB9> has been taking the lead around this. Please direct questions you have towards him.
+
+[2023-04-04 09:29:29] User: U04R4PEKFC6
+<@U5JP6FGS0> <@UARJCRRT2> who is taking charge of the fineract android sdk repo?
+
+[2023-04-03 18:14:23] User: U04R4PEKFC6
+Can someone please provide information regarding this point?
+
+[2023-04-03 09:09:10] User: U04RLH2F4F2
+It means you can integrate a  3rd party sdk like Firebase Cloud Messaging for notifications which will be triggered from server side when merchants request to pay to a user and notification will be shown to a user. Just like Gpay or PhonePe
+You can go through Firebase Cloud messaging docs.
+
+[2023-04-03 01:17:08] User: U5JP6FGS0
+For those that can join we are doing an open office hours of sorts... <https://us02web.zoom.us/j/5250431655|https://us02web.zoom.us/j/5250431655>
+
+[2023-04-02 21:45:30] User: U04R4PEKFC6
+Can someone help me with the point for mifos wallet enhancement : Integrate Mifos' notifications framework to provide support for usecases like merchant request to pay.
+
+[2023-04-02 10:23:20] User: U04SBLMAD1B
+Hello <@U5JP6FGS0>, I have some sort of query  regarding the submission process for proposals.  Shall we  exclude some of the portion  from the PDF version of the proposal in the 'Proposal Summary' section . Do you advice me to submit in markdown ? I have some table contained in the proposal
+
+[2025-03-01 23:36:14] User: U5JQB8AUT
+Welcome to community <@U08F8RDD6LX>
+<@U5JP6FGS0> can we create a respective channel for projects so we can move conversation as students are comming
+
+[2023-03-31 01:08:21] User: U04TQHD7Z8A
+Thankyou
+
+[2023-03-30 21:04:38] User: U5JP6FGS0
+Hi <!here> Please find the recording to the AMA session from March 29 for Mifos GSOC: <https://us02web.zoom.us/rec/share/XmelUyD-y9eNhkw5wGK2eK-iddvdJAd8JWXkacRHgC5dNtZApJeQNupw7r61LTcF.VnxAJ41rfWMqRhJp?pwd=4qWcS3912frmkrB7I2pA0yamrjekdYxb|https://us02web.zoom.us/rec/share/XmelUyD-y9eNhkw5wGK2eK-iddvdJAd8JWXkacRHgC5dNtZApJ[…]r61LTcF.VnxAJ41rfWMqRhJp?pwd=4qWcS3912frmkrB7I2pA0yamrjekdYxb>
+
+[2023-03-30 17:35:10] User: U04RLH2F4F2
+Can somebody provide a reference or documentation regarding
+• Improving the security framework to integrate more seamlessly with middlewares, API gateway, and identity management software
+to mobile wallet project idea
+
+[2023-03-29 21:11:34] User: U04R4PEKFC6
+<@U5JP6FGS0> <@UARJCRRT2> can we get the recording link for today's session?
+
+[2023-03-29 19:42:29] User: UARJCRRT2
+Thank you for attending Mifos GSoC AMA 2023.
+If you still have any unanswered questions, you can post your queries here.
+
+Here is the GSOC Proposal Guide penned down by <@U5K5DR56X> for reference.
+```<https://hackernoon.com/7-things-you-need-to-know-to-ace-your-gsoc-proposal-8e422f2b6abe>```
+cc: <@U5N8KP8D8> <@U5JP6FGS0> <@U5JRP3L6N>
+
+[2023-03-29 18:45:41] User: UARJCRRT2
+<!here>
+we are live for GSoC AMA session
+please join at: <https://us02web.zoom.us/webinar/register/1716798898460/WN_78q2oLLzQLiDsHyERwHwrQ>
+
+Feel free to ask your doubt on the chat session or on this thread
+
+Description: Ask Me Anything session to allow Google Summer of Code applicants to get any outstanding questions answered before submitting their applications for GSOC.
+
+[2023-03-29 08:25:34] User: U04RLH2F4F2
+Can somebody provide a reference or documentation regarding
+•Integration of latest Payment Hub EE 
+which is mentioned in functional enhancements to mobile wallet project idea
+
+[2023-03-28 10:55:18] User: U04H6LZ3Y0Z
+Hey guys ,
+How will we know about the reviews on our propsals?
+
+[2023-03-26 23:05:49] User: U04N657PLGN
+can somebody guide as to how I can get any decent reference to the below point mentioned in this years idea list of mifos mobile
+• Replace API layer from self-service Fineract APIs to Open Banking APIs
+
+[2023-03-24 22:23:28] User: U5JP6FGS0
+Hi <!here> Thanks for your patience as we do final refinements on our ideas/projects for GSOC. We are going to have our AMA (Ask Me Anything) session this upcoming Wednesday Mar 29 at 600am PDT to give everyone a chance to get questions answered to help in preparing your applications. Please register via Zoom: <https://us02web.zoom.us/webinar/register/2416796763038/WN_78q2oLLzQLiDsHyERwHwrQ>
+
+[2023-03-24 10:37:28] User: U04S3630CHF
+Hey @orgadmins please remove the project <https://mifosforge.jira.com/wiki/spaces/RES/pages/3296690177/Google+Summer+of+Code+2023+Ideas#Reduce-Boilerplate-Code-by-Introducing-lombok-to-Reduce-getters%2Fsetters-and-Mapstruct-to-map-REST-DTO-to-Entity-Objects|https://mifosforge.jira.com/wiki/spaces/RES/pages/3296690177/Google+Summer+of+Code+2023+Ideas#Reduce-Boilerplate-Code-b[…]REST-DTO-to-Entity-Objects>
+from the Gsoc 2023 list as it was already completed last year <https://summerofcode.withgoogle.com/archive/2022/projects/JyHrWiAk>
+
+[2023-03-22 11:38:28] User: U04SBLMAD1B
+hey <@U030D3U7DB9>,  are you supposed to share proposal in this channel publicy ? Need assurance. or we need to send it to the mentor
+
+[2023-03-22 10:58:16] User: U030D3U7DB9
+Whomsoever participating in GSoC 23 start drafting proposal. 
+
+Try to get it review by mentors before final submission. 
+
+Wishing you best!
+
+[2023-03-20 00:55:10] User: U04TQHD7Z8A
+can someone like to help me figure out?
+
+[2023-03-20 00:54:54] User: U04TQHD7Z8A
+Hello guys, I am trying to install apache fineract in my machine have setuped the mysql docker container....
+after that as per steps I have executed this command
+
+ ./gradlew createDB -PdbName=fineract_tenants
+
+but keep getting this error:
+> java.sql.SQLException: RSA public key is not available client side (option serverRsaPublicKeyFile not set)
+
+[2023-03-20 00:08:46] User: U04N657PLGN
+this is yours
+
+[2023-03-20 00:08:41] User: U04N657PLGN
+<https://mifosforge.jira.com/wiki/spaces/RES/pages/3296690177/Google+Summer+of+Code+2023+Ideas#Functional-Enhancements-to-Mobile-Wallet>
+
+[2023-03-20 00:08:17] User: U04N657PLGN
+<@U04S3630CHF> the link you have sent is of 2022
+
+[2023-03-19 23:10:04] User: U04S3630CHF
+Since I have not recieved replies from any of the mentors ,please can someone else help me with this idea <https://mifosforge.jira.com/wiki/spaces/RES/pages/3004891137/Google+Summer+of+Code+2022+Ideas#Functional-Enhancements-to-Mobile-Wallet>
+
+[2023-03-15 05:19:01] User: U04SRECNRR7
+<@U04SBLMAD1B> hey thanks for helping me out! My issue's resolved now.
+
+[2023-03-14 19:00:43] User: U04TJR3GHPX
+Hey Mentors, can you please review my PR
+<https://github.com/openMF/mifos-mobile/pull/1979>
+
+[2023-03-14 13:34:43] User: U5JP6FGS0
+Thanks <@UK81XQZK7> for sharing that with Vishal.
+
+[2023-03-14 13:23:34] User: UK81XQZK7
+Hello <@U04R4PEKFC6> For your proposal you will have to explain how you intend to achieve the goals of the project you have selected. Give a detail timeline and project plan and also answer these questions: <https://mifosforge.jira.com/wiki/spaces/RES/pages/4456638/Application+Template>
+
+[2023-03-14 12:56:32] User: U04R4PEKFC6
+Can someone give me the proposal format link?
+
+[2023-03-14 12:07:47] User: U04S3630CHF
+please can anyone help me in this??
+
+[2023-03-14 11:08:58] User: U04SRECNRR7
+can someone please help me, I have tried everything, but it doesn't work
+
+[2023-03-13 22:15:33] User: U04N657PLGN
+should we post our proposal out here to get a review from the mentors ?
+
+[2023-03-13 19:19:32] User: U04SBLMAD1B
+if not let us know
+
+[2023-03-13 19:19:26] User: U04SBLMAD1B
+Hope it helps
+
+[2023-03-13 19:19:21] User: U04SBLMAD1B
+In your case your commitID could be one starting with 0efd
+
+[2023-03-13 19:18:07] User: U04SBLMAD1B
+use `git revert "commitId"` to get reverted to the particular id , all of the previous pr commit will be ignored  and you can have new fresh commit
+
+[2023-03-13 19:15:40] User: U04SBLMAD1B
+There should be more
+
+[2023-03-13 19:15:35] User: U04SBLMAD1B
+hmm
+
+[2023-03-13 19:14:14] User: U04SBLMAD1B
+It shows the recent list of  commit
+
+[2023-03-13 19:10:41] User: U04SBLMAD1B
+we can have some insight from there
+
+[2023-03-13 19:10:29] User: U04SBLMAD1B
+hey <@U04SRECNRR7>, can you show the output of `git log`
+
+[2023-03-13 18:52:58] User: U04TJR3GHPX
+Hi mentors, I have raised a Pull Request, kindly review it
+<https://github.com/openMF/mifos-mobile/pull/1970>
+
+[2023-03-13 18:52:30] User: U04SGRBQME1
+<@U04SRECNRR7>
+
+[2023-03-13 18:52:27] User: U04SGRBQME1
+create your new branch from master, it seems that you are doing it from the previous one.
+
+[2023-03-13 18:47:40] User: U04SRECNRR7
+tried that too, its not working
+
+[2023-03-13 18:47:21] User: U04N657PLGN
+making a new branch and cherry picking should probably solve your issue
+
+[2023-03-13 18:45:57] User: U04SRECNRR7
+Can someone help me, I am trying to make new PRs, but all my new commits are getting merged into my previous PR.
+
+[2023-03-13 18:38:49] User: UK81XQZK7
+Welcome to the community <@U04TJR3GHPX>. You can go through the objectives of the project here: <https://mifosforge.jira.com/wiki/spaces/RES/pages/3296690177/Google+Summer+of+Code+2023+Ideas#Extend-and-Evolve-UI-Library-of-common-components-across-all-Mobile-Apps|https://mifosforge.jira.com/wiki/spaces/RES/pages/3296690177/Google+Summer+of+Code+2023+Ideas#Extend-and-Evolve-UI-Libr[…]nts-across-all-Mobile-Apps> while reaching out to the mentor to discuss your ideas for the project. In the mean time, you can setup your system and start solving issues.
+
+[2023-03-13 17:40:33] User: U04TJR3GHPX
+Hi everyone, My name is Vaibhav Jaiswal. I am a 2nd-year student at RCC Institute of Information Technology, Kolkata, India and a *Software Engineer Intern at Pratilipi.* I have been into Android Development for about 3 years. I have made many apps and in each of them, I improve my code quality and architecture skills, following only Modern Android Development practices to make robust bug-free apps.
+I also have quite good UI Design skills, and all my projects look quite good.
+My Android skill set comprises *Kotlin, Jetpack Compose, MVVM, Jetpack Components* and many more.
+My other skills are in *Ktor, NodeJS, ExpressJs, REST, Typescript and a few more.*
+*I am a lot interested in contributing to “Extend and Evolve UI Library of common components across all Mobile Apps*”.
+<@U012L69BZST> <@U012ZGN48P7> <@U0271Q1QDU7>
+You can know more about me from my <https://www.linkedin.com/in/vaibhav-jaiswal-8612621b7/|Linkedin> and <https://github.com/Vaibhav2002|Github>.
+
+Would be great if anyone can help me start contributing.
+
+[2023-03-13 11:32:42] User: U04SRECNRR7
+Here's the PR- <https://github.com/openMF/mifos-mobile/pull/1969>
+
+[2023-03-13 11:32:27] User: U04SRECNRR7
+Please review it
+
+[2023-03-13 11:32:20] User: U04SRECNRR7
+Hey mentors! I have raised a pull request on issue #1763
+
+[2023-03-13 10:25:52] User: U04S3630CHF
+• Hii <@U012ZGN48P7> <@UJK0SEKSS> please can you help with the changes in the Payment Hub EE integration? I was working on the GSoC proposal for idea "Functional Enhancements to Mobile Wallet " which has one of the goal  -> "Integrate latest version of Payment Hub EE " , wanted to know is the changes only in API endpoints or other major internal changes. 
+
+
+[2023-03-11 11:23:25] User: U04T45SLQKG
+I am getting a 500 Internal Server Error
+
+[2023-03-11 11:21:52] User: U04T45SLQKG
+Hi, I am not able to sign in to mifos - android-client app with username-mifos and password- password, is there anything else I should try
+
+[2023-03-11 05:52:48] User: U03BRU0H7V3
+hi <@U012L69BZST> , <@U0130TTL51Q>, I have raised a PR on issue #1918. Kindly reivew. <https://github.com/openMF/android-client/pull/1917>
+
+[2023-03-10 23:53:37] User: U04T45SLQKG
+Hi, I am Shashank Kumar and I am First Year Student at IIT (BHU) Varanasi.
+I have been doing native android development for 5 years now and I am also Google Certified Associate Android Developer, I have previously worked on many android app projects and published apps on Play Store too.
+My Skills Include Java, Android Development, SQL, REST APIs, PHP , Laravel , HTMl , CSS , Javascript.
+I am Interested in Project " Extend and Evolve UI Library of common components across all Mobile Apps" and would love to contribute to it.
+
+[2023-03-10 07:55:05] User: U04RSFHCMDJ
+Hi <@U5JRP3L6N>, I have updated the PR <https://github.com/apache/fineract/pull/3035>. The previous build was failing due to spaces between imports.
+
+[2023-03-10 02:27:26] User: U04RSFHCMDJ
+Hi <@UARJCRRT2>, <@U5JRP3L6N>, I have raised a PR on issue #1776. Kindly review. <https://github.com/apache/fineract/pull/3035>
+
+[2023-03-09 22:10:48] User: U04SRECNRR7
+Can anyone share the design guidelines for the mifos mobile app
+
+[2023-03-09 20:01:26] User: U04SGRBQME1
+this app - <https://default.ps.mifos.io/> is still loading for me, does it take time for you also to load and respond ?
+
+[2023-03-09 19:46:14] User: U04SGRBQME1
+thank you so much <@UUHHHSREW>
+
+[2023-03-09 19:45:30] User: UUHHHSREW
+PS: this Instance contains Mifos's old more mature UI community-app. this will help you to compare and add
+
+[2023-03-09 19:44:54] User: UUHHHSREW
+<@U04SGRBQME1> you can check the Instance <https://default.ps.mifos.io/> (mifos/password) to get the tool tip details.
+
+[2023-03-09 19:42:58] User: U04SGRBQME1
+thanks.
+
+[2023-03-09 19:42:56] User: U04SGRBQME1
+<@UUHHHSREW> <@U5JP6FGS0> if I would like to add tooltip to any create/edit form then from where i can find the data to show, I mean what we need to show for the tooltip ?
+Do we have any docs or sheet for the same ?
+can you please guide ?
+
+[2023-03-09 19:21:41] User: U04SGRBQME1
+<@UUP60UFCM> <@UUHHHSREW> <@U5JP6FGS0> I have raised a pull request for the enhancement of 404 page and minor performance fix .
+Can you please review this ?
+
+<https://github.com/openMF/web-app/pull/1700>
+
+Thank you :slightly_smiling_face:
+
+[2023-03-09 17:37:15] User: U04SRECNRR7
+Please review it
+
+[2023-03-09 17:36:38] User: U04SRECNRR7
+<https://github.com/openMF/mifos-mobile/pull/1940>
+
+[2023-03-09 17:36:34] User: U04SRECNRR7
+<@U012ZGN4TCM> <@UAL01S29M> <@U01373NCZFW>, I made a PR on issue #1231 on mifos mobile app
+
+[2023-03-09 12:14:56] User: U04RSFHCMDJ
+Hi all! Can someone please help with the above issue? I am trying to get the swagger url and the one in <http://READ.me|READ.me> does not seems to be working. The app works fine though in local. I am trying to contribute to this project - *Reduce Boilerplate Code by Introducing lombok to Reduce getters/setters and Mapstruct to map REST DTO to Entity Objects*. Thank you! <@UARJCRRT2> <@U5JRP3L6N> <@UDSCETYP4> <@U5JP6FGS0>
+
+This is the swagger link that I am trying <https://localhost:8443/fineract-provider/swagger-ui/index.html>
+
+[2023-03-08 22:15:24] User: U04RSFHCMDJ
+Hi everyone ! I am trying to run Apache Fineract in local. I was able to set it up successfully and everything is up but the swagger is displayed like this. Can someone please help in checking if this is the correct url ? Thank you!
+
+[2023-03-07 23:11:47] User: UDSCETYP4
+<@U04SL5Q9AR3> Which app you are working on?
+
+[2023-03-07 11:05:51] User: U04SL5Q9AR3
+when I try to run again, shows me this -
+
+[2023-03-07 11:05:31] User: U04SL5Q9AR3
+not being able to run android app. gives me this error -
+
+[2023-03-06 00:41:27] User: UDSCETYP4
+<@U04SRECNRR7> You can start by first cloning and running the project. Then you can look at the open issues and try to solve them and send a PR. If any more doubts, hit me up :slightly_smiling_face:
+
+[2023-03-04 11:23:17] User: U04SRECNRR7
+Hey folks,
+Greetings! My name is Deeksha Agarwal, I am a third year Computer Science student.
+I am really interested in native android development and would love to work on some industry projects.
+I don't really have any industry level experience, but I'm really eager to learn and can make the time worth.
+My skills set include kotlin, java, Firebase, c++, html, css, javascript, android development.
+I found Mifos' Fineract CN Mobile Version 4.0 project interesting, and would love to contribute to that.
+Looking forward to contribute to Mifos during GSoC'2023.
+And if I don't make it to GSoC, then also it would be nice to know you all and contribute.
+ Also, can mentors guide me how can I contribute to this project - "Extend and Evolve UI Library of common components across all Mobile Apps"
+ <@U012L69BZST> <@U012ZGN48P7> <@U0271Q1QDU7>
+
+[2023-03-04 10:31:36] User: U04RLH2F4F2
+Hi i was trying to login from mobile wallet app with demo credentials mifospay01/Password1 but its failing. Also i tried to hit the same endpoint from postman but its also showing unauthenticated. I have passed the headers Fineract-Platform-TenantId/default. Can anyone help me?
+
+[2023-03-04 02:58:19] User: UDSCETYP4
+Hi folks, I am Chirag Gupta - a long-time contributor to the Mifos community. If you have any doubts or queries, you can write it here or you can personally reach out to me at <mailto:gchirag@apache.org|gchirag@apache.org>.
+
+[2023-03-03 17:29:00] User: U04QJA5HTHU
+Hey, I was looking for issues in mifos-mobile and mobile-wallet, but there isn’t anyone active who’s assigning or accepting the PR requests, please help?
+
+[2023-03-03 16:45:25] User: U04QJA5HTHU
+<@U04RLH2F4F2> welcome to the community, :grinning:
+
+[2023-03-03 10:19:11] User: U04RLH2F4F2
+Hi, I am Rahul Roy, and I am currently a college student studying Computer Science and Engineering. I have a passion for developing mobile applications and have been contributing to various Mifos android projects from Feb. I am excited to continue learning and growing as a developer and am always looking to contribute here to expand my skill set.
+Thank you for taking the time to learn a little bit about me, and I look forward to connecting with you further!
+
+[2023-03-03 01:03:08] User: UK81XQZK7
+<@U04S10L7TQD> welcome to the community
+
+[2025-02-28 02:50:19] User: U5JQB8AUT
+Hi <@U08FE8G0WPM> Welcome to the community, It is great way to showcase the sample implementation. Please reachout the project mentor. <@U5JP6FGS0> do we have any channel for LAM (Large Action Model) for Fineract (AI)
+
+[2025-02-28 03:20:49] User: U08FE8G0WPM
+thanks for replying <@U5JQB8AUT> <@U5JP6FGS0>
+
+[2025-02-28 03:21:19] User: U08FE8G0WPM
+how can i reachout with mentor?
+
+[2025-02-28 05:13:47] User: U5JP6FGS0
+Let me discuss with our AI group who was planning to be the lead mentor for that project.
+
+[2025-02-28 05:20:11] User: U08FE8G0WPM
+Okay, thanks! Looking forward to hearing back from you.
+
+[2025-02-28 05:20:51] User: U5JP6FGS0
+Let me at least for now tag <@UACD0HJAG> who could give some input even if he’s not the primary mentor. I am also in touch with <@U016XM2CX7X> as well.
+
+[2025-02-28 05:20:59] User: U08FE8G0WPM
+is there anything i can do now until you see how is going to be the mentor ?
+
+[2025-02-28 05:21:47] User: U08FE8G0WPM
+Sounds good, I really appreciate your time!
+
+[2025-02-28 05:23:26] User: U5JP6FGS0
+I’ll also discuss with our mentors what would be good tasks you could contribute to during this evaluation period as we often have that be a key part of the overall application and has been easier to do with our other mobile, web or back-end projects where they are existing projects/repos to easily contribute to. It’s a bit more challenging to find a task given the newness of some of our AI projects/repos.
+
+[2025-02-28 05:32:57] User: U08FE8G0WPM
+Sounds great! Looking forward to it
+
+[2025-02-28 05:33:55] User: U08FE8G0WPM
+Is there any previous work or an existing repository I could study and explore to get hands-on ?
+
+[2025-03-01 07:26:12] User: U08FE8G0WPM
+<@U5JP6FGS0> is there is any updates?
+
+[2025-03-03 07:50:05] User: U08FE8G0WPM
+<@U5JP6FGS0> hello have you decided who will be the mentor or what can i do till then ?
+
+[2025-03-07 22:04:16] User: U08FE8G0WPM
+<@U5JQB8AUT> do you know what should i do now ?
+
+[2025-03-12 10:46:26] User: U08FE8G0WPM
+<@U5JP6FGS0> i will make prototype to prove me knowledge but i need to ask question for details i don't understand in the idea description
+
+[2025-03-12 10:46:52] User: U08FE8G0WPM
+But no one in the organization i can contact with
+
+[2025-02-26 19:07:13] User: U089AKLMRRA
+<https://mifosforge.jira.com/wiki/spaces/RES/pages/4271669249/Google+Summer+of+Code+2025+Ideas|https://mifosforge.jira.com/wiki/spaces/RES/pages/4271669249/Google+Summer+of+Code+2025+Ideas>
+
+[2023-03-02 23:57:30] User: U04S10L7TQD
+Hi everyone, I am a Security Researcher and a 3rd Year Computer Science student at Jaypee Institute of Information Technology. I am interested to contribute to Mifos during the Google Summer of Code Program. My skills set are: Web Application Penetration Testing, JavaScript, HTML, CSS, ReactJS, C++/C language. I have 4 years of experience in Bug Bounty Hunting and have done open source contributions in the past. I am interested in the Idea "Security Penetration testing" and would like to discuss with the mentor about it. I have setup the repo on my local. Looking forward! Thank you.
+
+[2023-03-02 05:07:11] User: UK81XQZK7
+Hello <@U04H7RR4D8S> Here you go: <https://mifosforge.jira.com/wiki/spaces/RES/pages/3296690177/Google+Summer+of+Code+2023+Ideas#Project-Ideas>
+
+[2023-03-02 02:21:51] User: U04SACC3LKT
+Hello, I am Atharva, a third year undergraduate from IIT Kharagpur. I have been researching in blockchain since quite some time now. I wrote thesis on "Blockchain-based Federated Learning Systems For Medical Imaging" under University of Calgary. Linkedin: <https://www.linkedin.com/in/wiredhikari/|https://www.linkedin.com/in/wiredhikari/> Github: <https://github.com/wiredhikari/|https://github.com/wiredhikari/> . I am interested in working on "OpenG2P - Digital Identity Proof of Concept with MOSIP". Is there any specific channel/maintainer who i can discuss this with?
+
+[2023-03-02 01:30:14] User: U04H7RR4D8S
+Hi org admins and everyone
+Can somebody share gsoc23 project ideas list website here?
+<@U5JP6FGS0> <@U012L69BZST> <@U04N657PLGN>
+
+[2023-03-02 01:17:45] User: U04H7RR4D8S
+Hi everyone
+by selecting fineract, does that mean I'll get issues related to mifos Backend only?
+Or how is it?
+Coz I checked a few bugs and "mifos" isn;t mentioned anywhere
+
+[2023-03-01 18:18:48] User: U04R4PEKFC6
+Btw, the first credential works on the mifos mobile app but doesn't change the activity. Solvable.
+
+[2023-03-01 18:16:54] User: U04R4PEKFC6
+Yeah, I tried multiple credentials like mifos/password, selfservice/password, mifospay01/Password01, but none of them worked.
+
+[2023-03-01 17:23:18] User: U04N657PLGN
+you can find the credentials in the wiki section of the repository
+
+[2023-03-01 17:01:53] User: U04R4PEKFC6
+Ohh I thought you would be knowing cause you're contributing from a long time and without knowing the app, I'm finding it hard to understand abd contribute to the application.
+
+[2023-03-01 16:40:37] User: U04N657PLGN
+I haven't logged in to mobile wallet
+
+[2023-03-01 13:00:53] User: U04R4PEKFC6
+Hi Pratyush, can you help me with the right credentials to login the mobile/wallet app?
+
+[2023-03-01 11:56:59] User: U04N657PLGN
+Hello everyone,I am Pratyush Singh a pre final year student at DSCE, Bangalore. I am interested in contributing to mifos-mobile for this years GSoC. I have already set up the project and have been contributing to the project since January.However there are few issues that I wanted to discuss before I start working on it. Besides I need help with the proposal and the mentors assigned for the project do not seem that active so is there any other way I can get help from the community?
+
+[2023-02-28 23:23:02] User: UARJCRRT2
+Hi,
+Please check out our Ideas page for the projects that you are most interested in. We have a wide variety of projects for android as well as backend development.
+I suggest you start contributing early to the projects that you are interested in :)
+
+[2023-02-28 10:05:08] User: U04R4PEKFC6
+Hello everyone, I'm Vishal from third year of computer engineering. I have been working in the field of android development through Kotlin and Jetpack Compose since a year now & would love to work on a real time project which serves a purpose. Looking forward to have discussion with you all!
+
+[2023-02-11 01:09:15] User: U037BP7LRJS
+why i'm not getting any responses? is there any different channels are there?
+
+[2023-02-05 14:08:44] User: U037BP7LRJS
+Hello everyone !!! I'm shamly. Final year undergraduate In Software engineering. Worked as an SE intern at wso2. I'm interested in any Java-related projects. also, I hopping learn new things while doing the project. I saw the project  that "*Reduce Boilerplate Code by Introducing lombok to Reduce getters/setters and Mapstruct to map REST DTO to Entity Objects*". can anyone help me to get started?
+
+[2023-01-26 21:06:45] User: U04M0B5D1G9
+Does anyone know which android projects from Mifos will be included in this year's GSOC 2023 ?
+
+[2023-01-26 21:05:29] User: U04M0B5D1G9
+Hi guys this is Madhur Mehta from pre-final year undergrad. I am an Android Developer with more than 1 year of experience in developing android applications in Kotlin and have also worked with Flutter. I would love to contribute in Mifos applications
+
+[2022-04-19 19:30:11] User: U012L69BZST
+If you need to get your proposal reviewed feel free to dm me.
+
+[2022-04-19 19:29:27] User: U012L69BZST
+Hey guys, just a few hours left to submit your proposals. Make sure you submit it well before the deadline to avoid any server errors.
+
+[2022-04-17 16:35:45] User: U012L69BZST
+<!channel> Hello students and contributors,
+
+I hope you guys have gone through the <https://mifosforge.jira.com/wiki/spaces/RES/pages/3004891137/Google+Summer+of+Code+2022+Ideas|Mifos Project Ideas List for GSoC '22> and decided which project you will contribute to this summer. As the deadline to submit your proposals is just around the corner, by now, you should be finishing up your proposals and giving the final touches.
+
+I apologize for posting this late but here are some general guidelines to follow:
+1. Please put the name of your project as the heading.
+2. We have created an application template <https://mifosforge.jira.com/wiki/spaces/RES/pages/4456638/Application+Template|here>. We encourage you to use the same but you are free to edit the template as you see fit.
+3. You are not required to elaborate on each and every point mentioned in the project ideas list. Elaborate on the points that *YOU* think are relevant.
+4. We want to see how well you have understood the requirements of the project and how confident you are in delivering it. We want to see whether you have clarity on implementing the items mentioned in the ideas list.
+5. Please keep your timeline realistic. Don’t overpromise. We know the scope of some projects is really big and can spill over the summer but that’s okay. We want to see how well can you take into account all to keep things real.
+6. Make sure there are absolutely no grammatical mistakes. If needed, run your proposal through Grammarly. They have a chrome plugin for this.
+7. Make sure the formatting (font size of heading, content, etc.) is uniform throughout the proposal. Keep the font of content as 12, if possible.
+8. Avoid using many colors. Keep it simple.
+9. Get your proposals reviewed by our mentors or past GSoC students or anyone who is in Open Source.
+You can send your proposal’s google doc link to me for review. My email is <mailto:chinmaykulkarni8@gmail.com|chinmaykulkarni8@gmail.com>. Subject: GSoC ’22 Proposal <Project Name>
+Body: Your name, and proposal link.
+
+For any more questions, feel free to post them here and one of our team members should get back to you.
+
+All the best! Cheers!
+
+[2022-04-11 19:40:03] User: U5JP6FGS0
+<@U03AFHW63U7> <@U03B7SUT11P> and <@U03AGJ05Q8Z> Welcome! <@U03B7SUT11P> you can get started by getting your local build up and running by following our readme or installation guide. You can then try to grab a ticket from the Fineract JIRA issue tracker <https://issues.apache.org/jira/issues/?filter=12350800> or any of the issues with the label, Volunteer. If you know what specific idea you are interested in applying for we can also connect you with relevant issues.
+
+[2022-04-10 00:21:18] User: U03B7SUT11P
+hi all! i am a beginner to open source and ive recently been studying java and i'd love to start contributing to mifos. can someone guide me on how do i get started?
+
+[2022-04-01 04:22:32] User: U5JP6FGS0
+Hi all. In case you didn’t see the post to the mailing list. Our Mifos GSOC AMA (Ask Me Anything) session is now taking place on Monday April 4 at 1300 GMT via Zoom - you can register here: <https://us02web.zoom.us/webinar/register/8016487671140/WN_ZW6Ij83gRxCueea85bjEwA>
+
+[2021-09-08 21:41:58] User: U022P3GECKF
+<@U5JP6FGS0> I returned home yesterday and I'll continue working from tomorrow on the mobile wallet, I took the day off today because I was a bit tired from the traveling and I guess we're having the fineract-cn meeting tomorrow.
+
+[2021-09-01 00:31:15] User: U022P3GECKF
+Thanks
+
+[2021-08-31 23:51:36] User: U5JP6FGS0
+Thanks for the update and safe travels. Good job on your showcase today.
+
+[2021-08-31 23:49:17] User: U022P3GECKF
+Hey <@U5JP6FGS0> and <@U012ZGN48P7>, I'm going out of town for 3-4 days tomorrow so I probably be unable to attend the fineract-cn meeting, just a little heads up, and I'm already having conversation with karina about the apis, I'll try to attend the meeting but can't promise, I'll start the work after coming back home.
+
+[2021-08-28 00:45:14] User: U022P3GECKF
+oh okay thanks <@U5JP6FGS0> and <@U022YAKUVCL>
+
+[2021-08-28 00:31:08] User: U5JP6FGS0
+Yes that is correct but it could really be any country in general
+
+[2021-08-28 00:26:34] User: U022YAKUVCL
+Hi <@U022P3GECKF>! I think they are referring to the countries where the users of the fineract/mifos products reside.
+
+[2021-08-28 00:23:50] User: U022P3GECKF
+does it mean community member?
+
+[2021-08-28 00:23:30] User: U022P3GECKF
+Hey <@U5JP6FGS0>, I was filling the questions you sent for blog, in this question "If you could visit the country of one of our Mifos/Fineract users, where would it be and why?" what do you mean by user?
+
+[2021-07-26 22:13:14] User: U5JP6FGS0
+Yes
+
+[2021-07-26 20:39:25] User: U022P3GECKF
+Hey <@U5JP6FGS0>, the showcase is on tommorow(27th july) right?
+
+[2021-07-12 00:41:23] User: U022YAKUVCL
+Hello Community! It has been really great working with the Mifos Community. I have enjoyed working with y'all and would be continuing to work. As of today, I've arrived at the first evaluation of my GSoC project and I have created a report demonstrating the work done by me during this time period, anyone interested may check the gist report <https://gist.github.com/varsvat/2eb968ede92c774b099b6663ded23837|here>. I would like to especially thank <@U5JP6FGS0>, <@U01373NCZFW> and <@U012L69BZST> for the smooth onboarding, cooperation and weekly and daily sign-ups, that have significantly boosted my productivity.
+
+[2021-05-24 00:23:46] User: U022P3GECKF
+okay, thanks for helping.
+
+[2021-05-24 00:22:42] User: U5JP6FGS0
+Hello <@U022P3GECKF> Yes just make a copy of the document and send it back to me. Please also CC <mailto:mmarzano@mifos.org|mmarzano@mifos.org>
+
+[2021-05-24 00:21:31] User: U022P3GECKF
+I have a question regarding the email we received from <@U5JP6FGS0> about the GSoC'21, in that mail there is a google docs link with title "Google Summer of Code Intros" that we have to fill. So, do we have to send the copy of that docs with the answers by replying on the same mail or somewhere else.
+
+[2025-02-18 00:47:25] User: U5JQB8AUT
+<@U079Z7R5NTG> Welcome to the community!
+
+You skills matches with web development please join <#CJJGJLN10|>
+
+[2025-02-18 00:55:08] User: U079Z7R5NTG
+Thank you
+
+[2020-08-02 08:32:56] User: U014EGNJ2N4
+<@U014EGNJ2N4> has left the channel
+
+[2020-05-24 12:36:03] User: U013K2UHXR9
+<@U013K2UHXR9> has left the channel
+
+[2020-05-23 09:11:46] User: U01373NCZFW
+Thanks for sharing <@UJK0SEKSS>
+
+[2020-05-22 13:51:14] User: U012ZGN48P7
+Thanks <@UJK0SEKSS>
+
+[2020-05-22 13:48:24] User: U012L69BZST
+Thanks for sharing <@UJK0SEKSS>!
+
+[2020-05-22 13:22:39] User: UJK0SEKSS
+Here is the link - <https://www.cin.ufpe.br/~cavmj/104The%20Pragmatic%20Programmer,%20From%20Journeyman%20To%20Master%20-%20Andrew%20Hunt,%20David%20Thomas%20-%20Addison%20Wesley%20-%201999.pdf>
+
+[2020-05-22 13:22:28] User: UJK0SEKSS
+Hello everyone. I recently had the opportunity to read *<https://slack-redir.net/link?url=https%3A%2F%2Fwww.cin.ufpe.br%2F~cavmj%2F104The%2520Pragmatic%2520Programmer%2C%2520From%2520Journeyman%2520To%2520Master%2520-%2520Andrew%2520Hunt%2C%2520David%2520Thomas%2520-%2520Addison%2520Wesley%2520-%25201999.pdf|The Pragmatic Programmer> — By Andy Hunt and Dave Thomas.* It is an excellent book for anyone who wants to dive deeper into the world of software development. I strongly recommend all the GSoC students to go through it once. :stuck_out_tongue:
+
+[2019-11-30 09:53:44] User: U5JP6FGS0
+Yes let me do that.
+
+[2019-11-29 23:50:37] User: UACJYHV9R
+Hi <@U5JP6FGS0> The Olaph Bot is still active. Can we disable it?
+
+[2019-07-21 20:55:50] User: UACJYHV9R
+Your query has been resolved on the mailing list.
+
+[2019-07-21 11:10:22] User: UJ5AD670A
+but only need to pass credentials username and password
+
+[2019-07-21 11:10:04] User: UJ5AD670A
+I have attached all the headers
+
+[2019-07-21 11:09:56] User: UJ5AD670A
+Currently I am doing this
+
+[2019-07-21 11:09:49] User: UJ5AD670A
+import { Injectable, OnInit } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+                              'Fineract-Platform-TenantId' : 'default',
+                              'Authorization' : 'Basic bWlmb3M6cGFzc3dvcmQ='
+                            })
+};
+@Injectable({
+  providedIn: 'root'
+})
+export class SurveysService  {
+
+  constructor(private http: HttpClient) { }
+
+
+  getSurveys (): Observable<any[]> {
+    console.log(this.http.get<any[]>("<https://demo.openmf.org/fineract-provider/api/v1/surveys?tenantIdentifier=default>",httpOptions)
+    .subscribe(data=>console.log(data)));
+    return this.http.get<any[]>("<https://demo.openmf.org/fineract-provider/api/v1/surveys?tenantIdentifier=default>",httpOptions);
+  }
+
+}
+
+[2019-07-21 11:09:37] User: UJ5AD670A
+How can I pass the credentials in angular typescript?
+
+[2019-06-28 16:13:03] User: UJJTKDR8E
+Need help regarding this.
+
+[2019-06-28 16:12:44] User: UJJTKDR8E
+Does anyone have experience in publishing an android library to bintray/jcenter?
+
+[2018-08-17 18:34:32] User: UACJYHV9R
+<@U5JP6FGS0> Do we have a last weekly check in today as you mentioned last week?
+
+[2018-08-16 18:38:02] User: UACKWHYMR
+is everyone able to join the session? I am experiencing some issues
+
+[2018-07-27 19:51:27] User: UAC5K0XKJ
+Yes
+
+[2018-07-27 19:45:33] User: UACKWHYMR
+Is the meeting over?
+
+[2018-07-27 19:06:51] User: UAL01S29M
+<https://hangouts.google.com/hangouts/_/motkoyz2yraazeaq443ky7wvvie>
+
+[2018-07-27 19:06:17] User: UAL01S29M
+Guys, check that mail thread. The link for the meetup is there.
+
+[2018-07-27 18:47:52] User: UAC5K0XKJ
+Is anyone in the weekly check-in ?
+
+[2018-07-27 18:39:24] User: UAL01S29M
+Yeah, maybe we can wait for 5 more mins
+
+[2018-07-27 18:38:49] User: UACJYHV9R
+No one might be available today. I think.
+
+[2018-07-27 18:38:32] User: UAC5K0XKJ
+Is there a meeting ? Since no one responded to Ed's mail.
+
+[2018-07-27 18:37:46] User: UAC5K0XKJ
+Yea same here
+
+[2018-07-27 18:37:13] User: UAL01S29M
+Same problem here too.
+
+[2018-07-27 18:36:54] User: UACJYHV9R
+Yes unable to join.
+
+[2018-07-27 18:36:04] User: UACKWHYMR
+Yes
+
+[2018-07-27 18:35:52] User: UAL01S29M
+Is anyone facing problem joining the meeting ?
+
+[2018-07-25 22:42:21] User: UACFLCBM1
+Hello folks, does anyone have experience about Slack Bot setting up with Spring Boot in local machine?
+
+[2018-07-13 20:55:12] User: UADFAFC9L
+<@U5JP6FGS0> sorry i was traveling so i could not join the call. I have updated my weekly progress on the page
+
+[2018-07-13 18:36:07] User: UACFLCBM1
+Could someone share the check in link?
+
+[2018-07-13 15:59:22] User: UANEF9YRG
+<@U5NJNAZL4> <@U5JP6FGS0> <@U5JB8B7DX> Hello everyone, I wouldn't be able to make it on time for today's check-in. The health ministry has a scheduled mandatory check-up for  my friends and myself this afternoon. This is because I lived with someone with TB and so I have been under supervision for almost 3 months now. This is my final assessment to conclude their report. I will try to join in but I will be late. Thanks
+
+[2018-07-13 03:48:14] User: UACJYHV9R
+I was able to detect my mistake. :sweat_smile: thanks anyway.
+
+[2018-07-13 03:23:12] User: UACJYHV9R
+Okay I'll send a mail as well. I was able to test two factor authentication but oauth I am unable to.
+
+[2018-07-13 03:05:25] User: U5JB8B7DX
+Take it to the mailing list, U will have more people there <@UACJYHV9R>
+
+[2018-07-13 02:12:23] User: UACJYHV9R
+Hello, has anyone built the fineract platform and run a local server to test oauth or two factor based authentication or both? I built the platform for oauth but while trying to test authentication API I get an error: *'An Authentication object was not found in the SecurityContext'* with the default credentials mifos and password. Am I missing something here? I would appreciate if anyone could assist me on this. Thank you.
+
+[2018-07-09 12:15:04] User: UACVBMX8U
+<@U5JP6FGS0> I will not be able the meetups of Friday as I will be busy Friday evening with my mentor for my college project for which I have a due major presentation next month. I am in regular touch with my mentor Gaurav and Pranjal regarding reviews and discussion. However I will keep you posted regularly on daily tasks and weekly progress on mifosforge.jira
+
+[2018-07-04 21:12:36] User: UAGQF3C7N
+<@UACVBMX8U> sorry, i just saw the mesaage today. Everything is same just you need to change the tenant id from "default" to "mobile".
+
+[2018-07-04 01:29:13] User: U5JB8B7DX
+<@UAN0MKBMJ> Do same with your issue as I see you asking for assistance from mentor... All on the public fineract mailing list. If I cant help, I will get the guys from Kuelap to help.
+
+[2018-07-04 01:27:16] User: U5JB8B7DX
+<@UANEF9YRG> Write ur question on the mailing list vividly and we will help you out there so that others can also benefit. And after that if you still have problems we might have a call over the weekend.
+
+[2018-06-29 19:51:35] User: UACVBMX8U
+API endpoints of mobile server similar to demo server? <@UAGQF3C7N> <@U5JQB8AUT>
+
+[2018-06-04 20:21:34] User: U5JP6FGS0
+Just sent you the invite - sorry I only just got this message.
+
+[2018-06-01 21:22:41] User: UACJYHV9R
+Hi <@U5JP6FGS0> could you please give me access to balsamiq as you said in the introductory mail? I am on the trial version currently :sweat_smile:
+
+[2018-05-31 07:01:12] User: U5JP6FGS0
+You can sign up for an account via: <https://id.atlassian.com/signup?continue=https%3A%2F%2Fmifosforge.jira.com%2Flogin%3FredirectCount%3D1%26dest-url%3D%252Fwiki%252Fspaces%252FMIFOSX%252Foverview>
+
+[2018-05-31 07:00:12] User: U5JP6FGS0
+<@UADFAFC9L> you should just be able to create an account and then have write access...
+
+[2018-05-29 01:00:55] User: U5JV656MB
+<@U5JV656MB> has left the channel
+
+[2018-05-25 19:26:18] User: UACKWHYMR
+<@UADFAFC9L> The link is the same which was sent last <http://week.It|week.It> will be same throughout I guess.
+
+[2018-05-25 19:23:14] User: UADFAFC9L
+ok thanks <@U5J70JJ0G>
+
+[2018-05-25 19:22:43] User: U5J70JJ0G
+<@UADFAFC9L> I think you should intimate Ed for this
+
+[2018-05-25 19:21:32] User: UADFAFC9L
+Hi can someone tell how can i get write access so that I can write on the community page
+Also i didn't get the video conference link 
+Neither this week nor the previous one
+Thanks <@UACKWHYMR>  for sharing it
+Can someone tell me if I am missing something
+Thanks
+
+[2018-05-25 18:39:37] User: UACFLCBM1
+Thanks a lot
+
+[2018-05-25 18:33:40] User: UACKWHYMR
+<https://meet.google.com/jjz-vaug-nbs>
+
+[2018-05-25 18:33:24] User: UACKWHYMR
+yes
+
+[2018-05-25 18:31:17] User: UACFLCBM1
+Is there any scheduled call for the weekly check in this week?
+
+[2018-05-21 13:07:17] User: UACVBMX8U
+So that we can move ahead with it.
+
+[2018-05-21 13:07:06] User: UACVBMX8U
+<@U5JP6FGS0> could you finalize the scope for the new project. `Porting community app from angular 1 to angular 6`
+
+[2018-05-18 18:17:09] User: UACKWHYMR
+<@U5JP6FGS0> yes, I had an interaction with mentors
+
+[2018-05-18 17:50:46] User: UAC5K0XKJ
+<@U5JP6FGS0> I didn't get any mail/message regarding that
+
+[2018-05-18 01:23:52] User: U5JP6FGS0
+<@UAC5K0XKJ> <@UACKWHYMR> You have calls scheduled with your mentor(s) now correct?
+
+[2018-05-18 01:23:29] User: U5JP6FGS0
+<@UACVBMX8U> I'll grant that access.
+
+[2018-05-18 01:23:12] User: U5JP6FGS0
+<@UADLK8PFG> Regarding your request for an API for storing docs - could you put that through to the fineract dev mailing list? I'll try to get that built out as soon as possible.
+
+[2025-02-16 03:52:12] User: U5JQB8AUT
+<@U07L8S4LNMV> help him to join mobile channel and register for stand up 
+
+[2025-02-16 10:51:32] User: U08E623TXK2
+<@U5JQB8AUT> done and done
+
+[2018-05-06 23:30:33] User: UACVBMX8U
+For big PRs obviously I won't merge them before getting reviews from other maintainers. But if the small PRs are merged quickly then it would not be a blockade. Hope you understand
+
+[2018-05-06 20:50:24] User: UACVBMX8U
+<@U5J6V6U2C> <@U5JP6FGS0> can I have merge access to community-app repo? Currently the merge process is quite slow with many PRs pending. I was hoping if I get access we could speed up the process :smile:
+
+[2017-07-11 22:58:56] User: U5JPF4ETD
+<@U5JPF4ETD|mayank-kgp> uploaded a file: <https://mifos.slack.com/files/mayank-kgp/F67781T6Y/obj.zip|obj.zip>
+
+[2017-07-05 19:02:28] User: U5J70JJ0G
+Thanks, <@U5J6V6U2C>
+
+[2017-07-05 18:42:47] User: U5J6V6U2C
+<https://hangouts.google.com/hangouts/_/mifos.org/edcable>
+
+[2017-07-05 18:33:05] User: U5J70JJ0G
+Has anyone received the link to weekly check-in today?
+
+[2017-05-27 04:07:42] User: U5JP6FGS0
+set the channel description: public channel for gsoc communications
+
+[2025-02-15 13:47:02] User: U06QQHVL9LH
+<@U08DG4Y8W82> Hi Welcome,
+We have dedicated channels just for mobile development, <#C06JPGZG1EK|> <#C04TGN96CR4|> <#C5TTJS4BX|> <#C06FC73DZPW|>
+Also don't forget to join our daily standup call. Link is in github readme.
+
+[2025-02-14 07:44:41] User: U5JQB8AUT
+<@U07L8S4LNMV> Help him to catch with Mifos Mobile project and give him knowledge transfer and help him to sign up for stand up meeting  
+
+[2025-02-14 18:51:07] User: U06487TSB54
+I have signed up for the stand up meetings, thank you
+
+[2025-02-10 21:17:07] User: U08CL7F4DC2
+Hello <@U5JP6FGS0> I am interested in helping out.
+
+[2025-02-11 18:22:04] User: U5JP6FGS0
+I will share the details very soon. Just waiting on the test data to be loaded to the demo instance
+
+[2025-02-13 11:46:31] User: U5JP6FGS0
+Hi all. I created some tasks in our documentation space to work on this task. You will be grabbing the screenshots from <https://core.mifos.community> (mifos/password).
+
+Tasks and sub-tasks can be found here - <https://mifosforge.jira.com/browse/DOC-132>
+
+If you are logged into JIRA, you should be able to assign to yourself one of the sub-tasks and then request access to our gitbook to edit the documentation.
+
+You should be able to request an account from this link:
+
+<https://app.gitbook.com/invite/-L_J6oxbPK3wAuGnofJl/-LldJaOzNkFObwLYjN5x>
+
+[2025-02-13 15:33:14] User: U0862FDRGRK
+Sorry, <@U5JP6FGS0>, upon visiting the issue in Jira, I get this:
+
+"You don't have access to this issue
+Make sure the issue exists in this project. If it does, ask a project admin for permission to see the project's issues."
+
+[2025-02-14 07:03:49] User: U06487TSB54
+Hello <@U5JP6FGS0>, I am interested in helping out with the task.
+
+[2025-02-13 23:31:32] User: U06QQHVL9LH
+Hey <@U08AGUF4T4G>
+
+please join <#C06JPGZG1EK|>, <#C5TTJS4BX|>, <#C04TGN96CR4|>, <#C06FC73DZPW|>
+We have daily standup on weekdays. You might want to join that as well. Link available in github project readme
+
+and Welcome
+
+[2025-01-14 19:23:52] User: U5JQB8AUT
+<@U0897S8C8KS> join <#CJJGJLN10|> and we are going to have a call on Thursday 
+
+[2025-02-14 07:16:38] User: U06487TSB54
+Yeah, I would be glad to help you 
+But I would recommend you read the information on the Mifos website first
+<https://mifos.org/|https://mifos.org/>
+
+[2024-12-11 23:18:37] User: U5JQB8AUT
+can you please move mifos-mobile conversation to the <#C04TGN96CR4|> channel
+
+[2024-12-12 11:48:12] User: U0846VBMZ2R
+Okay
+
+[2024-12-09 18:45:50] User: U04H6LZ3Y0Z
+Hi <@U0841EHJB46> 
+You can check out web-app Repo
+
+[2024-12-05 16:46:55] User: U081WSG7HDW
+Hi, you might want to sign up for the monthly volunteer call coming up 10th of December. But before that check out this past projects for gsoc that might interest you in this page: <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas>
+Then check out the GitHub repos to get involved.
+
+[2024-12-05 21:32:01] User: U5JQB8AUT
+<@U083Q43FW69> what is your coding stack?
+
+[2024-12-05 22:00:14] User: U083Q43FW69
+*primary stacks* are *Python*, *JavaScript*, *C*, and *Django.*
+
+[2024-12-06 01:06:18] User: U5JQB8AUT
+Join <#CJJGJLN10|> channel it is what you are looking for.
+
+[2024-11-20 22:22:26] User: U5JQB8AUT
+You are most welcome please join respective channels <#C5TTJS4BX|> <#C04TGN96CR4|> <#C06FC73DZPW|> 
+
+[2024-11-25 10:42:40] User: U080MSJDTQV
+Joined sir , i am currently contributing in the latest REPO .Hope you will be in contact with me through Slack.
+
+[2024-11-13 01:19:25] User: U5JQB8AUT
+You are most welcome! 
+Join <#C06FC73DZPW|> <#C04TGN96CR4|> <#C5TTJS4BX|> 
+
+[2024-10-11 01:36:40] User: U04QJA5HTHU
+Hi Rohit, why don’t you try to explore Mifos Mobile? Step 1. Set up any of our Android repositories on your machine.
+
+And feel free to hit me up if you get stuck.
+
+[2024-05-04 21:49:20] User: U5JQB8AUT
+<@U06V5P5UL6B> I want to welcome you in Mifos community and Please don't discourage yourself, I will recommend you to join the channel that handle the NLP and LLMs project and you can work with gsoc students in parallel learn and contribute!
+
+<@U5JP6FGS0> can you invite <@U06V5P5UL6B> in NLP channel?
+
+[2024-05-06 09:45:32] User: U06V5P5UL6B
+Hi Rajan Maurya, thankyou for the opportunity. I would love to work with Mifos community to learn and contribute to the project!
+
+[2024-05-07 00:56:12] User: U5JP6FGS0
+I think <@U06V5P5UL6B> is already in the <#C016YKYQU4C|> channel.
+
+[2024-04-23 12:46:36] User: U06T1UNU9FA
+As far as I know you'll directly get mail on May 1st(18:00 UTC) if you're selected. Proposal rankings won't be shared publicly before that.
+
+[2024-04-02 17:46:08] User: U5JP6FGS0
+Hello Simon. This is just a small research/exploratory project to be aware. Did you have any questions?
+
+[2024-03-25 10:27:52] User: U04SBLMAD1B
+I do not find any preference for font-type, type-size or max number of pages
+
+[2024-03-25 10:28:39] User: U04SBLMAD1B
+but we should follow following application template : <https://mifosforge.jira.com/wiki/spaces/RES/pages/4456638/Application+Template>
+
+[2024-03-25 10:29:54] User: U06PP90RM0W
+Thanks
+
+[2024-03-25 12:40:08] User: U04PVU38B9D
+<@U06PP90RM0W> <@U04SBLMAD1B> that is correct there is no limit on max pages that is down to you on how much detail you want to provide in your application.  Likewise no constraints on fonts or typesize.
+
+[2024-03-20 16:44:21] User: U5JRP3L6N
+... best would be to prepare for the interviews by showing you contribute to the project actively... go to <https://issues.apache.org/jira/projects/FINERACT/>, pick an issue and create a pull request on Github... the first goal would be to get your first contribution accepted... would be great if you have more than one PRs before the interviews start
+
+[2024-04-02 00:42:00] User: U5JRP3L6N
+did you submit your application?
+
+[2024-03-18 23:35:25] User: U5JP6FGS0
+<@U06Q1RTGQUR> thanks for your interest. <@U04PVU38B9D> can field questions related to some of the functional scope and documentation we’d like to improve. <@U016XM2CX7X> <@UACD0HJAG> can help with some of the AI-specific questions.
+
+[2024-03-19 00:39:15] User: U06Q1RTGQUR
+Hey, yes i'm trying to reach out and communicate directly with the mentors thanks for helping out <@U5JP6FGS0>
+
+[2024-03-15 16:45:26] User: U04PVU38B9D
+both those are expected to be large projects circa 350 hours over the GSOC period.
+
+[2024-03-15 16:54:05] User: U06LF6W1MPC
+ok, thanks mr.david
+
+[2024-03-18 23:34:09] User: U5JP6FGS0
+<@U01DUM0AMEF> could you help <@U0657NEUXMM> <@U0269NTATJR> Not sure if Godfrey has discussed this with you yet but we’re going to try to have a GSOC project focusing on Tazama integration.
+
+[2024-03-11 19:47:59] User: U01DUM0AMEF
+Hi, <@U06NXGJC0TB>. Thanks for reaching out with your area of interest in this GSCO. I am referring this to <@U5JP6FGS0> and <@U04PVU38B9D> to confirm if this can be included in this year's AI theme and revert to you.
+
+[2024-03-11 19:51:30] User: U04PVU38B9D
+<@U01DUM0AMEF> yes they are included in the list of potential projects for GSOC2024(<https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas>).  Typically we get allocated around 10 projects/interns by Google but maybe we will get more, so at the moment we dont know which ones will go ahead.  None of these are AI stream but GSOC24 will be wider than just AI.
+
+[2024-03-11 20:06:51] User: U01DUM0AMEF
+Thanks <@U04PVU38B9D> and I will liaise with you <@U06NXGJC0TB> regarding this.
+
+[2024-03-12 07:17:00] User: U06NXGJC0TB
+Hello <@U01DUM0AMEF> thanks for the response, I'm also going to contact you regarding the project to discuss more about it.
+
+[2024-03-12 20:16:24] User: U01DUM0AMEF
+Aligned, and please ping me in case I forget <@U06NXGJC0TB>. Are you based, and what is your time zone? I am UTC + 2 based in Johannesburg, South Africa.
+
+[2024-03-13 06:32:00] User: U06NXGJC0TB
+Noted Sir, my time zone is UTC+08:00 based in Philippines. Can I start drafting my proposal so that you can check it to see what I can still improve on?
+
+[2024-03-05 13:33:13] User: U5JQB8AUT
+<@U06NL9G3RQ8> which project?
+
+[2024-03-04 05:58:57] User: U5JQB8AUT
+<@U06MVR8RU1X> Please join <#C028634A61L|> channel
+
+[2024-03-03 12:52:53] User: U5JQB8AUT
+It gonna happen on 7th, so you can still attend
+
+[2024-03-03 12:54:23] User: U06N2TNDN00
+okk, thank you
+
+[2024-02-26 16:29:15] User: U051KQM626L
+join the ai-ml channel. If you need help getting started, post questions there.
+<https://join.slack.com/share/enQtNjcwMDQ4MjMwODE0Ny1jZWEwMzhkYzhiNTIzNzkyYjY1Mjk1MDgwZjY3ZTFkYjM1YmZlMmVkNjM0ZDljY2NkYWY4NTBlN2JkMTA2YzE0>
+
+[2024-02-25 22:42:14] User: U051KQM626L
+Hello Aum! Welcome to the community! Browse through the GSoC projects here - <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas>
+
+[2024-02-26 20:54:13] User: U01DUM0AMEF
+Welcome <@U06LWAVQQ5P>
+
+[2024-02-25 22:43:22] User: U051KQM626L
+Welcome to the Mifos community Rahul. We could use your expertise on a bunch of projects. Feel free to browse through the projects here - <https://mifosforge.jira.com/wiki/spaces/RES/pages/3532095546/Google+Summer+of+Code+2024+Ideas>
+
+[2024-02-11 04:39:22] User: U5JQB8AUT
+On which project are you working? If fineract please join fineract slack channel and it also great readme file
+
+[2024-02-13 11:21:50] User: U06J8LJPE72
+I haven't chosen yet which project to work on as a beginner. For skillset I know Java, Spring, Spring boot, MySQL, PostgreSQL, Hibernate, HTML, CSS, JavaScript (Jquery too) & basic JUnit. Although, I know these techs but I have only college level project experience So, what do you suggest me to go for fineract or web.
+
+[2024-02-13 11:42:29] User: U5JQB8AUT
+Fineract would be good 
+
+[2024-02-21 22:41:43] User: U051KQM626L
+You can check out Fineract Modularization project - let me know if you need help
+
+[2024-02-25 23:24:28] User: U051KQM626L
+And here is a link to help you understand the Mifos architecture - <https://fineract.apache.org/docs/current/#_architecture>
+
+[2024-02-08 19:25:34] User: U5JQB8AUT
+Hi <@U06J8LJPE72>, 
+Please join the channel related to mobile, backed etc. All conversation happens there. They will help you!
+
+[2024-02-22 18:02:56] User: U051KQM626L
+<@U06J8LJPE72> if you’re interested in Fineract - take a look here - <https://issues.apache.org/jira/browse/FINERACT-2055?jql=project%20%3D%20FINERACT%20ORDER%20BY%20created%20DESC>
+
+[2024-02-07 10:58:12] User: U06J8LJPE72
+I just forked and clone the project in my pc but when I run the command "./gradlew :fineract-provider:jibDockerBuild -x test" which I found on the readme section "INSTRUCTIONS: How to run using Docker and docker-compose". I am getting some error "error: cannot find symbol
+import org.apache.fineract.avro.BulkMessageItemV1;"  which is used in fineract-core on "\fineract-core\src\main\java\org\apache\fineract\infrastructure\event\external\service\ExternalEventService.java:29:"
+
+[2024-02-07 10:59:01] User: U06J8LJPE72
+I am in the 'develop' branch
+
+[2024-02-08 12:51:03] User: U06J8LJPE72
+Now it is resolved. if someone face similar problem you can checkout my thread on general chat.
+
+[2023-10-31 07:36:35] User: U04N657PLGN
+<https://gist.github.com/PratyushSingh07/a016afeb66d9b66b5aa01d232b10d788|https://gist.github.com/PratyushSingh07/a016afeb66d9b66b5aa01d232b10d788>
+
+[2023-10-31 16:47:00] User: U051KQM626L
+Thanks Pratyush!
+
+[2023-09-30 21:47:53] User: U5JP6FGS0
+<@U05GV281MQQ> you should search for tickets directly on the upstream Fineract project as back-end relates one with there. Relevant tags are “volunteer” “beginner” “gsoc” for some good intro issues.
+
+[2023-09-03 14:24:53] User: U04N657PLGN
+Hi <@U05QRULBH5J>  , thanks for showing interest in Mifos. For starters , you can have a look at the android repos such as mifos mobile, android client and mobile wallet. These applications are mainly built on Kotlin and Java . So an understanding of either one of them or both is a must. Talking about andorid development, you should know about android activity lifecycles, design patterns, xml/jetpack compose etc.
+
+[2023-09-03 14:25:48] User: U04N657PLGN
+All of these may be overwhelming at first but as you keep on contributing all of it starts to fall in place.
+
+[2023-09-03 15:42:03] User: U05QRULBH5J
+Alright thanks a lot:)
+
+[2023-08-02 14:47:32] User: U04QJA5HTHU
+Thanks <@U04H6LZ3Y0Z>
+
+[2023-08-01 21:10:13] User: U05K6H4FE3F
+Hello <@U051KQM626L>, the project interests me and I would like to help. I will be contacting you to get more clarification.
+
+[2023-08-02 18:28:53] User: U051KQM626L
+Thanks Mohamed! It was great chatting with you yesterday and I would love to pair program with you. Talk to you soon!
+
+[2023-04-04 18:45:40] User: U04SBLMAD1B
+Please refer to this link :
+<https://mifosforge.jira.com/wiki/spaces/RES/pages/4456638/Application+Template>
+
+[2023-04-04 10:57:10] User: U04R4PEKFC6
+Surely, thank you.
+
+[2023-04-03 09:09:10] User: U04RLH2F4F2
+It means you can integrate a  3rd party sdk like Firebase Cloud Messaging for notifications which will be triggered from server side when merchants request to pay to a user and notification will be shown to a user. Just like Gpay or PhonePe
+You can go through Firebase Cloud messaging docs.
+
+[2023-04-03 09:34:14] User: U04R4PEKFC6
+Yeah, understood. As some notification files were already present in the wallet, my main concern was whether we have to create only the frontend or it is needed to integrate some other sdk for notifications.
+
+[2023-04-03 09:40:37] User: U04RLH2F4F2
+You have to integrate the sdk for notifications that will be shown on top.Thats what the project idea says.
+The notification files or endpoints you are talking about they are for the previous saved notifications which are stored in database and yeah there is no implementation in frontend till now.
+
+[2023-04-03 10:20:48] User: U04R4PEKFC6
+Got it, thank you.
+
+[2023-03-30 21:05:54] User: U5JP6FGS0
+<@U01B6J5FGET> <@UJK0SEKSS> <@UUP60UFCM> <@U5K5DR56X> <@U01DUM0AMEF> Can you give some inputs in this regard to the mobile wallet and improving the security framework?
+
+[2023-04-03 18:14:23] User: U04R4PEKFC6
+Can someone please provide information regarding this point?
+
+[2023-03-30 14:24:14] User: UARJCRRT2
+<@U5JP6FGS0> can you please do the needful.
+
+[2023-03-29 10:11:41] User: U01373NCZFW
+Hey Rahul, here is a <https://github.com/openMF/mifos-mobile/pull/1546|PR> that was supposed to implement Payment Hub for Mifos Mobile, it should help you to get some idea on how to implement it.
+
+[2023-03-29 10:14:59] User: U01373NCZFW
+<https://github.com/openMF/mobile-wallet/pull/1009>
+
+[2023-03-29 10:15:56] User: U01373NCZFW
+<https://github.com/openMF/payment-hub>
+
+[2023-03-29 10:16:38] User: U01373NCZFW
+<https://gist.github.com/devansh-299/e2041c07d9ab55a747391951e9090df4#3-payment-hub-integration-pull-request---link>
+
+[2023-03-29 13:23:33] User: U5JP6FGS0
+Thanks <@U01373NCZFW> for sharing links. It would now actually be the production-ready architecture of Payment Hub EE (as the repo you linked to was the POC of the Payment Hub, precursor to PH-EE)  - <https://github.com/openMF?q=ph-ee&type=&language=>
+
+[2023-03-29 13:24:40] User: U5JP6FGS0
+<@U04RLH2F4F2> These are good questions and I will share more details on the integration and which transaction flows/BPMNs would be the best flow in which to have integrations with and which reference connectors (mojaloop, safaricom, etc.) we could use to best facilitate.
+
+[2023-03-29 15:19:21] User: U04RLH2F4F2
+Thanks <@U01373NCZFW> <@U5JP6FGS0> for providing the references. Looking forward regarding which reference connectors we can use to facilitate
+
+[2023-03-31 04:39:20] User: U5JP6FGS0
+<@U7V7V8D47> <@U013DGQ793K> If interns were looking to initaite P2P transactions via the mifos mobile wallet either through mojaloop or through GSMA MM API or through Safaricom connector, which BPMN flows and which connectors would they utilize?
+
+[2023-03-28 13:34:50] User: UK81XQZK7
+Hello <@U04H6LZ3Y0Z> you can reach out to the mentor to help review your proposal
+
+[2023-03-28 13:35:25] User: U04H6LZ3Y0Z
+okay
+Thanks <@UK81XQZK7>
+
+[2023-03-28 21:21:46] User: U04N657PLGN
+pratyush*
+
+[2023-03-27 21:17:48] User: U01373NCZFW
+Right now, we are using self-service Fineract APIs endpoints in our project and we are planning to replace them with Open Bank APIs. Here are some useful references that could help you to research further:
+• <https://www.openbankproject.com/|Open Bank Project>
+• <https://apisandbox.openbankproject.com/|Open Bank Project API SandBox>
+
+[2023-03-27 21:20:09] User: U01373NCZFW
+And <https://github.com/openMF/open-banking-app|this project> can help you to understand how to implement those APIs.
+
+[2023-03-27 22:13:10] User: U04N657PLGN
+thank you for this
+
+[2023-03-22 23:22:57] User: U030D3U7DB9
+Hi <@U04SBLMAD1B>, 
+Do share with mentor.
+
+[2023-03-21 13:14:36] User: U04H6LZ3Y0Z
+your root password for mysql should be “mysql”
+
+[2023-03-21 13:16:35] User: U04H6LZ3Y0Z
+Try to install mariaDb in docker and you shouldn’t have any other mysql or mariaDB version in your local system , because if you ever installed mysql locally before ,its password would be different
+
+[2023-03-20 09:24:48] User: U04S3630CHF
+Sorry for that ,but projects are same if you see, also can you help me in the changes in Payment Hub EE? Or like notification integration documentation by Mifos ?
+
+[2023-03-20 12:05:22] User: U04N657PLGN
+sorry man, cant help with that . Even i need to implement something similar in mifos mobile and i dont really know where to start
+
+[2023-03-20 12:06:40] User: U04S3630CHF
+okk no problem
+
+[2023-03-23 04:13:52] User: U5JP6FGS0
+<@U04S3630CHF> What specific questions did you have regarding PH-EE?
+
+[2023-03-24 10:49:26] User: U04S3630CHF
+Actually I have to integrate the latest version of PH-EE to the app so I wanted to know the changes made in it ,are changes only in API Endpoints or some other??
+
+[2023-03-13 22:42:04] User: U04SRECNRR7
+Don't know, but you can still post that to get review from the community
+
+[2023-03-15 05:19:01] User: U04SRECNRR7
+<@U04SBLMAD1B> hey thanks for helping me out! My issue's resolved now.
+
+[2023-03-13 19:01:28] User: U04SRECNRR7
+I tried, but every time new commits keeps adding to my previous PR
+
+[2023-03-14 11:08:58] User: U04SRECNRR7
+can someone please help me, I have tried everything, but it doesn't work
+
+[2023-03-17 21:15:44] User: U03AFHW63U7
+make a new branch for every PR
+
+[2023-03-14 12:07:47] User: U04S3630CHF
+please can anyone help me in this??
+
+[2023-03-11 00:47:33] User: U5JRP3L6N
+what happened with this one? when I started the build it looked actually quite ok (including one single commit)... now there are suddenly 6? and it's closed?
+
+[2023-03-11 00:48:11] User: U5JRP3L6N
+ah... my bad... you moved to a different PR... ok
+
+[2023-03-11 00:48:31] User: U5JRP3L6N
+please check <https://github.com/apache/fineract/pull/3037> ... there are builds failing
+
+[2023-03-11 04:23:39] User: U04RSFHCMDJ
+Squashed the commits. Kindly help in triggering the build. Thank you!
+
+[2023-03-10 03:31:06] User: U5JRP3L6N
+waiting for the build to finish and all tests to pass... but looks good to me
+
+[2023-03-10 03:31:17] User: U5JRP3L6N
+will do final approval when the builds pass
+
+[2023-03-08 01:06:17] User: U04SL5Q9AR3
+the android client
+
+[2023-03-08 21:05:05] User: U030D3U7DB9
+Did you downloaded all dependency?
+
+[2023-03-06 12:06:42] User: U04SRECNRR7
+I was getting these errors
+
+[2023-03-06 15:47:44] User: UDSCETYP4
+Seems like a problem at your end.
+
+[2023-03-02 05:07:11] User: UK81XQZK7
+Hello <@U04H7RR4D8S> Here you go: <https://mifosforge.jira.com/wiki/spaces/RES/pages/3296690177/Google+Summer+of+Code+2023+Ideas#Project-Ideas>
+
+[2023-02-28 23:23:02] User: UARJCRRT2
+Hi,
+Please check out our Ideas page for the projects that you are most interested in. We have a wide variety of projects for android as well as backend development.
+I suggest you start contributing early to the projects that you are interested in :)
+
+[2023-03-01 01:44:19] User: U04R4PEKFC6
+Rahul can you just confirm whether the credentials for the mobile wallet app are same as user/password? Cause I'm having problems with sign-in.
+
+[2023-02-27 10:08:00] User: UARJCRRT2
+Hi Shamly, you can start by setting up the repo on your local device.
+
+[2023-02-27 10:09:05] User: UARJCRRT2
+Hi Madhur, You can check out our Ideas page for the latest projects for GSOC 2023. Hoping you will find some projects that you can contribute :slightly_smiling_face:
+
+[2021-07-12 10:10:10] User: U01373NCZFW
+Great Job :ok_hand:, keep going!
+
+[2021-07-12 11:26:55] User: U022YAKUVCL
+Thanks :smile:
+
+[2018-07-05 19:39:46] User: UACVBMX8U
+thanks.
+
+[2018-06-04 20:24:57] User: UACJYHV9R
+No problem. Thank you :slightly_smiling_face:
+
+[2018-05-31 07:16:32] User: UADFAFC9L
+Thank you ed
+I will create one
+
+[2018-05-19 17:46:16] User: UACVBMX8U
+<mailto:anweshknayak@gmail.com|anweshknayak@gmail.com>
+
