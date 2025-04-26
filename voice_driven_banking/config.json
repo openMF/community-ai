@@ -1,0 +1,58 @@
+
+{
+    "banking_url": "https://demo.mifos.io",
+    "username": "mifos",
+    "password": "password",
+    "language": "en-US",
+    "confidence_range": [0.85, 0.98],
+    "download_dir": "test_results",
+    "test_variations": true,
+    "record_video": false,
+    "commands": [
+      {
+        "name": "balance_inquiry",
+        "voice_command": "What is my account balance",
+        "variations": [
+          "Check my balance",
+          "Show me my current balance",
+          "How much money do I have"
+        ],
+        "locators": {
+          "input_field": "//input[@id='voice-command-input']",
+          "submit_button": "//button[@id='voice-submit']",
+          "result_container": "//div[contains(@class, 'balance-display')]"
+        },
+        "success_indicators": ["current balance", "available balance", "$"]
+      },
+      {
+        "name": "fund_transfer",
+        "voice_command": "Transfer 50 dollars to John Doe",
+        "variations": [
+          "Send 50 dollars to John",
+          "Pay John Doe 50 dollars",
+          "Move 50 dollars to John's account"
+        ],
+        "locators": {
+          "input_field": "//input[@id='voice-command-input']",
+          "submit_button": "//button[@id='voice-submit']",
+          "result_container": "//div[contains(@class, 'transfer-result')]"
+        },
+        "success_indicators": ["transfer successful", "transaction completed", "confirmation"]
+      },
+      {
+        "name": "transaction_history",
+        "voice_command": "Show my recent transactions",
+        "variations": [
+          "List my recent transactions",
+          "Show transaction history",
+          "What are my recent transactions"
+        ],
+        "locators": {
+          "input_field": "//input[@id='voice-command-input']",
+          "submit_button": "//button[@id='voice-submit']",
+          "result_container": "//div[contains(@class, 'transaction-list')]"
+        },
+        "success_indicators": ["transaction", "date", "amount"]
+      }
+    ]
+  }
