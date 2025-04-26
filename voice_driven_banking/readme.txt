@@ -87,25 +87,6 @@ Here are some examples of supported document-related voice commands:
 
 ## Configuration
 
-Create a `config.json` file with the following structure:
-
-```json
-{
-  "banking_url": "https://demo.mifos.io",
-  "username": "mifos",
-  "password": "password",
-  "language": "en-US",
-  "confidence_range": [0.85, 0.98],
-  "download_dir": "test_results",
-  "captured_images_dir": "captured_images",
-  "min_confidence_threshold": 0.6,
-  "verification_required": true,
-  "max_amount_without_verification": 100,
-  "tesseract_path": "/usr/bin/tesseract",
-  "camera_id": 0
-}
-```
-
 Adjust the paths and settings according to your environment.
 
 ## Usage
