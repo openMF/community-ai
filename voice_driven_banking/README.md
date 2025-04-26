@@ -26,4 +26,3 @@ This framework provides automated testing of voice commands for banking interfac
 
 Run the main test suite:
 Or run individual components:
-# First run individual component
