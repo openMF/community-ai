@@ -1,0 +1,25 @@
+name: voice-banking
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.9
+  - pip=22.0
+  - flask=2.2.3
+  - numpy=1.24.3
+  - scikit-learn=1.2.2
+  - pytorch=2.0.0
+  - torchaudio=2.0.0
+  - librosa=0.10.0
+  - pydub=0.25.1
+  - requests=2.28.2
+  - ffmpeg=4.4
+  - soundfile=0.12.1
+  - pip:
+    - SpeechRecognition==3.10.0
+    - transformers==4.28.1
+    - python-dotenv==1.0.0
+    - PyAudio==0.2.13
+    - spacy==3.5.2
+    - werkzeug==2.2.3

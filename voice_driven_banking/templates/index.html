@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Banking Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-microphone-alt"></i> Voice-Driven Banking Assistant</h1>
+            <div id="user-info" class="hidden">
+                <span>Welcome, <strong id="username"></strong>!</span>
+                <button id="logout-btn" class="btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <div id="login-section" class="card">
+            <h2><i class="fas fa-sign-in-alt"></i> Login to Your Account</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username-input">Username:</label>
+                    <input type="text" id="username-input" name="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password-input">Password:</label>
+                    <input type="password" id="password-input" name="password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn primary-btn" id="login-button">
+                    <i class="fas fa-lock-open"></i> Login
+                </button>
+            </form>
+            <p>Don't have an account? <a href="#" id="show-register">Register here</a></p>
+        </div>
+
+        <div id="register-section" class="card hidden">
+            <h2><i class="fas fa-user-plus"></i> Create a New Account</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="reg-username">Username:</label>
+                    <input type="text" id="reg-username" name="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Password:</label>
+                    <input type="password" id="reg-password" name="password" required autocomplete="new-password">
+                </div>
+                <div class="form-group">
+                    <label for="reg-name">Full Name:</label>
+                    <input type="text" id="reg-name" name="name" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email:</label>
+                    <input type="email" id="reg-email" name="email" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="reg-phone">Phone:</label>
+                    <input type="tel" id="reg-phone" name="phone" required autocomplete="tel">
+                </div>
+                <div class="form-group">
+                    <label for="reg-language">Preferred Language:</label>
+                    <select id="reg-language" name="language">
+                        <option value="en-US">English (US)</option>
+                        <option value="hi-IN">Hindi (India)</option>
+                        <option value="ta-IN">Tamil (India)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn primary-btn" id="register-button">
+                    <i class="fas fa-user-check"></i> Register
+                </button>
+            </form>
+            <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+        </div>
+
+        <div id="banking-section" class="hidden">
+            <div class="language-selector card">
+                <label for="language-select">
+                    <i class="fas fa-language"></i> Select Language:
+                </label>
+                <select id="language-select">
+                    <option value="en-US">English (US)</option>
+                    <option value="hi-IN">Hindi (India)</option>
+                    <option value="ta-IN">Tamil (India)</option>
+                </select>
+            </div>
+
+            <div class="voice-interface">
+                <h2><i class="fas fa-microphone"></i> Voice Banking Assistant</h2>
+                <p>Click the microphone button and speak your banking request:</p>
+                <div class="examples">
+                    <p><strong><i class="fas fa-lightbulb"></i> Examples:</strong></p>
+                    <ul id="example-phrases">
+                        <li>"What is my account balance?"</li>
+                        <li>"Transfer 100 dollars to Jane"</li>
+                        <li>"Show my recent transactions"</li>
+                    </ul>
+                </div>
+                
+                <div class="voice-controls">
+                    <button id="record-btn" class="btn record-btn" aria-live="polite">
+                        <span class="mic-icon"><i class="fas fa-microphone"></i></span>
+                        <span id="record-text">Start Recording</span>
+                    </button>
+                    <div id="recording-indicator" class="hidden">Recording...</div>
+                </div>
+
+                <div id="result-section" class="hidden">
+                    <div class="result-card">
+                        <h3><i class="fas fa-comment"></i> Recognized Speech:</h3>
+                        <p id="recognized-text" class="card"></p>
+                        
+                        <h3><i class="fas fa-filter"></i> Preprocessed Text:</h3>
+                        <p id="preprocessed-text" class="card"></p>
+                        
+                        <h3><i class="fas fa-brain"></i> Detected Intent:</h3>
+                        <p id="detected-intent" class="card"></p>
+                        
+                        <h3><i class="fas fa-reply"></i> Response:</h3>
+                        <div id="response-message"></div>
+                        
+                        <div id="balance-container" class="hidden">
+                            <h4><i class="fas fa-wallet"></i> Account Balances:</h4>
+                            <div id="balance-info"></div>
+                        </div>
+                        
+                        <div id="transaction-container" class="hidden">
+                            <h4><i class="fas fa-exchange-alt"></i> Recent Transactions:</h4>
+                            <table id="transactions-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactions-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
