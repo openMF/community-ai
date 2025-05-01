@@ -1,8 +1,0 @@
-{
-  "multilineArraysWrapThreshold": 1,
-  "plugins": [
-    "prettier-plugin-multiline-arrays"
-  ],
-  "singleQuote": true,
-  "trailingComma": "none"
-}

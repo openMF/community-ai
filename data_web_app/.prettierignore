@@ -1,4 +1,0 @@
-/dist
-/node_modules
-**/.git
-src/environments/.env.ts
