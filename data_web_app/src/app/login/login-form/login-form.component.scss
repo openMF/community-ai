@@ -1,0 +1,16 @@
+#login-form {
+  .login-input {
+    width: 14rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .login-button {
+    width: 14rem;
+    margin-top: 1rem;
+  }
+
+  mat-spinner {
+    float: right;
+    margin: 0.5rem 0;
+  }
+}

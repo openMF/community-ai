@@ -1,0 +1,52 @@
+.tab-container {
+  padding: 1%;
+  margin: 1%;
+
+  .mat-raised-button.mat-success {
+    color: #fff;
+    background-color: #008000ab;
+  }
+
+  .mat-raised-button.mat-reject {
+    color: #fff;
+    background-color: #ffca00;
+  }
+
+  #search-button {
+    height: 2.5rem;
+    margin-top: 1rem;
+  }
+
+  .view-details {
+    cursor: pointer;
+  }
+
+  table {
+    tr.select-row:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.alert {
+  background-color: #e8f4fd;
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.43;
+  border-radius: 4px;
+  letter-spacing: 0.0107em;
+  margin: 10px;
+
+  .message {
+    padding: 8px 0;
+    font-size: 18px;
+  }
+
+  .alert-check {
+    color: #359ff4;
+    margin-right: 2px;
+    font-size: 1.4rem;
+  }
+}

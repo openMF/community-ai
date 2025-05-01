@@ -1,0 +1,133 @@
+// Application Color Profiles
+// Description: Set all application-wide color definitions here
+// To see examples, see the Color Swatches PNG
+
+// Endpoints
+$white: #fff;
+$black: #000;
+
+// Greys
+$light-grey: #f5f5f5;
+$mid-grey: #d7dada;
+$dark-grey: #353b3b;
+
+// Default Color
+$default: $dark-grey;
+
+// Flat UI Color Swatches (http://designmodo.github.io/Flat-UI) see the color-swatchs.png
+$turquoise: #1abc9c;
+$green-sea: #16a085;
+$emerald: #2ecc71;
+$nephritis: #27ae60;
+$peter-river: #3498db;
+$belize-hole: #2980b9;
+$amethyst: #9b59b6;
+$wisteria: #8e44ad;
+$wet-asphalt: #34495e;
+$midnight-blue: #2c3e50;
+$sunflower: #f1c40f;
+$orange: #f39c12;
+$carrot: #e67e22;
+$pumpkin: #d35400;
+$alizarin: #e74c3c;
+$pomegranate: #c0392b;
+$clouds: #ecf0f1;
+$silver: #bdc3c7;
+$concrete: #95a5a6;
+$asbestos: #7f8c8d;
+
+// Message Colors
+$msg-default: #999;
+$msg-success: #5cb85c;
+$msg-warning: #f0ad4e;
+$msg-danger: #d9534f;
+$msg-info: #5bc0de;
+
+//Social Colors
+$dailymile: #ffaa25;
+$facebook: #3b5998;
+$flickr: #f80082;
+$github: #f7f7f7;
+$google: #d7473d;
+$instagram: #37658d;
+$linkedin: #2c8cc0;
+$pinterest: #c5142b;
+$runkeeper: #3193d3;
+$skype: #00abee;
+$spotify: #7ab800;
+$twitter: #3b8aca;
+
+// Set Site Specific Base, Highlight and Accent Colors Here for easy switching between themes
+$base: $dark-grey;
+$highlight: $belize-hole;
+$accent: $peter-river;
+
+//Status Colors Defined Here
+$status-active: #5cb85c;
+$status-inactive: #666f73;
+$status-paid: #666f73;
+$status-deleted: #000;
+$status-pending: #ffa500;
+$status-approved: #4461e2;
+$status-chargeoff: #f39c12;
+$status-overpaid: #800080;
+$status-downpayment: #16a085;
+$status-reage: #e08e0b;
+$status-reamortize: #4461e2;
+$status-transfer: #16a085;
+$status-active-overdue: #f00;
+$status-matured: #ff4000;
+$state-done: #2af72a;
+$status-transfer-progress: #ff4000;
+$status-transfer-hold: #df0101;
+
+$error-log: #ffa726;
+
+.column-mandatory {
+  color: $status-active;
+  text-align: center;
+}
+
+.not-column-mandatory {
+  color: $status-inactive;
+  text-align: center;
+}
+
+.cdk-drag-placeholder {
+  background: $peter-river;
+}
+
+.yes {
+  color: $status-active !important;
+  background-color: $status-active;
+  height: 4px;
+  cursor: none;
+}
+
+.no {
+  color: $status-active-overdue;
+  background-color: $status-active-overdue;
+  height: 4px;
+  cursor: none;
+}
+
+.strike {
+  text-decoration: line-through;
+  color: red;
+}
+
+.transfer {
+  color: $status-transfer;
+}
+
+.linked {
+  color: $status-approved;
+}
+
+.accrual {
+  color: $msg-default;
+}
+
+.fa-question {
+  color: $status-approved;
+}

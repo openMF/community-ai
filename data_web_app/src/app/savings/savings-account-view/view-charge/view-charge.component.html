@@ -1,0 +1,140 @@
+<div
+  *ngIf="savingsAccountData.status.value === 'Active' && chargeData.amountOutstanding !== 0"
+  fxLayout="row"
+  fxLayoutAlign="end"
+  fxLayoutGap="2%"
+  fxLayout.lt-md="column"
+  class="container m-b-20"
+>
+  <button mat-raised-button color="accent" *mifosxHasPermission="'PAY_SAVINGSACCOUNTCHARGE'" (click)="payCharge()">
+    <fa-icon icon="dollar-sign" class="m-r-10"></fa-icon>
+    Pay
+  </button>
+  <button mat-raised-button color="primary" *mifosxHasPermission="'WAIVE_SAVINGSACCOUNTCHARGE'" (click)="waiveCharge()">
+    <fa-icon icon="flag" class="m-r-10"></fa-icon>
+    Waive
+  </button>
+  <span *ngIf="isRecurringCharge()">
+    <button
+      mat-raised-button
+      color="warn"
+      *mifosxHasPermission="'INACTIVATE_SAVINGSACCOUNTCHARGE'"
+      (click)="inactivateCharge()"
+    >
+      <fa-icon icon="trash" class="m-r-10"></fa-icon>
+      Inactivate
+    </button>
+  </span>
+</div>
+
+<div
+  *ngIf="savingsAccountData.status.value === 'Submitted and pending approval'"
+  fxLayout="row"
+  fxLayoutAlign="end"
+  fxLayoutGap="2%"
+  fxLayout.lt-md="column"
+  class="container m-b-20"
+>
+  <button mat-raised-button color="primary" *mifosxHasPermission="'UPDATE_SAVINGSACCOUNTCHARGE'" (click)="editCharge()">
+    <fa-icon icon="edit" class="m-r-10"></fa-icon>
+    Edit
+  </button>
+  <button mat-raised-button color="warn" *mifosxHasPermission="'DELETE_SAVINGSACCOUNTCHARGE'" (click)="deleteCharge()">
+    <fa-icon icon="trash" class="m-r-10"></fa-icon>
+    Delete
+  </button>
+</div>
+
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <div fxLayout="row wrap" class="content">
+        <div fxFlex="50%" class="mat-body-strong">
+          {{ 'labels.inputs.Name' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ chargeData.name }}
+        </div>
+
+        <div fxFlex="50%" class="mat-body-strong">
+          {{ 'labels.inputs.Charge Type' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ chargeData.penalty ? 'Penalty' : ('Fee' | translateKey: 'catalogs') }}
+        </div>
+
+        <div fxFlex="50%" class="mat-body-strong">
+          {{ 'labels.inputs.Currency' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ chargeData.currency.displayLabel }}
+        </div>
+
+        <div fxFlex="50%" class="mat-body-strong">
+          {{ 'labels.inputs.Payment due at' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ chargeData.chargeTimeType.value | translateKey: 'catalogs' }}
+        </div>
+
+        <div fxFlex="50%" class="mat-body-strong">
+          {{ 'labels.inputs.Payment due as of' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ chargeData.dueDate | dateFormat }}
+        </div>
+
+        <div fxFlex="50%" class="mat-body-strong">
+          {{ 'labels.inputs.Calculation Type' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ chargeData.chargeCalculationType.value | translateKey: 'catalogs' }}
+        </div>
+
+        <div fxFlex="50%" class="mat-body-strong">
+          {{ 'labels.inputs.Due' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ chargeData.amount | formatNumber }}
+        </div>
+
+        <div fxFlex="50%" class="mat-body-strong">
+          {{ 'labels.inputs.Paid' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ chargeData.amountPaid | formatNumber }}
+        </div>
+
+        <div fxFlex="50%" class="mat-body-strong">
+          {{ 'labels.inputs.Waived' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ chargeData.amountWaived | formatNumber }}
+        </div>
+
+        <div fxFlex="50%" class="mat-body-strong">
+          {{ 'labels.inputs.Outstanding' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ chargeData.amountOutstanding | formatNumber }}
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" fxLayout.lt-md="column">
+        <button type="button" mat-raised-button color="primary" [routerLink]="['../']">
+          {{ 'labels.buttons.Back' | translate }}
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

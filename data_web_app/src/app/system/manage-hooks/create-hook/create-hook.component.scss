@@ -1,0 +1,24 @@
+@media (width >= 992px) {
+  .is-active-wrapper {
+    position: relative;
+
+    .is-active {
+      padding: 0 0 17.5px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+
+mat-divider {
+  margin: 0 0 0.5em;
+}
+
+table {
+  width: 100%;
+}
+
+.AddEventButton {
+  margin-bottom: 10px;
+}

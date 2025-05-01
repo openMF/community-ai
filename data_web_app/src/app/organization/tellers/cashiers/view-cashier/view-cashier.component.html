@@ -1,0 +1,72 @@
+<div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2%" fxLayout.lt-md="column" class="container m-b-20">
+  <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_CASHIER'">
+    <fa-icon icon="edit" class="m-r-10"></fa-icon>
+    {{ 'labels.buttons.Edit' | translate }}
+  </button>
+  <button mat-raised-button color="warn" (click)="deleteCashier()" *mifosxHasPermission="'DELETECASHIER_TELLER'">
+    <fa-icon icon="trash" class="m-r-10"></fa-icon>
+    {{ 'labels.buttons.Delete' | translate }}
+  </button>
+</div>
+
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <div fxLayout="row wrap" class="content">
+        <div fxFlex="50%" class="header">
+          {{ 'labels.inputs.Name' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ cashierData.staffName }}
+        </div>
+
+        <div fxFlex="50%" class="header">
+          {{ 'labels.inputs.Teller' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ cashierData.tellerName }}
+        </div>
+
+        <div fxFlex="50%" class="header" *ngIf="cashierData.description !== ''">
+          {{ 'labels.inputs.Description' | translate }}
+        </div>
+
+        <div fxFlex="50%" *ngIf="cashierData.description !== ''">
+          {{ cashierData.description }}
+        </div>
+
+        <div fxFlex="50%" class="header">
+          {{ 'labels.inputs.Start Date' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ cashierData.startDate | dateFormat }}
+        </div>
+
+        <div fxFlex="50%" class="header">
+          {{ 'labels.inputs.End Date' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ cashierData.endDate | dateFormat }}
+        </div>
+
+        <div fxFlex="50%" class="header">
+          {{ 'labels.inputs.Full Day/Time' | translate }}
+        </div>
+
+        <div fxFlex="50%">
+          {{ cashierData.isFullDay }}
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
+      <button type="button" color="primary" mat-raised-button [routerLink]="['..']">
+        {{ 'labels.buttons.Back' | translate }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

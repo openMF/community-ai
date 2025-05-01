@@ -1,0 +1,14 @@
+.product-card {
+  margin: 0 auto;
+  max-width: 90rem;
+  width: 90%;
+  padding: 0;
+
+  .navigation-tabs {
+    overflow: auto;
+  }
+
+  i:hover {
+    cursor: pointer;
+  }
+}

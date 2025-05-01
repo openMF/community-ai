@@ -1,0 +1,23 @@
+.two-factor-auth-form {
+  mat-radio-button {
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .two-factor-auth-button {
+    width: 14rem;
+    margin-top: 0.5rem;
+  }
+
+  .two-factor-auth-input {
+    width: 14rem;
+  }
+
+  mat-spinner {
+    float: right;
+    margin: 0.5rem 0;
+  }
+}

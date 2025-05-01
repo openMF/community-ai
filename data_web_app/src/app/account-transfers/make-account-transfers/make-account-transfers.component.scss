@@ -1,0 +1,38 @@
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 500;
+}
+
+span {
+  margin: 0.5em 0;
+}
+
+.margin-t {
+  margin-top: 1em;
+}
+
+mat-divider {
+  margin: 0 0 0.5em;
+}
+
+.container {
+  max-width: 37rem;
+}
+
+::ng-deep mat-form-field.error-warn.mat-form-field-invalid .mat-form-field-ripple {
+  background-color: #000000de !important;
+}
+
+::ng-deep mat-form-field.error-warn.mat-form-field-invalid .mat-form-field-label {
+  color: #0009 !important;
+
+  .mat-form-field-required-marker {
+    color: #0009 !important;
+  }
+}
+
+::ng-deep mat-form-field.error-warn.mat-form-field-invalid .mat-error {
+  color: #0009 !important;
+}

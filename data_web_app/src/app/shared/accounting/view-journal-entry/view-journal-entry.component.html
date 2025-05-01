@@ -1,0 +1,111 @@
+<h1 mat-dialog-title>{{ 'labels.heading.View Journal Entry' | translate }}</h1>
+
+<div mat-dialog-content>
+  <table>
+    <tr>
+      <th>{{ 'labels.inputs.Office' | translate }}</th>
+      <td>{{ data.journalEntry.officeName }}</td>
+    </tr>
+
+    <tr>
+      <th>{{ 'labels.inputs.Entry ID' | translate }}</th>
+      <td>{{ data.journalEntry.id }}</td>
+    </tr>
+
+    <tr>
+      <th>{{ 'labels.inputs.Transaction ID' | translate }}</th>
+      <td>{{ data.journalEntry.transactionId }}</td>
+    </tr>
+
+    <tr>
+      <th>{{ 'labels.inputs.Transaction Date' | translate }}</th>
+      <td>{{ data.journalEntry.transactionDate | dateFormat }}</td>
+    </tr>
+
+    <tr>
+      <th>{{ 'labels.inputs.Type' | translate }}</th>
+      <td>{{ data.journalEntry.glAccountType.value }}</td>
+    </tr>
+
+    <tr>
+      <th>{{ 'labels.inputs.Account Code' | translate }}</th>
+      <td>{{ data.journalEntry.glAccountId }}</td>
+    </tr>
+
+    <tr>
+      <th>{{ 'labels.inputs.Account Name' | translate }}</th>
+      <td>{{ data.journalEntry.glAccountName }}</td>
+    </tr>
+
+    <tr>
+      <th>
+        <span *ngIf="data.journalEntry.entryType.value === 'CREDIT'">{{ 'labels.inputs.Credit' | translate }}</span>
+        <span *ngIf="data.journalEntry.entryType.value === 'DEBIT'">{{ 'labels.inputs.Debit' | translate }}</span>
+      </th>
+      <td>{{ data.journalEntry.currency.displaySymbol }} {{ data.journalEntry.amount | formatNumber }}</td>
+    </tr>
+
+    <tr>
+      <th>{{ 'labels.inputs.Currency' | translate }}</th>
+      <td>({{ data.journalEntry.currency.code }}) {{ data.journalEntry.currency.name }}</td>
+    </tr>
+
+    <tr *ngIf="data.journalEntry.referenceNumber">
+      <th>{{ 'labels.inputs.Reference Number' | translate }}</th>
+      <td>{{ data.journalEntry.referenceNumber }}</td>
+    </tr>
+
+    <tr *ngIf="data.journalEntry.comments">
+      <th>{{ 'labels.inputs.Comments' | translate }}</th>
+      <td>{{ data.journalEntry.comments }}</td>
+    </tr>
+
+    <tr *ngIf="existsPaymentDetails">
+      <th colspan="2" class="header">{{ 'labels.inputs.Payment Details' | translate }}</th>
+    </tr>
+
+    <tr *ngIf="existsPaymentDetails && data.journalEntry.transactionDetails.paymentDetails?.paymentType">
+      <th>{{ 'labels.inputs.Payment Type' | translate }}</th>
+      <td>{{ data.journalEntry.transactionDetails.paymentDetails.paymentType.name }}</td>
+    </tr>
+
+    <tr *ngIf="existsPaymentDetails && data.journalEntry.transactionDetails.paymentDetails?.accountNumber">
+      <th>{{ 'labels.inputs.Account Number' | translate }}</th>
+      <td>{{ data.journalEntry.transactionDetails.paymentDetails.accountNumber }}</td>
+    </tr>
+
+    <tr *ngIf="existsPaymentDetails && data.journalEntry.transactionDetails.paymentDetails?.checkNumber">
+      <th>{{ 'labels.inputs.Cheque Number' | translate }}</th>
+      <td>{{ data.journalEntry.transactionDetails.paymentDetails.checkNumber }}</td>
+    </tr>
+
+    <tr *ngIf="existsPaymentDetails && data.journalEntry.transactionDetails.paymentDetails?.routingCode">
+      <th>{{ 'labels.inputs.Routing Code' | translate }}</th>
+      <td>{{ data.journalEntry.transactionDetails.paymentDetails.routingCode }}</td>
+    </tr>
+
+    <tr *ngIf="existsPaymentDetails && data.journalEntry.transactionDetails.paymentDetails?.receiptNumber">
+      <th>{{ 'labels.inputs.Receipt Number' | translate }}</th>
+      <td>{{ data.journalEntry.transactionDetails.paymentDetails.receiptNumber }}</td>
+    </tr>
+
+    <tr *ngIf="existsPaymentDetails && data.journalEntry.transactionDetails.paymentDetails?.bankNumber">
+      <th>{{ 'labels.inputs.Bank Number' | translate }}</th>
+      <td>{{ data.journalEntry.transactionDetails.paymentDetails.bankNumber }}</td>
+    </tr>
+
+    <tr *ngIf="existsPaymentDetails">
+      <th>{{ 'labels.inputs.Created by' | translate }}</th>
+      <td>{{ data.journalEntry.createdByUserName }}</td>
+    </tr>
+
+    <tr>
+      <th>{{ 'labels.inputs.Submitted on' | translate }}</th>
+      <td>{{ data.journalEntry.submittedOnDate | datetimeFormat }}</td>
+    </tr>
+  </table>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>{{ 'labels.buttons.Close' | translate }}</button>
+</mat-dialog-actions>

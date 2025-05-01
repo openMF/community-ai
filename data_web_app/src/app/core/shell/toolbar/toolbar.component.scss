@@ -1,0 +1,55 @@
+#mifosx-toolbar {
+  position: relative;
+  box-shadow:
+    0 3px 1px -2px rgb(0 0 0 / 20%),
+    0 2px 2px 0 rgb(0 0 0 / 14%),
+    0 1px 5px 0 rgb(0 0 0 / 12%);
+
+  .tab-link {
+    min-width: auto;
+    padding: 0 1rem;
+  }
+
+  .search-bar {
+    .search {
+      max-width: 400px;
+      width: 100%;
+      font-size: 1rem;
+    }
+  }
+
+  .language {
+    min-width: 80px;
+    width: 80px;
+    font-size: 0.875rem;
+    margin-top: 0.375rem;
+  }
+
+  .img-button {
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+  }
+
+  .ml-1 {
+    margin-left: 1rem;
+  }
+
+  .mr-1 {
+    margin-right: 1rem;
+  }
+}
+
+// Show icon on small screens
+.lg-icon {
+  display: none;
+}
+
+@media (width <= 959px) {
+  .lg-icon {
+    display: block;
+    margin-left: 5px;
+  }
+}

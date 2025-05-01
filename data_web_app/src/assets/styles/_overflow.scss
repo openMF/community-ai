@@ -1,0 +1,26 @@
+html,
+body {
+  overflow: hidden;
+}
+
+.overflow-x-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.overflow-no {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}

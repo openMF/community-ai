@@ -1,0 +1,15 @@
+@media (width >= 992px) {
+  .user-report-wrapper {
+    position: relative;
+
+    .user-report {
+      padding: 0 0 17.5px;
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}
+
+table {
+  width: 100%;
+}

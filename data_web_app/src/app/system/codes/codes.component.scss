@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+
+  .select-row:hover {
+    cursor: pointer;
+  }
+}
+
+// TODO: CONFIGURE THESE CLASSES GLOBALLY
+.system-defined {
+  color: #32cd32;
+}
+
+.not-system-defined {
+  color: #f44366;
+}

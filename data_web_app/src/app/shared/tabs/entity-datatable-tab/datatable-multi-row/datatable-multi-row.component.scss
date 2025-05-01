@@ -1,0 +1,20 @@
+@use 'assets/styles/helper';
+@use 'assets/styles/colours' as *;
+
+.tab-container {
+  padding: 1%;
+  margin: 1%;
+
+  .action-button {
+    margin-left: auto;
+  }
+
+  table {
+    width: 100%;
+  }
+}
+
+.tobe-deleted {
+  text-decoration: line-through;
+  color: $orange;
+}

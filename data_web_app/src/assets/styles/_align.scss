@@ -1,0 +1,45 @@
+@use 'colours' as *;
+
+.v-mid,
+.v-m {
+  vertical-align: middle;
+}
+
+.v-top,
+.v-t {
+  vertical-align: top;
+}
+
+.v-bottom,
+.v-b {
+  vertical-align: bottom;
+}
+
+.v-super {
+  vertical-align: super;
+}
+
+.r-amount {
+  text-align: right !important;
+  padding-right: 5px !important;
+}
+
+.left {
+  text-align: left !important;
+}
+
+.right {
+  text-align: right !important;
+}
+
+.center {
+  text-align: center !important;
+}
+
+.amount-plus {
+  color: $black;
+}
+
+.amount-minus {
+  color: $status-approved;
+}

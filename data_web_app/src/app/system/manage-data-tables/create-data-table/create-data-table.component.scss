@@ -1,0 +1,16 @@
+@media (width >= 992px) {
+  .multi-row-wrapper {
+    position: relative;
+
+    .multi-row {
+      padding: 0 0 17.5px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+
+table {
+  width: 100%;
+}

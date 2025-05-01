@@ -1,0 +1,108 @@
+<div class="container" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap.lt-md="4%" fxLayout.lt-md="column">
+  <div fxFlex="46%">
+    <mat-card>
+      <mat-card-content>
+        <div fxLayout="row wrap" class="content">
+          <div fxFlex="50%" class="mat-body-strong">
+            {{ 'labels.inputs.ID' | translate }}
+          </div>
+
+          <div fxFlex="50%">
+            {{ auditTrailData.id }}
+          </div>
+
+          <div fxFlex="50%" class="mat-body-strong">
+            {{ 'labels.inputs.Status' | translate }}
+          </div>
+
+          <div fxFlex="50%">
+            {{ auditTrailData.processingResult }}
+          </div>
+
+          <div fxFlex="50%" class="mat-body-strong">
+            {{ 'labels.inputs.User' | translate }}
+          </div>
+
+          <div fxFlex="50%">
+            {{ auditTrailData.maker }}
+          </div>
+
+          <div fxFlex="50%" class="mat-body-strong">
+            {{ 'labels.inputs.Action' | translate }}
+          </div>
+
+          <div fxFlex="50%">
+            {{ auditTrailData.actionName }}
+          </div>
+
+          <div fxFlex="50%" class="mat-body-strong">
+            {{ 'labels.inputs.Entity' | translate }}
+          </div>
+
+          <div fxFlex="50%">
+            {{ auditTrailData.entityName }}
+          </div>
+
+          <div fxFlex="50%" class="mat-body-strong">
+            {{ 'labels.inputs.Resource ID' | translate }}
+          </div>
+
+          <div fxFlex="50%">
+            {{ auditTrailData.resourceId }}
+          </div>
+
+          <div fxFlex="50%" class="mat-body-strong">
+            {{ 'labels.inputs.Date' | translate }}
+          </div>
+
+          <div fxFlex="50%">
+            {{ auditTrailData.madeOnDate | dateFormat }}
+          </div>
+
+          <div fxFlex="50%" class="mat-body-strong" *ngIf="auditTrailData.officeName">
+            {{ 'labels.inputs.Office' | translate }}
+          </div>
+
+          <div fxFlex="50%" *ngIf="auditTrailData.officeName">
+            {{ auditTrailData.officeName }}
+          </div>
+
+          <div fxFlex="50%" class="mat-body-strong" *ngIf="auditTrailData.savingsAccountNo">
+            {{ 'labels.inputs.Savings Account No' | translate }}
+          </div>
+
+          <div fxFlex="50%" *ngIf="auditTrailData.savingsAccountNo">
+            {{ auditTrailData.savingsAccountNo }}
+          </div>
+
+          <div fxFlex="50%" class="mat-body-strong" *ngIf="auditTrailData.groupLevelName">
+            {{ 'labels.inputs.Group Level' | translate }}
+          </div>
+
+          <div fxFlex="50%" *ngIf="auditTrailData.groupLevelName">
+            {{ auditTrailData.groupLevelName }}
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxFlex="46%">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="command">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Command' | translate }}</th>
+        <td mat-cell *matCellDef="let auditTrailCommand">{{ auditTrailCommand.command }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="commandValue">
+        <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Command Value' | translate }}</th>
+        <td mat-cell *matCellDef="let auditTrailCommand" class="column-value-wrapper">
+          {{ auditTrailCommand.commandValue }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

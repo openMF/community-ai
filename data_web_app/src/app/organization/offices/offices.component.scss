@@ -1,0 +1,33 @@
+table {
+  width: 100%;
+
+  .select-row:hover {
+    cursor: pointer;
+  }
+}
+
+.content {
+  div {
+    margin: 1rem 0;
+    word-wrap: break-word;
+  }
+}
+
+.office-tree {
+  ul,
+  li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+  }
+
+  li {
+    span {
+      cursor: pointer;
+    }
+  }
+
+  .office-tree-invisible {
+    display: none;
+  }
+}

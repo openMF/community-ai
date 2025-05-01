@@ -1,0 +1,63 @@
+@use 'sass:color';
+@use 'colours' as *;
+
+html,
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.color-inherit {
+  color: inherit;
+}
+
+.no-shadow {
+  box-shadow: none;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.nolist {
+  list-style: none;
+}
+
+.actions-menu {
+  color: $white;
+}
+
+.alert {
+  background-color: #e8f4fd;
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.43;
+  border-radius: 4px;
+  letter-spacing: 0.0107em;
+  margin: 10px;
+
+  .message {
+    padding: 8px 0;
+    font-size: 18px;
+  }
+
+  .alert-check {
+    color: #359ff4;
+    margin-right: 2px;
+    font-size: 1.4rem;
+  }
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 15px;
+  color: $white !important;
+  background-color: rgba($status-approved, 0.7);
+  border: 1px solid color.adjust($status-approved, $lightness: -20%);
+  max-width: 400px !important;
+  white-space: pre-line !important;
+}

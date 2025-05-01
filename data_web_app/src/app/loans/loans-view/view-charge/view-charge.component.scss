@@ -1,0 +1,23 @@
+@use 'assets/styles/helper';
+@use 'assets/styles/colours' as *;
+
+.container {
+  max-width: 37rem;
+
+  .content {
+    div {
+      margin: 1rem 0;
+      word-wrap: break-word;
+    }
+  }
+}
+
+.paid {
+  background-color: $status-active;
+  height: 4px;
+}
+
+.not-paid {
+  background-color: $status-active-overdue;
+  height: 4px;
+}

@@ -1,0 +1,34 @@
+<!-- Application Shell -->
+<mat-sidenav-container id="mifosx-shell-container" autosize>
+  <!-- Sidenav -->
+  <mat-sidenav
+    #sidenav
+    class="sidebar-panel"
+    [ngClass]="{
+      'sidebar-full': !sidenavCollapsed,
+      'sidebar-compact': sidenavCollapsed
+    }"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mifosx-sidenav [sidenavCollapsed]="sidenavCollapsed"></mifosx-sidenav>
+  </mat-sidenav>
+
+  <!-- Content -->
+  <mat-sidenav-content class="sidenav">
+    <!-- Toolbar -->
+    <mifosx-toolbar [sidenav]="sidenav" (collapse)="toggleCollapse($event)"></mifosx-toolbar>
+    <!-- Progress Bar -->
+    <div *ngIf="progressBarMode !== 'none'">
+      <div class="loading"></div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <mifosx-breadcrumb></mifosx-breadcrumb>
+    <!-- Content -->
+    <mifosx-content></mifosx-content>
+    <!-- Footer -->
+    <mifosx-footer></mifosx-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,14 @@
+@use 'assets/styles/helper';
+
+.content {
+  width: 100%;
+  padding-bottom: 25px;
+
+  div {
+    text-align: left;
+  }
+
+  .attribute {
+    font-weight: 500;
+  }
+}

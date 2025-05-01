@@ -1,0 +1,33 @@
+@use 'assets/styles/helper';
+@use 'assets/styles/colours' as *;
+
+.container {
+  max-width: 37rem;
+
+  .content {
+    div {
+      margin: 1rem 0;
+      word-wrap: break-word;
+    }
+
+    mifosx-transaction-payment-detail {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.active {
+  background-color: $status-active;
+  height: 4px;
+}
+
+.linked {
+  background-color: $status-approved;
+  height: 4px;
+}
+
+.undo {
+  background-color: $status-active-overdue;
+  height: 4px;
+}

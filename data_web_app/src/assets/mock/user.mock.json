@@ -1,0 +1,14 @@
+{
+  "id": 1600,
+  "username": "username",
+  "status": "status",
+  "firstName": "firstname",
+  "lastName": "lastname",
+  "gender": "Male",
+  "dateOfBirth": "01/01/1999",
+  "email": "test.user@example.com",
+  "mobile": "1234567890",
+  "office": "Head Office",
+  "staff": "Smith",
+  "activationDate": "12/03/2018"
+}

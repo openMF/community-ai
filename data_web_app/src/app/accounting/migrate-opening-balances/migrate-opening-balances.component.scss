@@ -1,0 +1,11 @@
+.content {
+  padding-top: 20px;
+
+  div {
+    word-wrap: break-word;
+
+    &.header {
+      font-weight: 500;
+    }
+  }
+}
