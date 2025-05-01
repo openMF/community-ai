@@ -9,3 +9,7 @@ gradio
 openai
 uvicorn
 pydantic
+google-generativeai==0.4.1
+langchain-google-genai
+protobuf>=6.30.0,<7.0dev
+
