@@ -16,10 +16,10 @@ export function MessageInput({
   currentModeName,
 }: MessageInputProps) {
   return (
-    <div className="p-4 bg-white border-t dark:bg-gray-800 dark:border-gray-700">
-      <div className="max-w-4xl mx-auto">
+    <div className="bg-white dark:bg-gray-800 p-4 dark:border-gray-700 border-t">
+      <div className="mx-auto max-w-4xl">
         <form onSubmit={handleSubmit} className="flex gap-2">
-          <div className="flex-1 relative">
+          <div className="relative flex-1">
             <Input
               value={input}
               onChange={handleInputChange}
@@ -31,7 +31,7 @@ export function MessageInput({
 
           {status === "streaming" ? (
             <Button type="button" variant="outline" size="icon" onClick={() => stop()}>
-              <StopCircle className="h-4 w-4" />
+              <StopCircle className="w-4 h-4" />
             </Button>
           ) : (
             <Button
@@ -40,7 +40,7 @@ export function MessageInput({
               disabled={!input.trim() || status !== "ready"}
               className="bg-blue-600 hover:bg-blue-700"
             >
-              <Send className="h-4 w-4" />
+              <Send className="w-4 h-4" />
             </Button>
           )}
         </form>

@@ -1,10 +1,15 @@
 "use client"
 
-import type React from "react"
-
-import { signIn, getSession } from "next-auth/react"
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { auth } from "@/app/firebase/config"
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+} from "firebase/auth"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -23,7 +28,15 @@ export default function SignInPage() {
   const [error, setError] = useState("")
   const router = useRouter()
 
-  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push("/")
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,19 +44,10 @@ export default function SignInPage() {
     setError("")
 
     try {
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      })
-
-      if (result?.error) {
-        setError("Invalid email or password")
-      } else {
-        router.push("/")
-      }
-    } catch (error) {
-      setError("An error occurred. Please try again.")
+      await signInWithEmailAndPassword(auth, email, password)
+      router.push("/")
+    } catch (error: any) {
+      setError(error.message || "An error occurred. Please try again.")
     } finally {
       setIsLoading(false)
     }
@@ -52,27 +56,28 @@ export default function SignInPage() {
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true)
     setError("")
+    const provider = new GoogleAuthProvider()
 
     try {
-      await signIn("google", {
-        callbackUrl: "/",
-      })
+      await signInWithPopup(auth, provider)
+      router.push("/")
     } catch (error) {
-      setError("Failed to sign in with Google")
+      setError("Failed to sign in with Google.")
+    } finally {
       setIsGoogleLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="flex justify-center items-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 min-h-screen">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1 text-center">
-          <div className="flex items-center justify-center mb-4">
-            <div className="bg-blue-600 text-white p-3 rounded-full">
-              <span className="text-2xl font-bold">MC</span>
+          <div className="flex justify-center items-center mb-4">
+            <div className="bg-blue-600 p-3 rounded-full text-white">
+              <span className="font-bold text-2xl">MC</span>
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
+          <CardTitle className="font-bold text-2xl">Welcome back</CardTitle>
           <CardDescription>Sign in to your Mifos Assistant account</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -82,17 +87,16 @@ export default function SignInPage() {
             </Alert>
           )}
 
-          {/* Google Sign In */}
           <Button
             variant="outline"
-            className="w-full bg-transparent"
+            className="bg-transparent w-full"
             onClick={handleGoogleSignIn}
             disabled={isGoogleLoading}
           >
             {isGoogleLoading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 w-4 h-4 animate-spin" />
             ) : (
-              <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+              <svg className="mr-2 w-4 h-4" viewBox="0 0 24 24">
                 <path
                   fill="currentColor"
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -123,12 +127,11 @@ export default function SignInPage() {
             </div>
           </div>
 
-          {/* Email Sign In Form */}
           <form onSubmit={handleEmailSignIn} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Mail className="top-3 left-3 absolute w-4 h-4 text-muted-foreground" />
                 <Input
                   id="email"
                   type="email"
@@ -144,27 +147,27 @@ export default function SignInPage() {
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Lock className="top-3 left-3 absolute w-4 h-4 text-muted-foreground" />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10 pr-10"
+                  className="pr-10 pl-10"
                   required
                 />
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  className="top-0 right-0 absolute hover:bg-transparent px-3 py-2 h-full"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-4 w-4 text-muted-foreground" />
+                    <EyeOff className="w-4 h-4 text-muted-foreground" />
                   ) : (
-                    <Eye className="h-4 w-4 text-muted-foreground" />
+                    <Eye className="w-4 h-4 text-muted-foreground" />
                   )}
                 </Button>
               </div>
@@ -173,7 +176,7 @@ export default function SignInPage() {
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Loader2 className="mr-2 w-4 h-4 animate-spin" />
                   Signing in...
                 </>
               ) : (
@@ -182,14 +185,14 @@ export default function SignInPage() {
             </Button>
           </form>
 
-          <div className="text-center text-sm">
+          <div className="text-sm text-center">
             <span className="text-muted-foreground">Don't have an account? </span>
-            <Link href="/auth/signup" className="text-blue-600 hover:underline font-medium">
+            <Link href="/auth/signup" className="font-medium text-blue-600 hover:underline">
               Sign up
             </Link>
           </div>
 
-          <div className="text-center text-sm">
+          <div className="text-sm text-center">
             <Link href="/auth/forgot-password" className="text-blue-600 hover:underline">
               Forgot your password?
             </Link>

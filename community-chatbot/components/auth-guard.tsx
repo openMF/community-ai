@@ -1,41 +1,45 @@
 "use client"
 
-import type React from "react"
-
-import { useSession } from "next-auth/react"
+import React, { useEffect, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
-import { useEffect } from "react"
 import { Loader2 } from "lucide-react"
-
+import { onAuthStateChanged } from "firebase/auth"
+import { auth } from "@/app/firebase/config"
 const PUBLIC_ROUTES = ["/auth/signin", "/auth/signup"]
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
-  const { data: session, status } = useSession()
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<any>(null)
+
   const router = useRouter()
   const pathname = usePathname()
-
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname)
 
   useEffect(() => {
-    if (status === "loading") return // Still loading
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+      setLoading(false)
 
-    if (!session && !isPublicRoute) {
-      router.push("/auth/signin")
-    }
-  }, [session, status, router, isPublicRoute])
+      if (!currentUser && !isPublicRoute) {
+        router.push("/auth/signin")
+      }
+    })
 
-  if (status === "loading") {
+    return () => unsubscribe()
+  }, [router, isPublicRoute])
+
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex justify-center items-center min-h-screen">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
+          <Loader2 className="mx-auto mb-4 w-8 h-8 animate-spin" />
           <p className="text-muted-foreground">Loading...</p>
         </div>
       </div>
     )
   }
 
-  if (!session && !isPublicRoute) {
+  if (!user && !isPublicRoute) {
     return null
   }
 

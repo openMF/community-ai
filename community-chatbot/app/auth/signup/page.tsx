@@ -1,10 +1,15 @@
 "use client"
 
-import type React from "react"
-
-import { signIn, getSession } from "next-auth/react"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+} from "firebase/auth"
+import { auth } from "@/app/firebase/config"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -32,14 +37,12 @@ export default function SignUpPage() {
   const router = useRouter()
 
   useEffect(() => {
-    // Check if user is already signed in
-    const checkSession = async () => {
-      const session = await getSession()
-      if (session) {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
         router.push("/")
       }
-    }
-    checkSession()
+    })
+    return () => unsubscribe()
   }, [router])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,41 +86,14 @@ export default function SignUpPage() {
     setIsLoading(true)
 
     try {
-      // Create account via API
-      const response = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        }),
+      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
+      await updateProfile(userCredential.user, {
+        displayName: formData.name,
       })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to create account")
-      }
-
-      setSuccess("Account created successfully! Signing you in...")
-
-      // Automatically sign in after successful registration
-      const result = await signIn("credentials", {
-        email: formData.email,
-        password: formData.password,
-        redirect: false,
-      })
-
-      if (result?.error) {
-        setError("Account created but failed to sign in. Please try signing in manually.")
-      } else {
-        router.push("/")
-      }
+      setSuccess("Account created successfully! Redirecting...")
+      router.push("/")
     } catch (error) {
-      setError(error instanceof Error ? error.message : "An error occurred")
+      setError((error as Error).message)
     } finally {
       setIsLoading(false)
     }
@@ -126,27 +102,27 @@ export default function SignUpPage() {
   const handleGoogleSignUp = async () => {
     setIsGoogleLoading(true)
     setError("")
-
     try {
-      await signIn("google", {
-        callbackUrl: "/",
-      })
+      const provider = new GoogleAuthProvider()
+      await signInWithPopup(auth, provider)
+      router.push("/")
     } catch (error) {
-      setError("Failed to sign up with Google")
+      setError("Failed to sign in with Google")
+    } finally {
       setIsGoogleLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="flex justify-center items-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 min-h-screen">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1 text-center">
-          <div className="flex items-center justify-center mb-4">
-            <div className="bg-blue-600 text-white p-3 rounded-full">
-              <span className="text-2xl font-bold">MC</span>
+          <div className="flex justify-center items-center mb-4">
+            <div className="bg-blue-600 p-3 rounded-full text-white">
+              <span className="font-bold text-2xl">MC</span>
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold">Create your account</CardTitle>
+          <CardTitle className="font-bold text-2xl">Create your account</CardTitle>
           <CardDescription>Get started with Mifos Assistant</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -162,17 +138,16 @@ export default function SignUpPage() {
             </Alert>
           )}
 
-          {/* Google Sign Up */}
           <Button
             variant="outline"
-            className="w-full bg-transparent"
+            className="bg-transparent w-full"
             onClick={handleGoogleSignUp}
             disabled={isGoogleLoading}
           >
             {isGoogleLoading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 w-4 h-4 animate-spin" />
             ) : (
-              <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+              <svg className="mr-2 w-4 h-4" viewBox="0 0 24 24">
                 <path
                   fill="currentColor"
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -199,12 +174,11 @@ export default function SignUpPage() {
             </div>
           </div>
 
-          {/* Email Sign Up Form */}
           <form onSubmit={handleEmailSignUp} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="name">Full Name</Label>
               <div className="relative">
-                <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <User className="top-3 left-3 absolute w-4 h-4 text-muted-foreground" />
                 <Input
                   id="name"
                   name="name"
@@ -221,7 +195,7 @@ export default function SignUpPage() {
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Mail className="top-3 left-3 absolute w-4 h-4 text-muted-foreground" />
                 <Input
                   id="email"
                   name="email"
@@ -238,7 +212,7 @@ export default function SignUpPage() {
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Lock className="top-3 left-3 absolute w-4 h-4 text-muted-foreground" />
                 <Input
                   id="password"
                   name="password"
@@ -246,30 +220,26 @@ export default function SignUpPage() {
                   placeholder="Create a password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="pl-10 pr-10"
+                  className="pr-10 pl-10"
                   required
                 />
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  className="top-0 right-0 absolute hover:bg-transparent px-3 py-2 h-full"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4 text-muted-foreground" />
-                  ) : (
-                    <Eye className="h-4 w-4 text-muted-foreground" />
-                  )}
+                  {showPassword ? <EyeOff className="w-4 h-4 text-muted-foreground" /> : <Eye className="w-4 h-4 text-muted-foreground" />}
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground">Must be at least 8 characters long</p>
+              <p className="text-muted-foreground text-xs">Must be at least 8 characters long</p>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="confirmPassword">Confirm Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Lock className="top-3 left-3 absolute w-4 h-4 text-muted-foreground" />
                 <Input
                   id="confirmPassword"
                   name="confirmPassword"
@@ -277,21 +247,17 @@ export default function SignUpPage() {
                   placeholder="Confirm your password"
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  className="pl-10 pr-10"
+                  className="pr-10 pl-10"
                   required
                 />
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  className="top-0 right-0 absolute hover:bg-transparent px-3 py-2 h-full"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
-                  {showConfirmPassword ? (
-                    <EyeOff className="h-4 w-4 text-muted-foreground" />
-                  ) : (
-                    <Eye className="h-4 w-4 text-muted-foreground" />
-                  )}
+                  {showConfirmPassword ? <EyeOff className="w-4 h-4 text-muted-foreground" /> : <Eye className="w-4 h-4 text-muted-foreground" />}
                 </Button>
               </div>
             </div>
@@ -300,7 +266,7 @@ export default function SignUpPage() {
               <Checkbox
                 id="terms"
                 checked={acceptTerms}
-                onCheckedChange={(checked) => setAcceptTerms(checked as boolean)}
+                onCheckedChange={(checked) => setAcceptTerms(!!checked)}
               />
               <Label htmlFor="terms" className="text-sm">
                 I agree to the{" "}
@@ -317,7 +283,7 @@ export default function SignUpPage() {
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Loader2 className="mr-2 w-4 h-4 animate-spin" />
                   Creating account...
                 </>
               ) : (
@@ -326,9 +292,9 @@ export default function SignUpPage() {
             </Button>
           </form>
 
-          <div className="text-center text-sm">
+          <div className="text-sm text-center">
             <span className="text-muted-foreground">Already have an account? </span>
-            <Link href="/auth/signin" className="text-blue-600 hover:underline font-medium">
+            <Link href="/auth/signin" className="font-medium text-blue-600 hover:underline">
               Sign in
             </Link>
           </div>

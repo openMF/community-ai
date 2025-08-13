@@ -1,14 +1,23 @@
-"use client"
-import type React from "react"
-import { useChat } from "@ai-sdk/react"
-import { useEffect, useRef, useState } from "react"
-import { Sidebar } from "@/components/chatbot/Sidebar"
-import { ChatHeader } from "@/components/chatbot/ChatHeader"
-import { ModeSelector } from "@/components/chatbot/ModeSelector"
-import { ChatPanel } from "@/components/chatbot/ChatPanel"
-import { MessageInput } from "@/components/chatbot/MessageInput"
-import type { ChatHistoryItem, IntegrationMode } from "@/components/chatbot/types"
-// Integration modes configuration
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
+import { Sidebar } from "@/components/chatbot/Sidebar";
+import { ChatHeader } from "@/components/chatbot/ChatHeader";
+import { ModeSelector } from "@/components/chatbot/ModeSelector";
+import { ChatPanel } from "@/components/chatbot/ChatPanel";
+import { MessageInput } from "@/components/chatbot/MessageInput";
+import type { ChatHistoryItem, IntegrationMode, MessageItem } from "@/components/chatbot/types";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc as firestoreDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { db } from "@/app/firebase/config";
+
+// Integration Modes (config)
 const integrationModes: IntegrationMode[] = [
   {
     id: "general",
@@ -29,7 +38,6 @@ const integrationModes: IntegrationMode[] = [
     description: "Get channel info, user details, or search messages",
     systemPrompt:
       "You are a Slack integration assistant. Help users with Slack channel management, user queries, message searches, and workspace administration.",
-    useCustomBackend: true,
   },
   {
     id: "jira",
@@ -51,632 +59,655 @@ const integrationModes: IntegrationMode[] = [
     systemPrompt:
       "You are a GitHub integration assistant. Help users with pull request reviews, issue tracking, repository management, and code collaboration.",
   },
-]
-
+];
 
 const quickActions = [
- "How to create new client?",
- "API documentation",
- "Troubleshoot reporting",
- "Mobile banking setup",
-]
+  "How to create new client?",
+  "API documentation",
+  "Troubleshoot reporting",
+  "Mobile banking setup",
+];
 
-
+// Component
 export default function ChatbotPage() {
- const [selectedMode, setSelectedMode] = useState("general")
- const [sidebarOpen, setSidebarOpen] = useState(false)
-  /**
-  * Chat History Management:
-  * - Each assistant mode has its own separate chat history
-  * - Conversations are identified by mode-specific IDs (e.g., "general-1", "slack-1")
-  * - This prevents chat history mixing between different assistants
-  */
- // Initialize chat history with separate conversations for each mode
- const [chatHistory, setChatHistory] = useState<ChatHistoryItem[]>([
-  {
-    id: "general-1",
-    title: "General Questions",
-    date: "Today",
-    icon: "/mifos.png",
-    messages: [],
-    mode: "general",
-    active: true,
-  },
-  {
-    id: "slack-1",
-    title: "Slack Assistant",
-    date: "Today",
-    icon: "/slack.png",
-    messages: [],
-    mode: "slack",
-    active: false,
-  },
-  {
-    id: "jira-1",
-    title: "Jira Assistant",
-    date: "Today",
-    icon: "/jira.svg",
-    messages: [],
-    mode: "jira",
-    active: false,
-  },
-  {
-    id: "github-1",
-    title: "GitHub Assistant",
-    date: "Today",
-    icon: "/github.png",
-    messages: [],
-    mode: "github",
-    active: false,
-  },
-])
-  // Track active conversation per mode
- const [activeConversationIds, setActiveConversationIds] = useState<Record<string, string>>({
-   general: "general-1",
-   slack: "slack-1",
-   jira: "jira-1",
-   github: "github-1",
- })
-  const [isCreatingNewChat, setIsCreatingNewChat] = useState(false)
-  // Get current active conversation ID for the selected mode
- const activeConversationId = activeConversationIds[selectedMode]
-  /**
-  * Per-Assistant State Management:
-  * Each assistant (General, Slack, Jira, GitHub) has its own independent state for:
-  * - messages: Chat history specific to that assistant
-  * - input: Current input text for that assistant
-  * - status: Current status (ready, submitted, streaming, error)
-  * - error: Error state specific to that assistant
-  *
-  * This prevents chat history mixing and message loss when switching between assistants.
-  */
-  // General Assistant state
- const [generalMessages, setGeneralMessages] = useState<any[]>([])
- const [generalInput, setGeneralInput] = useState("")
- const [generalStatus, setGeneralStatus] = useState<"ready" | "submitted" | "streaming" | "error">("ready")
- const [generalError, setGeneralError] = useState<Error | undefined>(undefined)
+  // UI / mode
+  const [selectedMode, setSelectedMode] = useState<string>("general");
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
+  // Chat history + conversations
+  const [chatHistory, setChatHistory] = useState<ChatHistoryItem[]>([]);
 
- // Slack Assistant state
- const [slackMessages, setSlackMessages] = useState<any[]>([])
- const [slackInput, setSlackInput] = useState("")
- const [slackStatus, setSlackStatus] = useState<"ready" | "submitted" | "streaming" | "error">("ready")
- const [slackError, setSlackError] = useState<Error | undefined>(undefined)
+  // active conversation id per mode
+  const [activeConversationIds, setActiveConversationIds] = useState<Record<string, string>>({});
+  const [isCreatingNewChat, setIsCreatingNewChat] = useState<boolean>(false);
 
+  // derived active conversation id for selected mode
+  const activeConversationId = activeConversationIds[selectedMode];
 
- // Jira Assistant state
- const [jiraMessages, setJiraMessages] = useState<any[]>([])
- const [jiraInput, setJiraInput] = useState("")
- const [jiraStatus, setJiraStatus] = useState<"ready" | "submitted" | "streaming" | "error">("ready")
- const [jiraError, setJiraError] = useState<Error | undefined>(undefined)
+  // General
+  const [generalMessages, setGeneralMessages] = useState<MessageItem[]>([]);
+  const [generalInput, setGeneralInput] = useState<string>("");
+  const [generalStatus, setGeneralStatus] = useState<
+    "ready" | "submitted" | "streaming" | "error"
+  >("ready");
+  const [generalError, setGeneralError] = useState<Error | undefined>(undefined);
 
+  // Slack
+  const [slackMessages, setSlackMessages] = useState<MessageItem[]>([]);
+  const [slackInput, setSlackInput] = useState<string>("");
+  const [slackStatus, setSlackStatus] = useState<
+    "ready" | "submitted" | "streaming" | "error"
+  >("ready");
+  const [slackError, setSlackError] = useState<Error | undefined>(undefined);
 
- // GitHub Assistant state
- const [githubMessages, setGithubMessages] = useState<any[]>([])
- const [githubInput, setGithubInput] = useState("")
- const [githubStatus, setGithubStatus] = useState<"ready" | "submitted" | "streaming" | "error">("ready")
- const [githubError, setGithubError] = useState<Error | undefined>(undefined)
+  // Jira
+  const [jiraMessages, setJiraMessages] = useState<MessageItem[]>([]);
+  const [jiraInput, setJiraInput] = useState<string>("");
+  const [jiraStatus, setJiraStatus] = useState<
+    "ready" | "submitted" | "streaming" | "error"
+  >("ready");
+  const [jiraError, setJiraError] = useState<Error | undefined>(undefined);
 
+  // GitHub
+  const [githubMessages, setGithubMessages] = useState<MessageItem[]>([]);
+  const [githubInput, setGithubInput] = useState<string>("");
+  const [githubStatus, setGithubStatus] = useState<
+    "ready" | "submitted" | "streaming" | "error"
+  >("ready");
+  const [githubError, setGithubError] = useState<Error | undefined>(undefined);
 
- // Get current mode before useChat
- const currentModeConfig = integrationModes.find((mode) => mode.id === selectedMode)
+  // Helpers / Refs
+  const scrollAreaRef = useRef<HTMLDivElement | null>(null);
+  const currentModeConfig = integrationModes.find((m) => m.id === selectedMode);
 
+  // Load chats from Firestore (or create defaults)
+  useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        const chatsCol = collection(db, "chats");
+        const chatsSnapshot = await getDocs(chatsCol);
 
- // General Assistant useChat hook
- const generalChatHook = useChat({
-   api: "/api/chat",
-   body: {
-     mode: "general",
-     conversationId: activeConversationIds.general,
-   },
-   onFinish: (message) => {
-     const updatedMessages = [...generalMessages, message]
-     setGeneralMessages(updatedMessages)
-     saveChatToHistory(activeConversationIds.general, updatedMessages)
-   },
- })
+        const chatsData: ChatHistoryItem[] = chatsSnapshot.docs.map((d) => {
+          // Cast data shape to ChatHistoryItem fields except id (which comes from doc.id)
+          const data = d.data() as Omit<ChatHistoryItem, "id">;
+          return {
+            id: d.id,
+            title: data.title,
+            date: data.date,
+            icon: data.icon,
+            messages: (data.messages ?? []) as MessageItem[],
+            mode: data.mode,
+            active: data.active ?? false,
+          };
+        });
 
+        if (chatsData.length === 0) {
+          // Create default chats if none exist
+          const defaultChatsDefaults = integrationModes.map((mode) => ({
+            title: `New ${mode.name} Chat`,
+            date: new Date().toLocaleDateString(),
+            icon: mode.image,
+            messages: [] as MessageItem[],
+            mode: mode.id,
+            active: false,
+          }));
 
+          // Save them to Firestore and collect created docs with ids
+          const created: ChatHistoryItem[] = [];
+          for (const chatDef of defaultChatsDefaults) {
+            const ref = await addDoc(collection(db, "chats"), chatDef);
+            created.push({ ...chatDef, id: ref.id });
+          }
 
+          setChatHistory(created);
+          setActiveConversationIds(
+            created.reduce((acc, chat) => {
+              acc[chat.mode] = chat.id;
+              return acc;
+            }, {} as Record<string, string>)
+          );
+        } else {
+          setChatHistory(chatsData);
+          setActiveConversationIds(
+            chatsData.reduce((acc, chat) => {
+              if (!acc[chat.mode]) acc[chat.mode] = chat.id;
+              return acc;
+            }, {} as Record<string, string>)
+          );
+        }
+      } catch (err) {
+        console.error("Failed loading chats from Firestore:", err);
+      }
+    };
 
- // Jira Assistant useChat hook 
- const jiraChatHook = useChat({
-   api: "/api/chat",
-   body: {
-     mode: "jira",
-     conversationId: activeConversationIds.jira,
-   },
-   onFinish: () => {
-     console.log("Jira onFinish - messages:", jiraChatHook.messages)
-     saveChatToHistory(activeConversationIds.jira, jiraChatHook.messages)
-   },
- })
+    fetchChats();
+    // We intentionally run this only on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  const generateChatTitle = (firstMessage: string) => {
+    if (!firstMessage) return "New Chat";
+    const words = firstMessage.split(" ").slice(0, 6).join(" ");
+    return words.length > 40 ? words.substring(0, 40) + "..." : words;
+  };
 
- // GitHub Assistant useChat hook
- const githubChatHook = useChat({
-   api: "/api/chat",
-   body: {
-     mode: "github",
-     conversationId: activeConversationIds.github,
-   },
-   onFinish: () => {
-     console.log("GitHub onFinish - messages:", githubChatHook.messages)
-     saveChatToHistory(activeConversationIds.github, githubChatHook.messages)
-   },
- })
+  // Update local state and Firestore (if conversation exists in DB)
+  const updateLocalChatHistory = async (
+    conversationId: string,
+    updatedMessages: MessageItem[]
+  ) => {
+    setChatHistory((prev) =>
+      prev.map((chat) =>
+        chat.id === conversationId
+          ? {
+            ...chat,
+            messages: updatedMessages,
+            title:
+              updatedMessages.length > 0
+                ? generateChatTitle(updatedMessages[0].content)
+                : chat.title,
+          }
+          : chat
+      )
+    );
 
+    if (!conversationId) return;
 
- // Effect for syncing conversation history with per-assistant state
- useEffect(() => {
-   const currentChat = chatHistory.find(chat => chat.id === activeConversationId);
-   if (currentChat) {
-     switch (selectedMode) {
-       case "general":
-         setGeneralMessages(currentChat.messages || []);
-         break;
-       case "slack":
-         setSlackMessages(currentChat.messages || []);
-         break;
-     }
-   }
- }, [selectedMode, activeConversationId, chatHistory])
+    try {
+      const chatRef = firestoreDoc(db, "chats", conversationId);
+      await updateDoc(chatRef, {
+        messages: updatedMessages,
+        title:
+          updatedMessages.length > 0
+            ? generateChatTitle(updatedMessages[0].content)
+            : "New Chat",
+      });
+    } catch (err) {
+      // Firestore update might fail if doc doesn't exist yet — that's acceptable
+      // We log it for debugging and continue with local state.
+      console.warn("Failed to update chat in Firestore (it may not exist yet):", err);
+    }
+  };
 
+  // create new conversation and return new id
+  const createNewConversation = async (): Promise<string> => {
+    setIsCreatingNewChat(true);
+    const currentMode = integrationModes.find((m) => m.id === selectedMode);
 
- // Handler for General Assistant submission
-const handleGeneralSubmit = async (event?: { preventDefault?: () => void }) => {
- if (event?.preventDefault) event.preventDefault()
+    const newChatData: Omit<ChatHistoryItem, "id"> = {
+      title: `New ${currentMode?.name || "Chat"}`,
+      date: new Date().toLocaleDateString(),
+      icon: currentMode?.image || "/mifos.png",
+      messages: [],
+      mode: selectedMode as any,
+      active: true,
+    };
 
+    try {
+      const docRef = await addDoc(collection(db, "chats"), newChatData);
+      const newId = docRef.id;
 
- if (!generalInput.trim()) return
+      setChatHistory((prev) => [
+        { ...newChatData, id: newId },
+        ...prev.map((chat) => (chat.mode === selectedMode ? { ...chat, active: false } : chat)),
+      ]);
 
+      setActiveConversationIds((prev) => ({
+        ...prev,
+        [selectedMode]: newId,
+      }));
 
- // Add user message to UI
- const userMessage = {
-   id: crypto.randomUUID(),
-   role: "user",
-   content: generalInput,
- }
+      return newId;
+    } catch (err) {
+      console.error("Failed to create new conversation in Firestore:", err);
+      // fallback: produce a local id so UI continues working
+      const fallbackId = crypto.randomUUID();
+      setChatHistory((prev) => [
+        { ...newChatData, id: fallbackId },
+        ...prev.map((chat) => (chat.mode === selectedMode ? { ...chat, active: false } : chat)),
+      ]);
+      setActiveConversationIds((prev) => ({
+        ...prev,
+        [selectedMode]: fallbackId,
+      }));
+      return fallbackId;
+    } finally {
+      setIsCreatingNewChat(false);
+      setSidebarOpen(false);
+    }
+  };
 
+  const sendMessage = async (
+    mode: string,
+    message: string,
+    setInput: React.Dispatch<React.SetStateAction<string>>,
+    setMessages: React.Dispatch<React.SetStateAction<MessageItem[]>>,
+    setStatus: React.Dispatch<React.SetStateAction<"ready" | "submitted" | "streaming" | "error">>,
+    setError: React.Dispatch<React.SetStateAction<Error | undefined>>,
+    conversationId?: string
+  ) => {
+    if (!message.trim()) return;
 
- setGeneralMessages((prev) => [...prev, userMessage])
-   setGeneralInput("")
-   setGeneralStatus("submitted")
+    // ensure conversation exists
+    let convId = conversationId ?? activeConversationIds[mode];
+    if (!convId) {
+      convId = await createNewConversation();
+    }
 
+    const userMessage: MessageItem = {
+      id: crypto.randomUUID(),
+      role: "user",
+      content: message,
+      timestamp: Date.now(),
+    };
 
-   try {
-     const response = await fetch("http://localhost:8000/chat", {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify({
-         message: userMessage.content,
-         conversation_id: activeConversationId,
-       }),
-     })
+    // add user message locally and (attempt to) persist
+    setMessages((prev) => {
+      const updatedMessages = [...prev, userMessage];
+      void updateLocalChatHistory(convId as string, updatedMessages);
+      return updatedMessages;
+    });
+    setInput("");
+    setStatus("submitted");
 
+    try {
+      // send to backend
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messages: [userMessage],
+          mode,
+          conversationId: convId,
+          userId: "local-user",
+        }),
+      });
 
-     if (!response.ok) {
-       throw new Error(`HTTP error! status: ${response.status}`)
-     }
+      // stream response decoding (if your API streams)
+      if (!response.body) {
+        throw new Error("No response body");
+      }
 
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let assistantResponse = "";
+      const assistantMessageId = crypto.randomUUID();
 
-     const data = await response.json()
+      // insert placeholder assistant message
+      setMessages((prev) => {
+        const updatedMessages = [
+          ...prev,
+          { id: assistantMessageId, role: "assistant", content: "", timestamp: Date.now() },
+        ];
+        void updateLocalChatHistory(convId as string, updatedMessages);
+        return updatedMessages;
+      });
 
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        assistantResponse += decoder.decode(value, { stream: true });
+        setMessages((prev) => {
+          const updatedMessages = prev.map((msg) =>
+            msg.id === assistantMessageId ? { ...msg, content: assistantResponse } : msg
+          );
+          void updateLocalChatHistory(convId as string, updatedMessages);
+          return updatedMessages;
+        });
+      }
 
-     const assistantMessage = {
-       id: crypto.randomUUID(),
-       role: "assistant",
-       content: data.response,
-     }
+      setStatus("ready");
+    } catch (err) {
+      console.error(`Error sending ${mode} message:`, err);
+      setError(err instanceof Error ? err : new Error(String(err)));
+      setStatus("error");
+    }
+  };
 
+  const handleGeneralSubmit = async (event?: { preventDefault?: () => void }) => {
+    if (event?.preventDefault) event.preventDefault();
+    await sendMessage(
+      "general",
+      generalInput,
+      setGeneralInput,
+      setGeneralMessages,
+      setGeneralStatus,
+      setGeneralError,
+      activeConversationIds.general
+    );
+  };
 
-     setGeneralMessages((prev) => {
-       const updated = [...prev, assistantMessage]
-       saveChatToHistory(activeConversationId, updated)
-       return updated
-     })
-     setGeneralStatus("ready")
- } catch (error) {
-   console.error("Error sending General message:", error)
-   setGeneralError(error instanceof Error ? error : new Error(String(error)))
-   setGeneralStatus("error")
- }
+  const handleSlackSubmit = async (event?: { preventDefault?: () => void }) => {
+    if (event?.preventDefault) event.preventDefault();
+    await sendMessage(
+      "slack",
+      slackInput,
+      setSlackInput,
+      setSlackMessages,
+      setSlackStatus,
+      setSlackError,
+      activeConversationIds.slack
+    );
+  };
+
+  const handleJiraSubmit = async (event?: { preventDefault?: () => void }) => {
+    if (event?.preventDefault) event.preventDefault();
+    await sendMessage(
+      "jira",
+      jiraInput,
+      setJiraInput,
+      setJiraMessages,
+      setJiraStatus,
+      setJiraError,
+      activeConversationIds.jira
+    );
+  };
+
+  const handleGithubSubmit = async (event?: { preventDefault?: () => void }) => {
+    if (event?.preventDefault) event.preventDefault();
+    await sendMessage(
+      "github",
+      githubInput,
+      setGithubInput,
+      setGithubMessages,
+      setGithubStatus,
+      setGithubError,
+      activeConversationIds.github
+    );
+  };
+
+  // This useEffect updates the messages state when the active conversation changes
+  useEffect(() => {
+    const currentChat = chatHistory.find((c) => c.id === activeConversationId);
+    if (!currentChat) return;
+
+    switch (selectedMode) {
+      case "general":
+        setGeneralMessages(currentChat.messages || []);
+        break;
+      case "slack":
+        setSlackMessages(currentChat.messages || []);
+        break;
+      case "jira":
+        setJiraMessages(currentChat.messages || []);
+        break;
+      case "github":
+        setGithubMessages(currentChat.messages || []);
+        break;
+      default:
+        break;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedMode, activeConversationId, chatHistory]);
+
+  const switchConversation = (conversationId: string) => {
+    const conversation = chatHistory.find((c) => c.id === conversationId);
+    if (!conversation) return;
+
+    setActiveConversationIds((prev) => ({
+      ...prev,
+      [conversation.mode]: conversationId,
+    }));
+
+    switch (conversation.mode) {
+      case "general":
+        setGeneralMessages(conversation.messages || []);
+        break;
+      case "slack":
+        setSlackMessages(conversation.messages || []);
+        break;
+      case "jira":
+        setJiraMessages(conversation.messages || []);
+        break;
+      case "github":
+        setGithubMessages(conversation.messages || []);
+        break;
+    }
+
+    setSelectedMode(conversation.mode);
+    setChatHistory((prev) => prev.map((chat) => ({ ...chat, active: chat.id === conversationId })));
+    setSidebarOpen(false);
+  };
+
+  const deleteConversation = async (conversationId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    const conversationToDelete = chatHistory.find((c) => c.id === conversationId);
+    if (!conversationToDelete) return;
+
+    const conversationsForMode = chatHistory.filter((c) => c.mode === conversationToDelete.mode);
+    if (conversationsForMode.length <= 1) {
+      return; // don't delete last conversation for a mode
+    }
+
+    try {
+      await deleteDoc(firestoreDoc(db, "chats", conversationId));
+    } catch (err) {
+      console.warn("Failed to delete conversation from Firestore (maybe it's local-only):", err);
+    }
+
+    setChatHistory((prev) => prev.filter((c) => c.id !== conversationId));
+
+    if (activeConversationIds[conversationToDelete.mode] === conversationId) {
+      const remaining = chatHistory.filter((c) => c.id !== conversationId && c.mode === conversationToDelete.mode);
+      if (remaining.length > 0) {
+        const newActiveId = remaining[0].id;
+        setActiveConversationIds((prev) => ({ ...prev, [conversationToDelete.mode]: newActiveId }));
+        if (selectedMode === conversationToDelete.mode) {
+          switchConversation(newActiveId);
+        }
+      }
+    }
+  };
+
+  const handleModeChange = (modeId: string) => {
+    setSelectedMode(modeId);
+
+    const activeConvId = activeConversationIds[modeId];
+    const activeConversation = chatHistory.find((c) => c.id === activeConvId);
+
+    if (activeConversation) {
+      setChatHistory((prev) => prev.map((chat) => ({ ...chat, active: chat.id === activeConvId })));
+
+      switch (modeId) {
+        case "general":
+          setGeneralMessages(activeConversation.messages || []);
+          break;
+        case "slack":
+          setSlackMessages(activeConversation.messages || []);
+          break;
+        case "jira":
+          setJiraMessages(activeConversation.messages || []);
+          break;
+        case "github":
+          setGithubMessages(activeConversation.messages || []);
+          break;
+      }
+    }
+  };
+
+  const handleQuickAction = (action: string) => {
+    switch (selectedMode) {
+      case "general":
+        setGeneralInput(action);
+        break;
+      case "slack":
+        setSlackInput(action);
+        break;
+      case "jira":
+        setJiraInput(action);
+        break;
+      case "github":
+        setGithubInput(action);
+        break;
+    }
+
+    setTimeout(() => {
+      const form = document.querySelector("form");
+      if (form) {
+        form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+      }
+    }, 100);
+  };
+
+  const getCurrentAssistantState = () => {
+    switch (selectedMode) {
+      case "general":
+        return {
+          messages: generalMessages,
+          input: generalInput,
+          handleInputChange: (e: any) => setGeneralInput(e.target.value),
+          handleSubmit: handleGeneralSubmit,
+          status: generalStatus,
+          stop: () => { },
+          error: generalError,
+          reload: () => {
+            setGeneralError(undefined);
+            setGeneralStatus("ready");
+          },
+          setMessages: setGeneralMessages,
+        };
+      case "slack":
+        return {
+          messages: slackMessages,
+          input: slackInput,
+          handleInputChange: (e: any) => setSlackInput(e.target.value),
+          handleSubmit: handleSlackSubmit,
+          status: slackStatus,
+          stop: () => { },
+          error: slackError,
+          reload: () => {
+            setSlackError(undefined);
+            setSlackStatus("ready");
+          },
+          setMessages: setSlackMessages,
+        };
+      case "jira":
+        return {
+          messages: jiraMessages,
+          input: jiraInput,
+          handleInputChange: (e: any) => setJiraInput(e.target.value),
+          handleSubmit: handleJiraSubmit,
+          status: jiraStatus,
+          stop: () => { },
+          error: jiraError,
+          reload: () => {
+            setJiraError(undefined);
+            setJiraStatus("ready");
+          },
+          setMessages: setJiraMessages,
+        };
+      case "github":
+        return {
+          messages: githubMessages,
+          input: githubInput,
+          handleInputChange: (e: any) => setGithubInput(e.target.value),
+          handleSubmit: handleGithubSubmit,
+          status: githubStatus,
+          stop: () => { },
+          error: githubError,
+          reload: () => {
+            setGithubError(undefined);
+            setGithubStatus("ready");
+          },
+          setMessages: setGithubMessages,
+        };
+      default:
+        return {
+          messages: generalMessages,
+          input: generalInput,
+          handleInputChange: (e: any) => setGeneralInput(e.target.value),
+          handleSubmit: handleGeneralSubmit,
+          status: generalStatus,
+          stop: () => { },
+          error: generalError,
+          reload: () => {
+            setGeneralError(undefined);
+            setGeneralStatus("ready");
+          },
+          setMessages: setGeneralMessages,
+        };
+    }
+  };
+
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    status,
+    stop,
+    error,
+    reload,
+    setMessages,
+  } = getCurrentAssistantState();
+
+  const currentMode = integrationModes.find((m) => m.id === selectedMode);
+
+  useEffect(() => {
+    if (chatHistory.length > 0 && !activeConversationId) {
+      const defaultChat = chatHistory.find((chat) => chat.mode === selectedMode);
+      if (defaultChat) {
+        setActiveConversationIds((prev) => ({
+          ...prev,
+          [selectedMode]: defaultChat.id,
+        }));
+      }
+    }
+  }, [chatHistory, activeConversationId, selectedMode]);
+
+  return (
+    <div className="flex bg-gray-50 dark:bg-gray-900 h-screen">
+      <Sidebar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+        chatHistory={chatHistory.filter((c) => c.mode === selectedMode)}
+        isCreatingNewChat={isCreatingNewChat}
+        createNewConversation={createNewConversation}
+        switchConversation={switchConversation}
+        deleteConversation={deleteConversation}
+        integrationModes={integrationModes}
+        currentMode={selectedMode}
+      />
+
+      <div className="flex flex-col flex-1 min-h-0">
+        <ChatHeader
+          currentMode={currentMode}
+          isCreatingNewChat={isCreatingNewChat}
+          setSidebarOpen={setSidebarOpen}
+          createNewConversation={createNewConversation}
+        />
+
+        <ModeSelector
+          integrationModes={integrationModes}
+          selectedMode={selectedMode}
+          handleModeChange={handleModeChange}
+        />
+
+        <ChatPanel
+          key={`${selectedMode}-${activeConversationId}`}
+          messages={messages}
+          status={status}
+          error={error}
+          reload={reload}
+          scrollAreaRef={scrollAreaRef}
+          currentMode={currentMode}
+          quickActions={quickActions}
+          handleQuickAction={handleQuickAction}
+          integrationModes={integrationModes}
+        />
+
+        <MessageInput
+          input={input}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          status={status}
+          stop={stop}
+          currentModeName={currentMode?.name}
+        />
+      </div>
+    </div>
+  );
 }
-
-
-
-
- // Handler for Jira Assistant submission 
- const handleJiraSubmit = (event?: { preventDefault?: () => void }) => {
-   if (event?.preventDefault) event.preventDefault()
-   if (!jiraChatHook.input.trim()) return
-   jiraChatHook.handleSubmit(event)
- }
-
-
- // Handler for GitHub Assistant submission
- const handleGithubSubmit = (event?: { preventDefault?: () => void }) => {
-   if (event?.preventDefault) event.preventDefault()
-   if (!githubChatHook.input.trim()) return
-   githubChatHook.handleSubmit(event)
- }
- const handleSlackSubmit = async (event?: { preventDefault?: () => void } | undefined) => {
-   if (event?.preventDefault) event.preventDefault()
-  
-   if (!slackInput.trim()) return   
-   // Add user message to UI
-   const userMessage = {
-     id: crypto.randomUUID(),
-     role: "user",
-     content: slackInput,
-   }
-  
-   setSlackMessages((prev) => [...prev, userMessage])
-   setSlackInput("")
-   setSlackStatus("submitted")
-  
-   try {
-     // Call the backend
-     const response = await fetch("http://localhost:8000/chat", {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify({
-         message: userMessage.content,
-         conversation_id: activeConversationId,
-       }),
-     })
-    
-     if (!response.ok) {
-       throw new Error(`HTTP error! status: ${response.status}`)
-     }
-    
-     const data = await response.json()
-    
-     // Add assistant response to UI
-     const assistantMessage = {
-       id: crypto.randomUUID(),
-       role: "assistant",
-       content: data.response,
-     }
-    
-     setSlackMessages((prev) => {
-       const updated = [...prev, assistantMessage]
-       saveChatToHistory(activeConversationId, updated)
-       return updated
-     })
-     setSlackStatus("ready")
-   } catch (error) {
-     console.error("Error sending Slack message:", error)
-     setSlackError(error instanceof Error ? error : new Error(String(error)))
-     setSlackStatus("error")
-   }
- }
-
-
- // Get current assistant state based on selected mode
- const getCurrentAssistantState = () => {
-   switch (selectedMode) {
-     case "general":
-return {
- messages: generalMessages,
- input: generalInput,
- handleInputChange: (e: any) => setGeneralInput(e.target.value),
- handleSubmit: handleGeneralSubmit,
- status: generalStatus,
- stop: () => {},
- error: generalError,
- reload: () => {
-   setGeneralError(undefined);
-   setGeneralStatus("ready");
- },
- setMessages: setGeneralMessages,
-}
-     case "slack":
-       return {
-         messages: slackMessages,
-         input: slackInput,
-         handleInputChange: (e: any) => setSlackInput(e.target.value),
-         handleSubmit: handleSlackSubmit,
-         status: slackStatus,
-         stop: () => {}, // No streaming for Slack
-         error: slackError,
-         reload: () => { setSlackError(undefined); setSlackStatus("ready"); },
-         setMessages: setSlackMessages,
-       }
-     case "jira":
-       return {
-         messages: jiraChatHook.messages,
-         input: jiraChatHook.input,
-         handleInputChange: jiraChatHook.handleInputChange,
-         handleSubmit: handleJiraSubmit,
-         status: jiraChatHook.status,
-         stop: jiraChatHook.stop,
-         error: jiraChatHook.error,
-         reload: jiraChatHook.reload,
-         setMessages: jiraChatHook.setMessages,
-       }
-     case "github":
-       return {
-         messages: githubChatHook.messages,
-         input: githubChatHook.input,
-         handleInputChange: githubChatHook.handleInputChange,
-         handleSubmit: handleGithubSubmit,
-         status: githubChatHook.status,
-         stop: githubChatHook.stop,
-         error: githubChatHook.error,
-         reload: githubChatHook.reload,
-         setMessages: githubChatHook.setMessages,
-       }
-     default:
-return {
- messages: generalMessages,
- input: generalInput,
- handleInputChange: (e: any) => setGeneralInput(e.target.value),
- handleSubmit: handleGeneralSubmit,
- status: generalStatus,
- stop: () => {},
- error: generalError,
- reload: () => {
-   setGeneralError(undefined);
-   setGeneralStatus("ready");
- },
- setMessages: setGeneralMessages,
-}
-   }
- }
-
-
- // Get current assistant state
- const { messages, input, handleInputChange, handleSubmit, status, stop, error, reload, setMessages } = getCurrentAssistantState()
-
-
- const scrollAreaRef = useRef<HTMLDivElement>(null)
-
-
- const saveChatToHistory = (conversationId: string, updatedMessages: any[]) => {
-   setChatHistory((prev) =>
-     prev.map((chat) =>
-       chat.id === conversationId
-         ? {
-             ...chat,
-             messages: updatedMessages,
-             title: updatedMessages.length > 0 ? generateChatTitle(updatedMessages[0].content) : chat.title,
-           }
-         : chat,
-     ),
-   )
- }
-
-
- const generateChatTitle = (firstMessage: string) => {
-   const words = firstMessage.split(" ").slice(0, 4).join(" ")
-   return words.length > 30 ? words.substring(0, 30) + "..." : words
- }
-
-
- const createNewConversation = async () => {
-   setIsCreatingNewChat(true)
-   const newId = Date.now().toString()
-   const currentMode = integrationModes.find((mode) => mode.id === selectedMode)
-
-
-   const newChat: ChatHistoryItem = {
-     id: newId,
-     title: `New ${currentMode?.name || "Chat"}`,
-     date: "Now",
-     icon: currentMode?.image || "/mifos.png",
-     messages: [],
-     mode: selectedMode,
-   }
-
-
-   setChatHistory((prev) => [newChat, ...prev.map((chat) => ({ ...chat, active: false }))])
-
-
-   // Update the active conversation ID for the current mode
-   setActiveConversationIds(prev => ({
-     ...prev,
-     [selectedMode]: newId
-   }))
-
-
-   // Clear the current assistant's messages
-   switch (selectedMode) {
-     case "general":
-       setGeneralMessages([])
-       break;
-     case "slack":
-       setSlackMessages([])
-       break;
-     case "jira":
-       jiraChatHook.setMessages([])
-       break;
-     case "github":
-       githubChatHook.setMessages([])
-       break;
-   }
-
-
-   setIsCreatingNewChat(false)
-   setSidebarOpen(false)
- }
-
-
- const switchConversation = (conversationId: string) => {
-   const conversation = chatHistory.find((chat) => chat.id === conversationId)
-   if (conversation) {
-     // Update active conversation for the conversation's mode
-     setActiveConversationIds(prev => ({
-       ...prev,
-       [conversation.mode]: conversationId
-     }))
-    
-     // Update the corresponding assistant's messages
-     switch (conversation.mode) {
-       case "general":
-         setGeneralMessages(conversation.messages)
-         break;
-       case "slack":
-         setSlackMessages(conversation.messages)
-         break;
-     }
-    
-     setSelectedMode(conversation.mode)
-     setChatHistory((prev) =>
-       prev.map((chat) => ({
-         ...chat,
-         active: chat.id === conversationId,
-       })),
-     )
-     setSidebarOpen(false)
-   }
- }
-
-
- const deleteConversation = (conversationId: string, e: React.MouseEvent) => {
-   e.stopPropagation()
-  
-   const conversationToDelete = chatHistory.find(chat => chat.id === conversationId)
-   if (!conversationToDelete) return
-  
-   // Don't allow deletion of the last conversation for a mode
-   const conversationsForMode = chatHistory.filter(chat => chat.mode === conversationToDelete.mode)
-   if (conversationsForMode.length <= 1) return
-
-
-   setChatHistory((prev) => prev.filter((chat) => chat.id !== conversationId))
-
-
-   // If we're deleting the active conversation for this mode, switch to another one
-   if (activeConversationIds[conversationToDelete.mode] === conversationId) {
-     const remainingChatsForMode = chatHistory.filter((chat) =>
-       chat.id !== conversationId && chat.mode === conversationToDelete.mode
-     )
-     if (remainingChatsForMode.length > 0) {
-       setActiveConversationIds(prev => ({
-         ...prev,
-         [conversationToDelete.mode]: remainingChatsForMode[0].id
-       }))
-       // Only switch conversation if we're currently in that mode
-       if (selectedMode === conversationToDelete.mode) {
-         switchConversation(remainingChatsForMode[0].id)
-       }
-     }
-   }
- }
-
-
- const handleModeChange = (modeId: string) => {
-   setSelectedMode(modeId)
-  
-   // Switch to the active conversation for the new mode
-   const activeConvId = activeConversationIds[modeId]
-   const activeConversation = chatHistory.find(chat => chat.id === activeConvId)
-  
-   if (activeConversation) {
-     // Update chat history to mark the new active conversation
-     setChatHistory((prev) =>
-       prev.map((chat) => ({
-         ...chat,
-         active: chat.id === activeConvId,
-       }))
-     )
-    
-     // Update per-assistant state for the new mode
-     switch (modeId) {
-       case "general":
-         setGeneralMessages(activeConversation.messages || [])
-         break;
-       case "slack":
-         setSlackMessages(activeConversation.messages || [])
-         break;
-     }
-   }
- }
-
-
- const handleQuickAction = (action: string) => {
-   // Set the input for the current assistant
-   switch (selectedMode) {
-     case "general":
-       setGeneralInput(action)
-       break;
-     case "slack":
-       setSlackInput(action)
-       break;
-     case "jira":
-       jiraChatHook.handleInputChange({ target: { value: action } } as any)
-       break;
-     case "github":
-       githubChatHook.handleInputChange({ target: { value: action } } as any)
-       break;
-   }
-  
-   setTimeout(() => {
-     const form = document.querySelector("form")
-     if (form) {
-       form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }))
-     }
-   }, 100)
- }
-
-
- const currentMode = integrationModes.find((mode) => mode.id === selectedMode)
-
-
- return (
-   <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-     <Sidebar
-       sidebarOpen={sidebarOpen}
-       setSidebarOpen={setSidebarOpen}
-       chatHistory={chatHistory}
-       isCreatingNewChat={isCreatingNewChat}
-       createNewConversation={createNewConversation}
-       switchConversation={switchConversation}
-       deleteConversation={deleteConversation}
-       integrationModes={integrationModes}
-       currentMode={selectedMode}
-     />
-     <div className="flex-1 flex flex-col min-h-0">
-       <ChatHeader
-         currentMode={currentMode}
-         isCreatingNewChat={isCreatingNewChat}
-         setSidebarOpen={setSidebarOpen}
-         createNewConversation={createNewConversation}
-       />
-       <ModeSelector
-         integrationModes={integrationModes}
-         selectedMode={selectedMode}
-         handleModeChange={handleModeChange}
-       />
-       <ChatPanel
-         key={`${selectedMode}-${activeConversationId}`}
-         messages={messages}
-         status={status}
-         error={error}
-         reload={reload}
-         scrollAreaRef={scrollAreaRef}
-         currentMode={currentMode}
-         quickActions={quickActions}
-         handleQuickAction={handleQuickAction}
-         integrationModes={integrationModes}
-       />
-       <MessageInput
-         input={input}
-         handleInputChange={handleInputChange}
-         handleSubmit={handleSubmit}
-         status={status}
-         stop={stop}
-         currentModeName={currentMode?.name}
-       />
-     </div>
-   </div>
- )
-}
-
-
-
