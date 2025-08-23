@@ -14,8 +14,11 @@ import {
   updateDoc,
   doc as firestoreDoc,
   deleteDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import { db } from "@/app/firebase/config";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 // Integration Modes (config)
 const integrationModes: IntegrationMode[] = [
@@ -70,6 +73,16 @@ const quickActions = [
 
 // Component
 export default function ChatbotPage() {
+  const auth = getAuth();
+  const [currentUser, setCurrentUser] = useState(auth.currentUser);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe(); // Cleanup the listener
+  }, [auth]);
+
   // UI / mode
   const [selectedMode, setSelectedMode] = useState<string>("general");
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -122,10 +135,12 @@ export default function ChatbotPage() {
 
   // Load chats from Firestore (or create defaults)
   useEffect(() => {
+    if (!currentUser) return;
     const fetchChats = async () => {
       try {
         const chatsCol = collection(db, "chats");
-        const chatsSnapshot = await getDocs(chatsCol);
+        const q = query(chatsCol, where("userId", "==", currentUser.uid));
+        const chatsSnapshot = await getDocs(q);
 
         const chatsData: ChatHistoryItem[] = chatsSnapshot.docs.map((d) => {
           // Cast data shape to ChatHistoryItem fields except id (which comes from doc.id)
@@ -138,6 +153,7 @@ export default function ChatbotPage() {
             messages: (data.messages ?? []) as MessageItem[],
             mode: data.mode,
             active: data.active ?? false,
+            userId: data.userId
           };
         });
 
@@ -150,6 +166,7 @@ export default function ChatbotPage() {
             messages: [] as MessageItem[],
             mode: mode.id,
             active: false,
+            userId: currentUser.uid,
           }));
 
           // Save them to Firestore and collect created docs with ids
@@ -183,7 +200,7 @@ export default function ChatbotPage() {
     fetchChats();
     // We intentionally run this only on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentUser]);
 
   const generateChatTitle = (firstMessage: string) => {
     if (!firstMessage) return "New Chat";
@@ -241,6 +258,7 @@ export default function ChatbotPage() {
       messages: [],
       mode: selectedMode as any,
       active: true,
+      userId: currentUser?.uid!
     };
 
     try {
@@ -321,7 +339,7 @@ export default function ChatbotPage() {
           messages: [userMessage],
           mode,
           conversationId: convId,
-          userId: "local-user",
+          userId: currentUser?.uid,
         }),
       });
 
@@ -339,7 +357,7 @@ export default function ChatbotPage() {
       setMessages((prev) => {
         const updatedMessages = [
           ...prev,
-          { id: assistantMessageId, role: "assistant", content: "", timestamp: Date.now() },
+          { id: assistantMessageId, role: "assistant" as "assistant", content: "", timestamp: Date.now() },
         ];
         void updateLocalChatHistory(convId as string, updatedMessages);
         return updatedMessages;
