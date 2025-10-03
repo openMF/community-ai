@@ -19,7 +19,7 @@ export function ChatHeader({
   isCreatingNewChat,
   createNewConversation,
 }: ChatHeaderProps) {
-  const { toggleSidebar, setOpen, open } = useSidebar()
+  const { toggleSidebar, setOpen} = useSidebar()
 
   return (
     <div className="flex items-center gap-3 bg-white dark:bg-gray-800 p-4 dark:border-gray-700 border-b h-20">

@@ -1,7 +1,11 @@
-import { streamText } from "ai";
-import { openai } from "@ai-sdk/openai";
-import { db } from "@/app/firebase/config";
-import { collection, addDoc, doc, setDoc, Timestamp } from "firebase/firestore";
+import { streamText } from 'ai';
+import {
+  addDoc, collection, doc,
+  Timestamp,
+} from 'firebase/firestore';
+
+import { db } from '@/app/firebase/config';
+import { openai } from '@ai-sdk/openai';
 
 // Allow streaming responses up to 120 seconds
 export const maxDuration = 120;
@@ -47,15 +51,15 @@ export async function POST(req: Request) {
     try {
       switch (mode) {
         case "slack":
-          result = await handleSlackRequest(lastMessage.content, messages);
+          result = await handleSlackRequest(lastMessage.content);
           break;
 
         case "jira":
-          result = await handleJiraRequest(lastMessage.content, messages);
+          result = await handleJiraRequest(lastMessage.content);
           break;
 
         case "github":
-          result = await handleGitHubRequest(lastMessage.content, messages);
+          result = await handleGitHubRequest(lastMessage.content);
           break;
 
         default:
@@ -109,7 +113,7 @@ async function saveMessageToFirestore(conversationId: string, userId: string, me
   }
 }
 
-async function handleSlackRequest(message: string, messages: ChatMessage[]) {
+async function handleSlackRequest(message: string) {
   try {
     // Add timeout to prevent hanging requests
     const controller = new AbortController();
@@ -197,7 +201,7 @@ async function handleSlackRequest(message: string, messages: ChatMessage[]) {
   }
 }
 
-async function handleJiraRequest(message: string, messages: ChatMessage[]) {
+async function handleJiraRequest(message: string) {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000 * 12);
@@ -277,7 +281,7 @@ async function handleJiraRequest(message: string, messages: ChatMessage[]) {
   }
 }
 
-async function handleGitHubRequest(message: string, messages: ChatMessage[]) {
+async function handleGitHubRequest(message: string) {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000 * 12);

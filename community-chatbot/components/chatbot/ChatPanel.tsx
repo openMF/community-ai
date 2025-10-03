@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
 
+import { UIMessage } from 'ai';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import type { IntegrationMode } from '@/types/chat/types';
-import type { Message } from '@ai-sdk/react';
 
 import { ChatMessage } from './ChatMessage';
 
 interface ChatPanelProps {
-  messages: Message[]
+  messages: UIMessage[]
   status: string
   error: Error | undefined
   reload: () => void
@@ -44,6 +44,7 @@ export function ChatPanel({
         })
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages, status])
 
   return (
@@ -61,7 +62,7 @@ export function ChatPanel({
                   </div>
                 </div>
                 <p className="mb-4 text-gray-600 dark:text-gray-400">
-                  Hello! I'm your Mifos Community assistant. I can help with general questions or connect to Slack,
+                  Hello! I&apos;m your Mifos Community assistant. I can help with general questions or connect to Slack,
                   Jira, and GitHub. Select a mode above to get started!
                 </p>
                 <div className="space-y-2 mb-6 text-left">

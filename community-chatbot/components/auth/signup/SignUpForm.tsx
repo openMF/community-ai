@@ -1,13 +1,16 @@
 "use client"
 
-import { Loader2, Lock, Mail, User } from 'lucide-react';
+import {
+  Loader2, Lock, Mail,
+  User,
+} from 'lucide-react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
 import { FormField } from '@/components/auth/FormField';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { useSignUp } from '@/hooks/auth/useSignUp';
+import { useSignUp } from '@/hooks/auth/signup/useSignUp';
 import { signUpSchema, SignUpSchema } from '@/types/auth/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 

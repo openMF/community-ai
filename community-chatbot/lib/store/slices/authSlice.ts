@@ -26,7 +26,7 @@ export const createAuthSlice: StateCreator<AuthSlice & any, [], [], AuthSlice> =
 	},
 
 	fetchChats: async () => {
-		const { currentUser, setSelectedMode, activeConversationIds } = get();
+		const { currentUser} = get();
 		if (!currentUser) return;
 
 		try {

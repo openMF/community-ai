@@ -9,7 +9,7 @@ const PUBLIC_ROUTES = ["/auth/signin", "/auth/signup"]
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<import("firebase/auth").User | null>(null)
 
   const router = useRouter()
   const pathname = usePathname()

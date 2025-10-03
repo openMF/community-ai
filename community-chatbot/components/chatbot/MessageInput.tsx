@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Paperclip, Send, StopCircle } from "lucide-react"
-import type { UseChatHelpers } from "@ai-sdk/react"
+import { Send, StopCircle } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import type { UseChatHelpers } from '@ai-sdk/react';
 
 interface MessageInputProps extends Pick<UseChatHelpers, "input" | "handleInputChange" | "handleSubmit" | "status" | "stop"> {
   currentModeName: string | undefined

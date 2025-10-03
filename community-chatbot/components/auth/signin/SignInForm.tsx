@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 
 import { FormField } from '@/components/auth/FormField';
 import { Button } from '@/components/ui/button';
-import { useSignIn } from '@/hooks/auth/useSignIn';
+import { useSignIn } from '@/hooks/auth/signin/useSignIn';
 import { signInSchema, SignInSchema } from '@/types/auth/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
