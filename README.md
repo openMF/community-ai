@@ -14,7 +14,6 @@ A lightweight developer-focused chatbot that helps Mifos / Fineract implementors
 - [Project structure](#project-structure)
 - [How it works (short)](#how-it-works-short)
 - [Features](#features)
-- [Tests & CI (notes)](#tests--ci-notes)
 - [Known limitations](#known-limitations)
 - [Contributing](#contributing)
 - [Contact & resources](#contact--resources)
@@ -59,8 +58,7 @@ source .venv/bin/activate
 3. Install Dependencies:
 
 ```bash
-pip install -r requirements.txt        # optional if heavy; see CI notes
-pip install pytest
+pip install -r requirements.txt        # optional if heavy;
 ```
 
 4. Add API keys in `.env` (create file in repo root):
@@ -116,10 +114,8 @@ If the script does not have CLI flags, open the file and follow the top comments
 │   └── translation-helper/           # Gemini-powered translation helper tool
 ├── requirements.txt                  # Python dependencies (optional heavy)
 ├── CodeCommentingScript.py           # preprocessing script for creating embeddings
-├── tests/                            # pytest tests (added by contributors)
-└── .github/workflows/                # CI workflows (lint/test)
-```
 
+```
 ---
 
 ## How it works (short)
@@ -140,25 +136,6 @@ If the script does not have CLI flags, open the file and follow the top comments
 
 ---
 
-## Tests & CI (notes / recommended)
-
-**Current status:** limited automated tests. We recommend a small starter test-suite that validates the repo layout and core scripts.
-
-**What to add now (safe, low friction):**
-
-* `tests/test_files_exist.py` — checks essential files/folders exist.
-* `tests/test_readme_headers.py` — smoke check for README content.
-
-**CI workflow (minimal):** Add `.github/workflows/python-tests.yml` that:
-
-* checks out code,
-* sets up Python 3.8+,
-* installs `pytest`,
-* runs `pytest`.
-
-This avoids installing heavy runtime dependencies in CI while ensuring PRs include the basic checks.
-
----
 
 ## Known limitations
 
@@ -178,24 +155,14 @@ We welcome all contributions. Best first steps:
 git checkout -b docs/readme-overhaul
 ```
 
-2. Make one small change per PR (docs, then tests, then CI).
-3. Run the small test-suite locally:
+2. Make one small change per PR to keep reviews simple.
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install pytest
-pytest -q
-```
-
-4. Push and open a PR:
+3. Push and open a PR:
 
 * Title example: `docs: clarify README scope & file structure`
-* PR body: link `#34` and paste a short note about local testing.
 
 **PR checklist**
 
-* [ ] I ran the basic tests locally.
 * [ ] This PR is small & focused.
 * [ ] Linked to issue: `#34`
 
