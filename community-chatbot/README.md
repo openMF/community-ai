@@ -113,15 +113,21 @@ community-chatbot/
 
 ### Frontend Setup
 
-1. **Install Node dependencies**  
-   Run this bash command in the root directory of the project. 
+**Install Node dependencies**  
+1. Installs pnpm globally so you can use pnpm commands for projects that don’t support npm.
    ```bash
-   npm install
+   npm install -g pnpm 
    ```
 
-2. **Run Next.js development server**  
+2. Run this bash command in the root directory of the project. 
+
    ```bash
-   npm run dev
+   pnpm install
+   ```
+
+3. **Run Next.js development server**  
+   ```bash
+   pnpm dev
    ```
 
 ---
