@@ -1,9 +1,9 @@
-import scrubadub
-import scrubadub_spacy
 import re
 import sys
 
 def create_scrubber():
+    import scrubadub
+    import scrubadub_spacy
     scrubber = scrubadub.Scrubber()
     spacy_detector = scrubadub_spacy.detectors.SpacyEntityDetector(model='en_core_web_lg')
     scrubber.add_detector(spacy_detector)
@@ -19,7 +19,7 @@ def remove_user_tags(text):
     return re.sub(timestamp_user_pattern, lambda m: m.group(0).split('] User:')[0] + ']', text)
 
 def remove_name_lines(text):
-    name_pattern = r'^.*(?:my name is|I am|I\'m)\s+(?:{{NAME}}|[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*).*$\n?'
+    name_pattern = r'^.*(?:my name is|I am|I\'m).*\n'
     return re.sub(name_pattern, '', text, flags=re.MULTILINE | re.IGNORECASE)
 
 def process_file(input_path, output_path):

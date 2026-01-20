@@ -1,0 +1,30 @@
+name: Run Python Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r tests/requirements.txt
+        # Install other requirements files if they exist
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f community-chatbot/requirements.txt ]; then pip install -r community-chatbot/requirements.txt; fi
+        if [ -f slack_pipeline/requirements.txt ]; then pip install -r slack_pipeline/requirements.txt; fi
+        if [ -f Voice-Driven_banking-Lam/Backend/requirements.txt ]; then pip install -r Voice-Driven_banking-Lam/Backend/requirements.txt; fi
+        python -m spacy download en_core_web_lg
+    - name: Run tests
+      run: |
+        pytest tests/

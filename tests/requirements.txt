@@ -1,0 +1,8 @@
+pytest
+pytest-mock
+openai
+tenacity
+selenium
+scrubadub
+scrubadub_spacy
+spacy
