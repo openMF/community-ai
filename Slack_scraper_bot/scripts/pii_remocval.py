@@ -1,9 +1,9 @@
 import re
 import sys
+import scrubadub
+import scrubadub_spacy
 
 def create_scrubber():
-    import scrubadub
-    import scrubadub_spacy
     scrubber = scrubadub.Scrubber()
     spacy_detector = scrubadub_spacy.detectors.SpacyEntityDetector(model='en_core_web_lg')
     scrubber.add_detector(spacy_detector)
