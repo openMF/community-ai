@@ -1,0 +1,63 @@
+# ==============================
+# IDEs and Editors
+# ==============================
+.idea/
+.idea_modules/
+*.iml
+.vscode/
+*.iws
+*.ipr
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Security & Secrets
+# ==============================
+.env
+.env.*
+**/.env
+!.env.example
+secrets.json
+*.pem
+*.key
+
+# ==============================
+# Python & Virtual Environments
+# ==============================
+__pycache__/
+*.py[cod]
+*$py.class
+
+.venv/
+venv/
+env/
+
+build/
+dist/
+*.egg-info/
+
+# ==============================
+# Project Specific (Mifos / MCP)
+# ==============================
+# Local databases & vector stores
+*.sqlite3
+data/chroma_db/
+data/faiss_index/
+data/vectors/
+
+# Vector databases / embeddings
+**/chroma.sqlite3
+**/chroma_db/
+**/vector_db/
+**/*.zip
+
+# ==============================
+# Logs, Tests & Coverage
+# ==============================
+*.log
+logs/
+.pytest_cache/
+.coverage
+htmlcov/
+
+slack_scraper_bot/scripts/env/
