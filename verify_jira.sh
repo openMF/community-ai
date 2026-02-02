@@ -1,40 +1,47 @@
-#!/bin/bash
-# 1. Path to your .env
-ENV_PATH="./MCP_Enhancement/.env"
+import os
+import requests
+from dotenv import load_dotenv
 
-if [ -f "$ENV_PATH" ]; then
-  # Load Jira variables specifically
-  export JIRA_URL=$(grep '^JIRA_URL=' "$ENV_PATH" | cut -d'=' -f2-)
-  export JIRA_EMAIL=$(grep '^JIRA_EMAIL=' "$ENV_PATH" | cut -d'=' -f2-)
-  export JIRA_API_TOKEN=$(grep '^JIRA_API_TOKEN=' "$ENV_PATH" | cut -d'=' -f2-)
-else
-  echo "❌ ERROR: .env file not found at $ENV_PATH"
-  exit 1
-fi
+# Load .env file (adjust path if needed)
+load_dotenv("./MCP_Enhancement/.env")
 
-echo "🔍 Verifying Jira Connection..."
-echo "---------------------------------------"
+JIRA_URL = os.getenv("JIRA_URL")
+JIRA_EMAIL = os.getenv("JIRA_EMAIL")
+JIRA_API_TOKEN = os.getenv("JIRA_API_TOKEN")
 
-# 2. Check if variables are empty
-if [[ -z "$JIRA_URL" || -z "$JIRA_EMAIL" || -z "$JIRA_API_TOKEN" ]]; then
-    echo "❌ ERROR: Jira variables are missing in your .env file."
-    exit 1
-fi
+print("🔍 Verifying Jira Connection...")
+print("---------------------------------------")
 
-# 3. Test the connection
-# Jira Cloud requires Basic Auth with "email:token"
-RESPONSE=$(curl -s -w "%{http_code}" -u "$JIRA_EMAIL:$JIRA_API_TOKEN" -X GET "$JIRA_URL/rest/api/3/myself")
-HTTP_CODE=$(echo "$RESPONSE" | tail -c 3)
+# 1. Validate environment variables
+if not all([JIRA_URL, JIRA_EMAIL, JIRA_API_TOKEN]):
+    print("❌ ERROR: Missing Jira configuration.")
+    print("💡 Ensure JIRA_URL, JIRA_EMAIL, and JIRA_API_TOKEN are set in your .env file.")
+    exit(1)
 
-if [ "$HTTP_CODE" == "200" ]; then
-    echo "✅ SUCCESS: Jira authenticated as $JIRA_EMAIL"
-    echo "📊 Status: Connected to $JIRA_URL"
-else
-    echo "❌ FAILED: Jira rejected the connection (HTTP $HTTP_CODE)"
-    if [ "$HTTP_CODE" == "401" ]; then
-        echo "💡 Tip: Double-check your Email and API Token. (Note: Use your real email, not your Slack username)."
-    elif [ "$HTTP_CODE" == "404" ]; then
-        echo "💡 Tip: Check your JIRA_URL. It should look like https://your-domain.atlassian.net"
-    fi
-fi
-echo "---------------------------------------"
+# 2. Test Jira authentication (Jira Cloud uses email + API token)
+try:
+    response = requests.get(
+        f"{JIRA_URL}/rest/api/3/myself",
+        auth=(JIRA_EMAIL, JIRA_API_TOKEN),
+        timeout=10
+    )
+
+    if response.status_code == 200:
+        user = response.json().get("displayName", JIRA_EMAIL)
+        print(f"✅ SUCCESS: Jira authenticated as {user}")
+        print(f"📊 Status: Connected to {JIRA_URL}")
+    elif response.status_code == 401:
+        print("❌ FAILED: Authentication error (401)")
+        print("💡 Tip: Double-check your email and API token.")
+        print("   Note: Use your Atlassian account email, not Slack or GitHub ID.")
+    elif response.status_code == 404:
+        print("❌ FAILED: Jira URL not found (404)")
+        print("💡 Tip: JIRA_URL should look like https://your-domain.atlassian.net")
+    else:
+        print(f"❌ FAILED: Jira rejected the connection (HTTP {response.status_code})")
+
+except requests.RequestException as e:
+    print("❌ ERROR: Could not connect to Jira.")
+    print(f"💡 Details: {e}")
+
+print("---------------------------------------")
