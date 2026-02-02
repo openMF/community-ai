@@ -1,27 +1,48 @@
-#!/bin/bash
-if [ -f .env ]; then export $(grep -v '^#' .env | xargs); fi
-echo "🔍 Checking GitHub Token..."
-echo "---------------------------------------"
-# Test Authentication
-RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user)
-USER_LOGIN=$(echo $RESPONSE | grep -o '"login":"[^"]*"' | cut -d'"' -f4)
+import os
+import requests
 
-if [ -z "$USER_LOGIN" ]; then
-    echo "❌ Status: FAILED (Bad Credentials)"
-    echo "💡 Tip: Check for extra spaces in your .env or re-copy the token."
-else
-    echo "✅ Status: VALID (Logged in as $USER_LOGIN)"
-    # Check Scopes
-    SCOPES=$(curl -sI -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user | grep -i "x-oauth-scopes")
-    echo "📊 Scopes: $SCOPES"
-    
-    # Check Org Access
-    ORG_CHECK=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/orgs/openMF | grep -o '"login":"openMF"')
-    if [ "$ORG_CHECK" == '"login":"openMF"' ]; then
-        echo "✅ Org Access: VALID (Can see openMF)"
-    else
-        echo "⚠️ Org Access: RESTRICTED"
-        echo "💡 Tip: Go to GitHub Settings -> Tokens (classic) -> Configure SSO and Authorize 'openMF'."
-    fi
-fi
-echo "---------------------------------------"
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+
+print("🔍 Checking GitHub Token...")
+print("---------------------------------------")
+
+if not GITHUB_TOKEN:
+    print("❌ Status: FAILED (GITHUB_TOKEN not set)")
+    print("💡 Tip: Export GITHUB_TOKEN or add it to your .env file.")
+    exit(1)
+
+headers = {
+    "Authorization": f"token {GITHUB_TOKEN}",
+    "Accept": "application/vnd.github+json"
+}
+
+# 1. Test authentication
+resp = requests.get("https://api.github.com/user", headers=headers)
+
+if resp.status_code != 200:
+    print("❌ Status: FAILED (Bad Credentials)")
+    print("💡 Tip: Check for extra spaces in your token or regenerate it.")
+    exit(1)
+
+user_data = resp.json()
+username = user_data.get("login")
+
+print(f"✅ Status: VALID (Logged in as {username})")
+
+# 2. Check scopes
+scope_resp = requests.get("https://api.github.com/user", headers=headers)
+scopes = scope_resp.headers.get("X-OAuth-Scopes", "Not returned")
+
+print(f"📊 Scopes: {scopes}")
+
+# 3. Check org access
+org_resp = requests.get("https://api.github.com/orgs/openMF", headers=headers)
+
+if org_resp.status_code == 200:
+    print("✅ Org Access: VALID (Can see openMF)")
+else:
+    print("⚠️ Org Access: RESTRICTED")
+    print("💡 Tip: Go to GitHub Settings → Tokens → Configure SSO and authorize 'openMF'.")
+
+print("---------------------------------------")
+
