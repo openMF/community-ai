@@ -1,94 +1,82 @@
 import os
-import sys
 import logging
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 
-# Add root to path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-
+# Robust Config Loading
 try:
-    from MCP_Enhancement.config import get_settings
-
-    settings = get_settings()
-    # Force the key into the environment for LangChain
-    os.environ["PINECONE_API_KEY"] = settings.PINECONE_API_KEY.get_secret_value()
+    from MCP_Enhancement.src.core.config import get_settings
 except ImportError:
-    print("❌ Could not import config. Ensure you are running from the root folder.")
-    sys.exit(1)
+    from config import get_settings
 
-logging.basicConfig(level=logging.ERROR)
+settings = get_settings()
+logger = logging.getLogger(__name__)
 
-def query_mifos_ai(question: str):
-    print(f"\n🤔 Question: {question}")
+# --- The Expert Prompt (The Personality you built in Phase 4) ---
+MIFOS_PROMPT_TEMPLATE = """
+You are the **Mifos Technical Assistant** — helpful, professional, and friendly.
 
-    # 1. Setup Embeddings and LLM
-    openai_key = settings.OPENAI_API_KEY.get_secret_value()
-    embeddings = OpenAIEmbeddings(api_key=openai_key)
-    llm = ChatOpenAI(model=settings.OPENAI_MODEL, api_key=openai_key, temperature=0)
+### Core Architectural Facts
+- **Apache Fineract** is the open-source **core banking engine**.
+- **Mifos X** is a **solution and distribution** built on top of Apache Fineract.
 
-    # 2. Define the Custom Grounding Prompt
-    template = """
-    You are the **Mifos Technical Assistant** — helpful, professional, and friendly, with a light touch of wit when appropriate.
+### Response Guidelines
+1. Answer **strictly using the retrieved context provided below**.
+2. If the answer is **not present**, clearly say you do not have that info in the current Mifos docs.
+3. **Do not guess or invent details.** Accuracy is critical for financial software.
 
-    ### Core Architectural Facts (Always True)
-    - **Apache Fineract** is the open-source **core banking engine**.
-    - **Mifos X** is a **solution and distribution** built on top of Apache Fineract.
-    - They are distinct: Mifos X provides user-facing applications, configurations, and workflows, while Apache Fineract handles the core banking logic.
+### Retrieved Context
+{context}
 
-    ### Response Guidelines
-    1. If the question is **clearly unrelated to financial services, software, politely explain that Mifos is a financial services platform and you cannot help with that request.
-    2. For **financial, technical, or Mifos-related questions**, answer **strictly using the retrieved context provided below**.
-    3. If the answer is **not present in the provided context**, clearly say that you do not have that information in the current Mifos documentation.
-    4. **Do not guess, infer, or invent details.** Accuracy is more important than completeness.
-    5. When possible, provide **clear, step-by-step explanations** suitable for developers and contributors.
+### User Question
+{question}
 
-    ### Retrieved Context
-    {context}
+### Helpful Answer:
+"""
 
-    ### User Question
-    {question}
-
-    ### Helpful Answer
+def query_mifos_ai(question: str) -> str:
     """
+    Main callable function for the Orchestrator.
+    Accepts a query and returns a grounded, professional answer.
+    """
+    try:
+        # 1. Setup Embeddings and LLM
+        openai_key = settings.OPENAI_API_KEY.get_secret_value()
+        embeddings = OpenAIEmbeddings(api_key=openai_key)
+        llm = ChatOpenAI(model=settings.OPENAI_MODEL, api_key=openai_key, temperature=0)
 
-    QA_CHAIN_PROMPT = PromptTemplate(
-        input_variables=["context", "question"],
-        template=template,
-    )
+        # 2. Connect to Pinecone
+        vectorstore = PineconeVectorStore(
+            index_name=settings.PINECONE_INDEX_NAME,
+            embedding=embeddings
+        )
 
-    # 3. Connect to the Vector Store
-    vectorstore = PineconeVectorStore(
-        index_name=settings.PINECONE_INDEX_NAME,
-        embedding=embeddings
-    )
+        # 3. Build the Prompt
+        QA_CHAIN_PROMPT = PromptTemplate(
+            input_variables=["context", "question"],
+            template=MIFOS_PROMPT_TEMPLATE,
+        )
 
-    # 4. Create the RAG Chain with the Custom Prompt
-    qa_chain = RetrievalQA.from_chain_type(
-        llm=llm,
-        chain_type="stuff",
-        retriever=vectorstore.as_retriever(search_kwargs={"k": 3}),
-        return_source_documents=True,
-        chain_type_kwargs={"prompt": QA_CHAIN_PROMPT} # Injects your custom rules
-    )
+        # 4. Create the RAG Chain
+        qa_chain = RetrievalQA.from_chain_type(
+            llm=llm,
+            chain_type="stuff",
+            retriever=vectorstore.as_retriever(search_kwargs={"k": 3}),
+            chain_type_kwargs={"prompt": QA_CHAIN_PROMPT}
+        )
 
-    # 5. Execute Query
-    result = qa_chain.invoke({"query": question})
+        # 5. Execute
+        result = qa_chain.invoke({"query": question})
+        return result['result']
 
-    print(f"\n🤖 AI Answer:\n{result['result']}")
+    except Exception as e:
+        logger.error(f"Knowledge Base Query Failed: {e}")
+        return "I'm sorry, I'm having trouble accessing my documentation archives right now."
 
-    print("\n📚 Sources Used:")
-    for doc in result['source_documents']:
-        source_name = os.path.basename(doc.metadata.get('source', 'Unknown'))
-        print(f"- {source_name} (Page {doc.metadata.get('page', 'N/A')})")
-
-
+# Keep this for quick manual testing from terminal
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        user_query = " ".join(sys.argv[1:])
-    else:
-        user_query = "What is the purpose of the Mifos platform?"
-
-    query_mifos_ai(user_query)
+    import sys
+    test_query = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else "What is Mifos X?"
+    print(query_mifos_ai(test_query))

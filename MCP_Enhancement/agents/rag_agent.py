@@ -7,38 +7,57 @@ from typing import List
 from pinecone import Pinecone, ServerlessSpec
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.documents import Document
+from langchain.chains import RetrievalQA
+from langchain_core.prompts import PromptTemplate
 
-# Config Import
-# Ensure your config.py is set up to read PINECONE_API_KEY and PINECONE_INDEX_NAME
-from MCP_Enhancement.config import get_settings
+# Robust Config Import
+# We try multiple paths to ensure this works regardless of how you run it
+try:
+    from MCP_Enhancement.config import get_settings
+except ImportError:
+    try:
+        from config import get_settings
+    except ImportError:
+        # Fallback if running from inside the folder
+        from ..config import get_settings
 
 # Configure Logging
 logger = logging.getLogger(__name__)
 
-# --- Constants ---
-PROMPT_TEMPLATE = """
-You are an expert technical assistant for the Mifos Community.
-Answer the user's question based ONLY on the following context. 
-If the answer is not in the context, say "I don't have enough information in my knowledge base to answer that."
+# --- THE EXPERT PROMPT (Guarantees the "Better Answer") ---
+MIFOS_PROMPT_TEMPLATE = """
+You are the **Mifos Technical Assistant** — helpful, professional, and friendly.
 
---- Context ---
+### Core Architectural Facts (ALWAYS USE THESE):
+- **Apache Fineract** is the open-source **core banking engine** (The Backend).
+- **Mifos X** is the **solution and distribution** built on top of Fineract (The Frontend/Solution).
+
+### Response Guidelines
+1. Combine the "Core Architectural Facts" above with the retrieved context below.
+2. If the answer is not in the context, relying on the core facts is permitted for basic definitions.
+3. Answer the user's question clearly and professionally.
+
+### Retrieved Context
 {context}
---- End Context ---
 
-User Question: {question}
+### User Question
+{question}
+
+### Helpful Answer:
 """
-
 
 def get_vectorstore():
     """
     Initializes the connection to the Pinecone vector database.
+    Creates the index automatically if it does not exist.
     """
     settings = get_settings()
 
-    # 1. Initialize Embeddings (same as before)
-    embeddings = OpenAIEmbeddings(api_key=settings.OPENAI_API_KEY.get_secret_value())
+    # 1. Initialize Embeddings
+    embeddings = OpenAIEmbeddings(
+        api_key=settings.OPENAI_API_KEY.get_secret_value(),
+        model="text-embedding-3-small"
+    )
 
     # 2. Initialize Pinecone Client
     pc = Pinecone(api_key=settings.PINECONE_API_KEY.get_secret_value())
@@ -48,46 +67,33 @@ def get_vectorstore():
     existing_indexes = [index.name for index in pc.list_indexes()]
 
     if index_name not in existing_indexes:
-        # Create the index if it doesn't exist (Phase 4 Setup)
-        logger.info(f"Creating new Pinecone index: {index_name}")
+        logger.info(f"🧠 Creating new Pinecone index: {index_name}")
         pc.create_index(
             name=index_name,
-            dimension=1536,  # Matches OpenAI text-embedding-3-small
+            dimension=1536,  # Matches text-embedding-3-small
             metric="cosine",
             spec=ServerlessSpec(cloud="aws", region="us-east-1")
         )
-        # Wait a moment for index to initialize
+        # Wait for initialization
         while not pc.describe_index(index_name).status['ready']:
             time.sleep(1)
+        logger.info("✅ Index created successfully!")
 
-    # 4. Connect to the Index via LangChain wrapper
-    vectorstore = PineconeVectorStore(
+    # 4. Connect via LangChain
+    return PineconeVectorStore(
         index_name=index_name,
         embedding=embeddings
     )
 
-    return vectorstore
-
-
 def query_docs(question: str) -> str:
     """
-    Retrieves relevant documentation from Pinecone and synthesizes an answer.
+    Retrieves relevant documentation and synthesizes an answer using the Expert Prompt.
     """
     try:
-        # 1. Get the Vector Store (Pinecone)
+        # 1. Get the Vector Store
         vectorstore = get_vectorstore()
 
-        # 2. Search for relevant chunks (Top 3)
-        # using similarity_search functionality provided by LangChain's Pinecone wrapper
-        results = vectorstore.similarity_search(question, k=3)
-
-        if not results:
-            return "I couldn't find any relevant documentation for your query."
-
-        # 3. Format context
-        context_text = "\n\n---\n\n".join([doc.page_content for doc in results])
-
-        # 4. Generate Answer using LLM
+        # 2. Setup LLM
         settings = get_settings()
         llm = ChatOpenAI(
             model=settings.OPENAI_MODEL,
@@ -95,11 +101,22 @@ def query_docs(question: str) -> str:
             api_key=settings.OPENAI_API_KEY.get_secret_value()
         )
 
-        prompt = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
-        chain = prompt | llm
+        # 3. Build the Expert Chain
+        QA_CHAIN_PROMPT = PromptTemplate(
+            input_variables=["context", "question"],
+            template=MIFOS_PROMPT_TEMPLATE,
+        )
 
-        response = chain.invoke({"context": context_text, "question": question})
-        return response.content
+        qa_chain = RetrievalQA.from_chain_type(
+            llm=llm,
+            chain_type="stuff",
+            retriever=vectorstore.as_retriever(search_kwargs={"k": 3}),
+            chain_type_kwargs={"prompt": QA_CHAIN_PROMPT}
+        )
+
+        # 4. Execute
+        result = qa_chain.invoke({"query": question})
+        return result['result']
 
     except Exception as e:
         logger.error(f"RAG Query failed: {e}")
