@@ -9,15 +9,15 @@ from fastapi import FastAPI, Request, Header, HTTPException, BackgroundTasks
 from pydantic import BaseModel
 
 # Correct imports based on your file structure
-from MCP_Enhancement.tools.mifos_tools import (
-    tool_github_details,
-    tool_jira_context,
-    tool_ci_check,
-    tool_ask_mifos_docs,
+from ..tools.mifos_tools import (
+    get_issue_context,
+    smart_search,
+    check_ci_status,
+    get_pr_details,
     get_settings
 )
 # Assuming you have a slack agent for posting
-from MCP_Enhancement.agents.slack_agent import post_to_slack_channel
+from ..agents.slack_agent import post_to_slack
 
 # Setup Logging
 logging.basicConfig(level=logging.INFO)
@@ -74,14 +74,14 @@ async def process_pr_event(payload: dict):
     ticket_match = re.search(r'[A-Z]+-\d+', f"{pr_title} {pr_body}")
     if ticket_match:
         ticket_id = ticket_match.group(0)
-        jira_info = tool_jira_context(ticket_id)
+        jira_info = get_issue_context(ticket_id)
 
     # 2. RAG Check (Retrieving from Pinecone)
     # This is the "Bait" logic for WEB-95/GLIM
-    rag_context = tool_ask_mifos_docs(f"{pr_title} {pr_body}")
+    rag_context = smart_search(f"{pr_title} {pr_body}")
 
     # 3. CI/CD Status
-    ci_status = tool_ci_check(pr_number)
+    ci_status = check_ci_status(pr_number)
 
     # 4. Construct Final Report
     report = f"""
@@ -99,7 +99,7 @@ _Source: Mifos Enhancement Agent | Phase 5_
     """
 
     # 5. Send to Slack
-    post_to_slack_channel(settings.SLACK_ALERT_CHANNEL_ID, report)
+    post_to_slack(settings.SLACK_ALERT_CHANNEL_ID, report)
     logger.info(f"✅ Analysis for PR #{pr_number} sent to Slack.")
 
 # --- ENDPOINTS ---
