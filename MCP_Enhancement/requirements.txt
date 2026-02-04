@@ -1,0 +1,12 @@
+fastmcp
+jira
+openai
+PyGithub
+slack_sdk
+chromadb
+faiss-cpu
+tiktoken
+pydantic
+jsonschema
+python-dotenv
+requests

@@ -2,6 +2,7 @@ import os
 os.environ["OPENAI_API_KEY"] = "sk-proj-"
 from llama_index.llms.cleanlab import CleanlabTLM
 llm = CleanlabTLM(api_key="ea")
+import pinecone
 
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.vector_stores.pinecone import PineconeVectorStore
@@ -27,10 +28,12 @@ from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core import StorageContext
 
-db = chromadb.PersistentClient(path="./vectordb2")
-chroma_collection = db.get_or_create_collection("nomic")
+from llama_index.vector_stores.pinecone import PineconeVectorStore
 
-vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
+
+pc = pinecone.Pinecone(api_key="Pinecone_API_Key")
+index = pc.Index("mifos")
+vector_store = PineconeVectorStore(pinecone_index=index)
 storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
 documents = SimpleDirectoryReader("./data").load_data()
