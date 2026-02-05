@@ -1,28 +1,27 @@
-import os
 import logging
 import re
 import hmac
 import hashlib
 import asyncio
 import uvicorn
-from typing import Dict, List, Any
+from typing import Dict
 
-# --- FAST MCP & SERVER ---
-from fastmcp import FastMCP
-from fastapi import Request, BackgroundTasks, HTTPException
-
-# --- SLACK & CONFIG ---
+# --- IMPORTS ---
+from fastapi import Request, HTTPException
+# 🚨 FIX 1: Starlette requires explicit JSONResponse
+from starlette.responses import JSONResponse
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 from dotenv import load_dotenv
 
-# --- THE TOOLBOX ---
-from tools.mifos_tools import (
-    get_issue_context,
-    smart_search,
-    get_pr_details,
-    check_ci_status,
-    search_knowledge_base,
+# --- IMPORT TOOLS & MCP ---
+# 🚨 FIX 2: Import 'mcp' (the server) and RAW functions (the logic)
+# We do NOT import the @mcp.tool wrappers here, or the code will crash.
+from MCP_Enhancement.tools.mifos_tools import (
+    mcp,  # The FastMCP server instance
+    get_issue_context,  # Raw function for Jira
+    search_knowledge_base,  # Raw function for RAG
+    check_ci_status,  # Raw function for CI
     get_settings
 )
 
@@ -34,9 +33,6 @@ settings = get_settings()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("mifos-orchestrator")
 
-# 1. INITIALIZE FASTMCP
-mcp = FastMCP("Mifos Unified Watchdog")
-
 # Initialize Slack Bolt
 slack_app = AsyncApp(
     token=settings.SLACK_BOT_TOKEN.get_secret_value(),
@@ -45,64 +41,25 @@ slack_app = AsyncApp(
 app_handler = AsyncSlackRequestHandler(slack_app)
 
 
-# --- 2. REGISTER TOOLS ---
-
-@mcp.tool
-def tool_jira_context(ticket_key: str):
-    """Fetches full Jira ticket details and recent comments."""
-    return get_issue_context(ticket_key)
-
-
-@mcp.tool
-def tool_knowledge_base(query: str):
-    """Queries the Mifos/Fineract Phase 4 RAG for documentation standards."""
-    return search_knowledge_base(query)
-
-
-@mcp.tool
-def tool_github_details(pr_number: int):
-    """Fetches PR metadata and changed files for audit."""
-    return get_pr_details(pr_number)
-
-
-@mcp.tool
-def tool_ci_check(pr_number: int):
-    """Checks if the build/tests are passing for a specific PR."""
-    return check_ci_status(pr_number)
-
-
-# --- 3. WATCHDOG LOGIC ---
+# --- 1. WATCHDOG LOGIC (THE BRAIN) ---
 
 async def verify_github_signature(request: Request):
     """
     Security Gatekeeper: Ensures the request actually came from GitHub.
-    Robustly handles both string and SecretStr types to prevent 500 errors.
     """
     secret = settings.GITHUB_WEBHOOK_SECRET
+    if not secret:
+        return
 
-    if secret is None:
-        return  # Dev mode
-
-    # --- ROBUST SECRET EXTRACTION ---
-    # This block prevents the 500 Error by checking the type first
     try:
-        if hasattr(secret, "get_secret_value"):
-            secret_val = secret.get_secret_value()
-        else:
-            secret_val = str(secret)
+        secret_val = secret.get_secret_value() if hasattr(secret, "get_secret_value") else str(secret)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Config Error")
 
-        if not secret_val:
-            return
-    except Exception as e:
-        logger.error(f"❌ Config Error: Could not read GITHUB_WEBHOOK_SECRET. {e}")
-        raise HTTPException(status_code=500, detail="Server Configuration Error")
-
-    # --- HEADER CHECK ---
     signature = request.headers.get("X-Hub-Signature-256")
     if not signature:
-        raise HTTPException(status_code=403, detail="Missing X-Hub-Signature-256 header")
+        raise HTTPException(status_code=403, detail="Missing X-Hub-Signature-256")
 
-    # --- CRYPTO VERIFICATION ---
     try:
         body = await request.body()
         expected_signature = "sha256=" + hmac.new(
@@ -112,16 +69,16 @@ async def verify_github_signature(request: Request):
         ).hexdigest()
 
         if not hmac.compare_digest(signature, expected_signature):
-            logger.warning("⚠️ Security Alert: Invalid GitHub Signature detected.")
+            logger.warning("⚠️ Security Alert: Invalid GitHub Signature.")
             raise HTTPException(status_code=403, detail="Invalid signature")
-
-    except Exception as e:
-        logger.error(f"❌ Crypto Error: {e}")
+    except Exception:
         raise HTTPException(status_code=500, detail="Signature Verification Failed")
 
 
 async def process_pr_event(payload: Dict):
-    """The Integrated Intelligence Loop."""
+    """
+    The Integrated Intelligence Loop
+    """
     try:
         pr = payload.get("pull_request", {})
         pr_number = pr.get("number")
@@ -129,23 +86,31 @@ async def process_pr_event(payload: Dict):
         pr_url = pr.get("html_url")
         user = pr.get("user", {}).get("login", "Unknown")
 
-        # A. Audit the Context
+        logger.info(f"🕵️ Analyzing PR #{pr_number}: {pr_title}")
+
+        # A. Audit the Context (Jira)
         match = re.search(r'[A-Z]+-\d+', pr_title)
         jira_key = match.group(0) if match else "UNKNOWN"
-        jira_info = tool_jira_context(jira_key) if jira_key != "UNKNOWN" else "⚠️ No Jira Ticket Linked."
 
-        # B. Audit the Quality
-        rag_insight = tool_knowledge_base(f"Provide architectural guidance for: {pr_title}")
-        ci_status = tool_ci_check(pr_number)
+        # 🚨 FIX 3: Calling the RAW function directly (No "Tool object not callable" error)
+        if jira_key != "UNKNOWN":
+            jira_info = get_issue_context(jira_key)
+        else:
+            jira_info = "⚠️ No Jira Ticket Linked in Title."
+
+        # B. Audit the Quality (RAG + CI)
+        # 🚨 FIX 3: Calling raw functions
+        rag_insight = search_knowledge_base(f"Provide architectural guidance for: {pr_title}")
+        ci_status = check_ci_status(pr_number)
 
         # C. Build the Unified Slack Block
         blocks = [
             {"type": "header", "text": {"type": "plain_text", "text": f"🛡️ Watchdog Report: {user}"}},
             {"type": "section", "text": {"type": "mrkdwn", "text": f"<{pr_url}|*PR #{pr_number}: {pr_title}*>"}},
             {"type": "divider"},
-            {"type": "section", "text": {"type": "mrkdwn", "text": f"*Jira Context:*\n{jira_info}"}},
-            {"type": "section", "text": {"type": "mrkdwn", "text": f"*CI Status:* {ci_status}"}},
-            {"type": "section", "text": {"type": "mrkdwn", "text": f"🤖 *RAG Standards Check:*\n{rag_insight}"}},
+            {"type": "section", "text": {"type": "mrkdwn", "text": f"*Jira Context:*\n{str(jira_info)[:600]}..."}},
+            {"type": "section", "text": {"type": "mrkdwn", "text": f"*CI Status:* {str(ci_status)}"}},
+            {"type": "section", "text": {"type": "mrkdwn", "text": f"🤖 *RAG Standards Check:*\n{str(rag_insight)}"}},
             {"type": "context", "elements": [{"type": "mrkdwn", "text": "Mifos Unified Intelligence | Phase 5"}]}
         ]
 
@@ -159,7 +124,7 @@ async def process_pr_event(payload: Dict):
         logger.error(f"❌ Processing error in Watchdog Loop: {e}")
 
 
-# --- 4. EXPOSE WEBHOOKS ---
+# --- 2. EXPOSE WEBHOOKS ---
 
 async def slack_endpoint(req: Request):
     return await app_handler.handle(req)
@@ -172,26 +137,27 @@ async def github_webhook(request: Request):
 
     if event == "pull_request":
         action = payload.get("action")
-        if action in ["opened", "synchronize"]:
+        # Trigger on open, reopen, or synchronize (new commits)
+        if action in ["opened", "reopened", "synchronize"]:
             logger.info(f"📥 Auditing PR #{payload['pull_request']['number']}")
             asyncio.create_task(process_pr_event(payload))
 
-    return {"status": "processing"}
+    # 🚨 FIX 1: Return JSONResponse explicitly for Starlette/FastAPI compatibility
+    return JSONResponse({"status": "processing"})
 
 
-# --- SERVER SETUP & UNWRAPPING ---
+# --- 3. SERVER SETUP ---
 target_app = None
 try:
-    # 1. Get the app object (checking if it's a method or property)
+    # We grab the 'http_app' from the imported mcp object
     raw_app = mcp.http_app if not callable(mcp.http_app) else mcp.http_app()
 
-    # 2. Unwrap 'StarletteWithLifespan' if present
     if hasattr(raw_app, "app"):
         target_app = raw_app.app
     else:
         target_app = raw_app
 
-    # 3. Add Routes (Standard Starlette syntax)
+    # Add Custom Routes
     target_app.add_route("/slack/events", slack_endpoint, methods=["POST"])
     target_app.add_route("/github/webhook", github_webhook, methods=["POST"])
 
@@ -201,7 +167,7 @@ except Exception as e:
     logger.error(f"❌ Route registration failed: {e}")
     raise e
 
-# --- 5. RUN SERVER ---
+# --- 4. RUN SERVER ---
 if __name__ == "__main__":
     logger.info("🚀 Starting Mifos Unified Watchdog on Port 3000...")
     uvicorn.run(target_app, host="0.0.0.0", port=3000)
