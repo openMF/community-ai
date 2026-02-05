@@ -10,7 +10,10 @@ from pydantic import Field, SecretStr, ValidationError
 logger = logging.getLogger("mifos-config")
 
 # --- PATH CORRECTION LOGIC ---
+# Ensures we find the .env file regardless of where the script is run
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+# Assumes .env is in the same folder as this config file, or adjust ".." as needed
+# If your .env is at the project ROOT, you might need: os.path.join(CURRENT_DIR, "..", "..", ".env")
 DOTENV_PATH = os.path.join(CURRENT_DIR, ".env")
 
 
@@ -31,11 +34,11 @@ class Settings(BaseSettings):
         description="Interval in seconds for background checks (default: 1 hour)",
     )
     SLACK_REPORT_CHANNEL_ID: str = Field(
-        ...,
+        default="",
         description="Channel ID where the Watchdog posts intelligence reports",
     )
     SLACK_ALERT_CHANNEL_ID: str = Field(
-        ...,
+        default="",
         description="Channel ID for instant PR and CI alerts (e.g. #mcp_testing)",
     )
 
@@ -50,11 +53,10 @@ class Settings(BaseSettings):
     # --- Jira ---
     JIRA_URL: str = Field(..., description="Base URL for the Jira instance")
 
-    # [FIX] Map 'JIRA_EMAIL' from .env to 'JIRA_USERNAME' for the Python code
-    JIRA_USERNAME: str = Field(
+    # ✅ FIX: Renamed back to JIRA_EMAIL so 'settings.JIRA_EMAIL' works in code
+    JIRA_EMAIL: str = Field(
         ...,
-        alias="JIRA_EMAIL",
-        description="Jira username/email (Mapped from JIRA_EMAIL in .env)"
+        description="Jira username/email"
     )
 
     JIRA_API_TOKEN: SecretStr = Field(..., description="Atlassian API token")
@@ -91,8 +93,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=DOTENV_PATH,
         env_file_encoding="utf-8",
-        extra="ignore",
-        populate_by_name=True  # Allows using either JIRA_USERNAME or JIRA_EMAIL
+        extra="ignore"
     )
 
 
@@ -100,13 +101,17 @@ class Settings(BaseSettings):
 def get_settings() -> Settings:
     """Returns a cached instance of Settings."""
     try:
+        # 1. Try loading with specific path
         return Settings()
-    except ValidationError as e:
-        logger.critical(f"❌ Configuration Error:\n{e}")
-        logger.critical(f"🔍 Looked for .env at: {DOTENV_PATH}")
-        raise RuntimeError(
-            "Application failed to start due to missing or invalid environment variables."
-        ) from e
+    except ValidationError:
+        # 2. Fallback: Try loading from default CWD .env if path fails
+        try:
+            return Settings(_env_file=".env")
+        except ValidationError as e:
+            logger.critical(f"❌ Configuration Error:\n{e}")
+            raise RuntimeError(
+                "Application failed to start. Check your .env file."
+            ) from e
 
 
 # --- Example usage for testing ---
@@ -114,7 +119,6 @@ if __name__ == "__main__":
     try:
         cfg = get_settings()
         print(f"✅ Configuration loaded successfully for: {cfg.APP_ENV}")
-        # Verify the mapping worked
-        print(f"📧 Jira User: {cfg.JIRA_USERNAME}")
+        print(f"📧 Jira Email: {cfg.JIRA_EMAIL}")
     except Exception as e:
         print(f"❌ Configuration failed: {e}")
