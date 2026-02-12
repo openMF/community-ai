@@ -94,6 +94,21 @@ def _check_authorization(ctx_string: str) -> bool:
     return user_id in allowed_list
 
 
+def _get_slack_user_name(user_id: str) -> str:
+    """Fetches the real name of a Slack user by ID."""
+    client = _get_slack_client()
+    try:
+        # Clean ID just in case (remove <@...>)
+        clean_id = re.sub(r'[<@>]', '', user_id)
+        response = client.users_info(user=clean_id)
+        if response.get("ok"):
+            user = response.get("user", {})
+            return user.get("real_name") or user.get("name") or f"Unknown ({clean_id})"
+        return f"User {clean_id}"
+    except Exception:
+        return f"User {user_id}"
+
+
 # =========================================================
 # 3. CORE LOGIC FUNCTIONS
 # =========================================================
@@ -253,27 +268,36 @@ def get_recent_slack_messages(channel_id: str, count: int = 10) -> str:
         return f"❌ Could not fetch chat history: {e}"
 
 
-def create_issue_logic(project_key: str, summary: str, description: str, priority: str = "Medium") -> str:
-    """Creates a ticket with a specific priority."""
+# --- JIRA CREATION LOGIC (UPDATED WITH FOOTER) ---
+def create_issue_logic(project_key: str, summary: str, description: str, priority: str = "Medium",
+                       reporter_name: str = "Unknown") -> str:
+    """Creates a ticket with a footer indicating who requested it."""
     jira = _get_jira_client()
     try:
-        # standardizing priority to title case (e.g. "high" -> "High")
         clean_priority = priority.capitalize()
+
+        # ✅ NEW: Append the User Signature to the Description
+        description_with_footer = (
+            f"{description}\n\n"
+            f"-----\n"
+            f"👤 *Reported by:* {reporter_name}\n"
+            f"🤖 *Channel:* Slack (via Mifos Unified Agent)"
+        )
 
         issue_dict = {
             'project': {'key': project_key},
             'summary': summary,
-            'description': description,
+            'description': description_with_footer,
             'issuetype': {'name': 'Task'},
-            'priority': {'name': clean_priority}  # <--- NEW LINE ADDS PRIORITY
+            'priority': {'name': clean_priority}
         }
         new_issue = jira.issue_create(fields=issue_dict)
-        return f"✅ Created Ticket: **{new_issue['key']}** (Priority: {clean_priority})"
+        return f"✅ Created Ticket: **{new_issue['key']}** (Reporter: {reporter_name})"
     except Exception as e:
         return f"❌ Failed to create ticket: {e}"
 
 
-# --- WEBHOOK HANDLERS (NEW!) ---
+# --- WEBHOOK HANDLERS ---
 def process_jira_webhook(payload: Dict[str, Any], target_channel: str = None) -> str:
     """
     Parses Jira Webhook JSON and sends a formatted notification to Slack.
@@ -400,7 +424,12 @@ def tool_post_pr_comment(ctx: str, pr_number: int, comment: str):
     """Posts a comment to a GitHub PR (Requires Auth)."""
     if not _check_authorization(ctx):
         return "⛔ SECURITY ALERT: You are not authorized to post comments."
-    return post_github_comment(pr_number, comment)
+
+    # NEW: Fetch real name for the comment signature
+    real_name = _get_slack_user_name(ctx)
+    signed_comment = f"{comment}\n\n> 👤 _Posted by **{real_name}** via Mifos Unified Agent_"
+
+    return post_github_comment(pr_number, signed_comment)
 
 
 @mcp.tool()
@@ -408,4 +437,8 @@ def tool_create_jira(ctx: str, project_key: str, summary: str, description: str,
     """Creates a new Jira ticket. Priority options: High, Medium, Low."""
     if not _check_authorization(ctx):
         return "⛔ SECURITY ALERT: You are not authorized to create tickets."
-    return create_issue_logic(project_key, summary, description, priority)
+
+    # NEW: Fetch real name for the ticket footer
+    real_name = _get_slack_user_name(ctx)
+
+    return create_issue_logic(project_key, summary, description, priority, reporter_name=real_name)
