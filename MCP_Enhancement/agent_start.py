@@ -2,7 +2,7 @@ import logging
 import re
 import hmac
 import hashlib
-import json  # Added json import
+import json
 import asyncio
 import uvicorn
 from typing import Dict, Any
@@ -123,7 +123,7 @@ async def handle_mentions(event, say):
 
 
 # =========================================================
-# 🛡️ GITHUB WEBHOOKS (WATCHDOG) - FIXED & ROBUST
+# 🛡️ GITHUB WEBHOOKS (WATCHDOG) - UPDATED!
 # =========================================================
 
 def verify_signature(payload_body: bytes, secret_token: str, signature_header: str):
@@ -147,35 +147,49 @@ async def process_pr_event(payload: Dict):
         pr_url = pr.get("html_url")
         user = pr.get("user", {}).get("login", "Unknown")
 
-        logger.info(f"🕵️ Watchdog Analyzing PR #{pr_number}: {pr_title}")
+        # 1. Get the action type (opened vs synchronize)
+        action = payload.get("action")
 
-        # 1. Regex Extraction
+        logger.info(f"🕵️ Watchdog Analyzing PR #{pr_number} ({action}): {pr_title}")
+
+        # 2. Regex Extraction
         match = re.search(r'[A-Z]+-\d+', pr_title)
         jira_key = match.group(0) if match else None
 
-        # 2. Fetch Context (Simulated or Real)
+        # 3. Fetch Context (Simulated or Real)
         if jira_key:
             jira_info = get_issue_context(jira_key)
         else:
             jira_info = "⚠️ No Jira Ticket Linked in Title."
 
-        # 3. Intelligent Analysis
-        # Note: These are blocking calls, running them here in background task is safe
+        # 4. Intelligent Analysis (Blocking calls)
         rag_insight = search_knowledge_base(f"Provide architectural guidance for: {pr_title}")
         ci_status = check_ci_status(pr_number)
 
-        # 4. Construct Slack Message
+        # 5. Determine Header Style based on Action
+        if action == "opened":
+            emoji = "🚨"
+            status_text = "New PR Opened"
+        elif action == "synchronize":
+            emoji = "🔄"
+            status_text = "New Commit Pushed"
+        else:
+            emoji = "✏️"
+            status_text = "PR Edited"
+
+        # 6. Construct Slack Message
         blocks = [
-            {"type": "header", "text": {"type": "plain_text", "text": f"🛡️ Watchdog Report: {user}"}},
+            {"type": "header", "text": {"type": "plain_text", "text": f"{emoji} {status_text}: {user}"}},
             {"type": "section", "text": {"type": "mrkdwn", "text": f"<{pr_url}|*PR #{pr_number}: {pr_title}*>"}},
             {"type": "divider"},
-            {"type": "section", "text": {"type": "mrkdwn", "text": f"*Jira Context:*\n{str(jira_info)[:600]}..."}},
+            {"type": "section", "text": {"type": "mrkdwn",
+                                         "text": f"*Action:* {action.upper()}\n*Jira Context:*\n{str(jira_info)[:600]}..."}},
             {"type": "section", "text": {"type": "mrkdwn", "text": f"*CI Status:* {str(ci_status)}"}},
             {"type": "section", "text": {"type": "mrkdwn", "text": f"🤖 *RAG Standards Check:*\n{str(rag_insight)}"}},
             {"type": "context", "elements": [{"type": "mrkdwn", "text": "Mifos Unified Intelligence | Phase 6"}]}
         ]
 
-        # 5. Send to Slack
+        # 7. Send to Slack
         channel_id = settings.SLACK_ALERT_CHANNEL_ID
         if channel_id:
             await slack_app.client.chat_postMessage(channel=channel_id, blocks=blocks, text=f"PR Alert: {pr_title}")
