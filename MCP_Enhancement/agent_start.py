@@ -36,6 +36,7 @@ from MCP_Enhancement.tools.mifos_tools import (
     tool_knowledge_base,
     tool_ci_check,
     tool_pr_details,
+    tool_assign_issue,
     tool_post_pr_comment,
     tool_create_jira,
     tool_get_chat_history,
@@ -70,6 +71,7 @@ tools = [
     StructuredTool.from_function(tool_create_jira),
     StructuredTool.from_function(tool_get_chat_history),
     StructuredTool.from_function(tool_search_client),
+    StructuredTool.from_function(tool_assign_issue),
     StructuredTool.from_function(tool_loan_details)
 ]
 
@@ -80,19 +82,19 @@ llm = ChatOpenAI(
 )
 
 prompt = ChatPromptTemplate.from_messages([
-    ("system",
+("system",
      "You are the Mifos AI DevOps Assistant. You help developers by interacting with Jira, GitHub, Slack, Fineract, and Documentation.\n"
      "RULES:\n"
-     "1. If a user mentions a Jira Key (e.g., 'WEB-95'), use 'tool_jira_context'.\n"
+     "1. If a user mentions a Jira Key (e.g., 'WEB-90'), use 'tool_jira_context'.\n"
      "2. If asked about a PR (e.g. 'pr 53'), use 'tool_pr_details' AND 'tool_ci_check' to give a full report.\n"
-     "3. SECURITY: If using 'tool_post_pr_comment' or 'tool_create_jira', you MUST pass the user's ID string (provided in context) to the 'ctx' argument.\n"
-     "4. If asked about banking data (e.g., 'search for client', 'check loan'), use 'tool_search_client' or 'tool_loan_details'.\n"
-     "5. 🧠 KNOWLEDGE BASE: If asked a technical question (e.g., 'how to deploy', 'requirements', 'architecture', 'error 404'), use 'tool_knowledge_base' to find the answer in the docs.\n"
-     "6. Always be concise and helpful."),
+     "3. SECURITY: For actions like 'create ticket', 'assign ticket', or 'post comment', you MUST pass the user's ID string (provided in context) to the 'ctx' argument.\n"
+     "4. ASSIGNMENT: If asked to assign a ticket (e.g. 'Assign WEB-20 to Victor'), use 'tool_assign_issue'.\n" # <--- NEW INSTRUCTION
+     "5. If asked about banking data (e.g., 'search for client', 'check loan'), use 'tool_search_client' or 'tool_loan_details'.\n"
+     "6. 🧠 KNOWLEDGE BASE: Use 'tool_knowledge_base' for technical docs.\n"
+     "7. Always be concise and helpful."),
     ("user", "{input}"),
     ("placeholder", "{agent_scratchpad}"),
 ])
-
 agent = create_tool_calling_agent(llm, tools, prompt)
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 

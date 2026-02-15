@@ -71,7 +71,7 @@ mcp = FastMCP("mifos-agent-tools")
 
 def _get_jira_client():
     s = get_settings()
-    return Jira(url=s.JIRA_URL, username=s.JIRA_EMAIL, password=s.JIRA_API_TOKEN)
+    return Jira(url=s.JIRA_URL, username=s.JIRA_EMAIL, password=s.JIRA_API_TOKEN,cloud=True)
 
 
 def _get_github_client():
@@ -268,7 +268,7 @@ def get_recent_slack_messages(channel_id: str, count: int = 10) -> str:
         return f"❌ Could not fetch chat history: {e}"
 
 
-# --- JIRA CREATION LOGIC (UPDATED WITH FOOTER) ---
+# --- JIRA CREATION LOGIC ---
 def create_issue_logic(project_key: str, summary: str, description: str, priority: str = "Medium",
                        reporter_name: str = "Unknown") -> str:
     """Creates a ticket with a footer indicating who requested it."""
@@ -276,7 +276,7 @@ def create_issue_logic(project_key: str, summary: str, description: str, priorit
     try:
         clean_priority = priority.capitalize()
 
-        # ✅ NEW: Append the User Signature to the Description
+        # Append the User Signature to the Description
         description_with_footer = (
             f"{description}\n\n"
             f"-----\n"
@@ -295,6 +295,66 @@ def create_issue_logic(project_key: str, summary: str, description: str, priorit
         return f"✅ Created Ticket: **{new_issue['key']}** (Reporter: {reporter_name})"
     except Exception as e:
         return f"❌ Failed to create ticket: {e}"
+
+
+# =========================================================
+# 🆕 JIRA ASSIGNMENT LOGIC (FIXED)
+# =========================================================
+
+def assign_issue_logic(ctx: str, ticket_key: str, assignee_name: str) -> str:
+    """
+    Assigns a Jira ticket to a user.
+    Updated for Jira Cloud Free Plan compatibility (GDPR 'accountId' enforcement).
+    """
+    # 1. AUTH CHECK
+    if not _check_authorization(ctx):
+        return f"⛔ Permission Denied: User {ctx} is not in the AUTHORIZED_USERS list."
+
+    jira = _get_jira_client()
+    requester_name = _get_slack_user_name(ctx)
+
+    try:
+        # 2. RESOLVE ASSIGNEE
+        # Attempt 1: General Cloud User Search (Preferred)
+        users = jira.user_find_by_user_string(query=assignee_name)
+
+        # Attempt 2: Fallback to Ticket-Specific Assignable Users
+        # If general search fails or returns a string error, try this specific search
+        if not users or isinstance(users, str):
+            users = jira.get_assignable_users_for_issue(ticket_key, query=assignee_name)
+
+        # Validation: Did we find anyone?
+        if not users or isinstance(users, str):
+            return f"❌ Could not find a Jira user matching '{assignee_name}'. Check spelling or if they have access to this project."
+
+        # Extract the user object (Handle list vs single object)
+        target_user = users[0] if isinstance(users, list) else users
+
+        # CRITICAL: Cloud uses 'accountId', Server uses 'name'.
+        # We prioritize accountId for your Cloud instance.
+        account_id = target_user.get('accountId')
+        display_name = target_user.get('displayName', assignee_name)
+
+        if not account_id:
+            return f"❌ User found ('{display_name}'), but could not retrieve their Cloud 'accountId'. Assignment blocked."
+
+        # 3. PERFORM ASSIGNMENT (The Fix)
+        # We use 'update_issue_field' instead of 'assign_issue' to avoid the "Username parameter" error
+        # This forces Jira to accept the accountId directly.
+        jira.update_issue_field(ticket_key, {"assignee": {"accountId": account_id}})
+
+        # 4. ADD AUDIT TRAIL
+        audit_comment = (
+            f"⚡ **Assignment Update**\n"
+            f"Ticket assigned to **{display_name}**.\n"
+            f"🚀 *Action triggered by Slack user: {requester_name}*"
+        )
+        jira.issue_add_comment(ticket_key, audit_comment)
+
+        return f"✅ **Success:** Assigned {ticket_key} to **{display_name}** (requested by {requester_name})."
+
+    except Exception as e:
+        return f"❌ Assignment Failed: {str(e)}"
 
 
 # --- WEBHOOK HANDLERS ---
@@ -425,7 +485,7 @@ def tool_post_pr_comment(ctx: str, pr_number: int, comment: str):
     if not _check_authorization(ctx):
         return "⛔ SECURITY ALERT: You are not authorized to post comments."
 
-    # NEW: Fetch real name for the comment signature
+    # Fetch real name for the comment signature
     real_name = _get_slack_user_name(ctx)
     signed_comment = f"{comment}\n\n> 👤 _Posted by **{real_name}** via Mifos Unified Agent_"
 
@@ -438,7 +498,17 @@ def tool_create_jira(ctx: str, project_key: str, summary: str, description: str,
     if not _check_authorization(ctx):
         return "⛔ SECURITY ALERT: You are not authorized to create tickets."
 
-    # NEW: Fetch real name for the ticket footer
+    # Fetch real name for the ticket footer
     real_name = _get_slack_user_name(ctx)
 
     return create_issue_logic(project_key, summary, description, priority, reporter_name=real_name)
+
+
+# --- NEW TOOL ---
+@mcp.tool()
+def tool_assign_issue(ctx: str, ticket_key: str, assignee_name: str):
+    """
+    Assign a Jira ticket to a specific person.
+    REQUIRED: 'ctx' (Slack User ID), 'ticket_key' (e.g. WEB-10), 'assignee_name' (e.g. Gyankrit).
+    """
+    return assign_issue_logic(ctx, ticket_key, assignee_name)
