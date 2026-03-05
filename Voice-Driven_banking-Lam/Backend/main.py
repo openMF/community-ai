@@ -12,7 +12,7 @@ from datetime import datetime
 
 load_dotenv()
 
-from services import stt_whisper, tts_hf, intent_nlu, firestore_db, firestore_session
+from services import sarvam_stt, sarvam_tts, intent_nlu, firestore_db, firestore_session
 from services.llm_gemini import get_llm_final_response, generate_static_response
 from models.audio_models import AudioInput
 from models.api_models import ConverseResponse
@@ -33,15 +33,23 @@ logger = logging.getLogger(__name__)
 
 # A dictionary for language codes is cleaner and more correct
 TTS_LANGUAGE_MAP = {
-    "en": "eng", "hi": "hin", "es": "spa",
-    "fr": "fra", # Correct code for French
-    "de": "deu"  # Correct code for German
+    "en": "en-IN", 
+    "hi": "hi-IN",
+    "pa": "pa-IN",
+    "bn": "bn-IN",
+    "gu": "gu-IN",
+    "mr": "mr-IN",
+    "ta": "ta-IN",
+    "te": "te-IN",
+    "ml": "ml-IN",
+    "kn": "kn-IN",
+    "or": "od-IN"
 }
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Server starting up...")
-    stt_whisper.initialize_stt_model()
+    # Sarvam APIs don't need local model initialization like Whisper did
     await firestore_db.initialize_firestore()
     if firestore_db.db is None:
         raise RuntimeError("FATAL: Firestore database connection failed.")
@@ -70,8 +78,8 @@ async def converse(audio_input: AudioInput):
         audio_data = base64.b64decode(audio_input.audio_data)
         with open(temp_audio_path, "wb") as f: f.write(audio_data)
 
-        # 2. STT
-        user_text = stt_whisper.transcribe_audio_file(temp_audio_path, language=audio_input.language)
+        # 2. STT (Sarvam Saaras)
+        user_text = sarvam_stt.transcribe_audio_file(temp_audio_path, language=audio_input.language)
         if not user_text: raise HTTPException(status_code=400, detail="Could not understand audio.")
         logger.info(f"Transcribed Text: {user_text}")
 
@@ -302,12 +310,14 @@ async def converse(audio_input: AudioInput):
         if session_id:
             await firestore_session.append_to_session(session_id, user_id, user_text, response_text, pending_action=pending_action)
 
-        # 6. TTS
-        tts_language = TTS_LANGUAGE_MAP.get(audio_input.language)
-        if not tts_language: raise HTTPException(status_code=400, detail=f"Unsupported language for TTS: {audio_input.language}")
+        # 6. TTS (Sarvam Bulbul)
+        tts_language = audio_input.language # sarvam_tts handles the precise mapping internally or here
+        if tts_language not in TTS_LANGUAGE_MAP:
+            logger.warning(f"Unsupported language for TTS: {audio_input.language}, falling back to en-IN")
+            tts_language = "en"
         
         # FIX: Check if the TTS service succeeded before trying to read the file
-        tts_result_path = await tts_hf.generate_speech(text=response_text, language=tts_language, output_file=output_audio_path)
+        tts_result_path = await sarvam_tts.generate_speech(text=response_text, language=tts_language, output_file=output_audio_path)
         if not tts_result_path:
             raise HTTPException(status_code=500, detail="Failed to generate speech audio.")
 

@@ -1,2 +1,6 @@
 # Firebase admin SDK credentials
 Backend/config/voice-banking-fd409-firebase-adminsdk-fbsvc-cde1fbc821.json
+
+# Environment Variables
+.env
+Backend/.env
