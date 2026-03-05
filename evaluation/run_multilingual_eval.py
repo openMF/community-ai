@@ -49,7 +49,7 @@ print("⏳ Running benchmarks...")
 try:
     for model in MODELS:
         print(f"\n--- Benchmarking {model} ---")
-        cmd = ["python3", bench_script, "-p", "1", "-t", "4"]
+        cmd = [sys.executable, bench_script, "-p", "1", "-t", "4"]
         subprocess.run(cmd, cwd=whisper_dir, check=True)
     print("✅ All benchmarks complete!")
 except subprocess.CalledProcessError as e:
