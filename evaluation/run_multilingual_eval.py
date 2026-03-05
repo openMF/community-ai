@@ -16,7 +16,7 @@ This script was refined with Claude Opus 4.5 after understanding:
 - whisper.cpp architecture and benchmark tools
 - Community-ai repo structure and dependencies
 - AI-167 requirements for mobile performance evaluation
-- Minimal viable approach (34 lines, maximum clarity)
+
 
 Usage: python run_multilingual_eval.py
 """
