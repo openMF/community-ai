@@ -46,11 +46,12 @@ if not os.path.exists(bench_script):
 print(f"🎤 Evaluating {', '.join(MODELS)} across {', '.join(LANGUAGES)}...")
 print("⏳ Running benchmarks...")
 
-cmd = ["python3", bench_script, "-p", "1", "-t", "4"]
-
 try:
-    subprocess.run(cmd, cwd=whisper_dir, check=True)
-    print("✅ Benchmark complete!")
+    for model in MODELS:
+        print(f"\n--- Benchmarking {model} ---")
+        cmd = ["python3", bench_script, "-p", "1", "-t", "4"]
+        subprocess.run(cmd, cwd=whisper_dir, check=True)
+    print("✅ All benchmarks complete!")
 except subprocess.CalledProcessError as e:
     print(f"❌ Benchmark failed: {e}")
     sys.exit(1)
