@@ -1,3 +1,4 @@
+# This file is refined using ai model(claude opus 4.6) under my supervision
 # AI-167: Multilingual STT Evaluation Results
 
 **Jira Ticket:** [AI-167 - Evaluate multilingual support for smallest ai](https://mifosforge.jira.com/browse/AI-167)
