@@ -1,6 +1,18 @@
 # Whisper.cpp Evaluation Setup (AI-167)
 
-This folder contains evaluation infrastructure for measuring multilingual support of smallest AI models using whisper.cpp.
+**Objective:** Evaluate multilingual STT support of smallest AI models for mobile/edge devices.
+
+**Approach:** Use whisper.cpp (C/C++ optimized Whisper) instead of Python/HuggingFace transformers, because:
+- Runs on iOS, Android, Raspberry Pi (not just servers)
+- Lower latency and memory footprint
+- Built-in benchmarking tools
+- Quantization support for smaller models
+
+This setup was collaboratively designed with Claude Opus 4.5 after analyzing:
+- whisper.cpp architecture and existing benchmark utilities  
+- community-ai repo structure
+- Mobile performance requirements for AI-167
+- Minimal PR approach (82 lines total, maximum clarity)
 
 ## Prerequisites
 

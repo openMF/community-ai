@@ -1,4 +1,26 @@
 #!/usr/bin/env python3
+"""
+Multilingual Evaluation Runner for Whisper.cpp (AI-167)
+
+This script orchestrates benchmarking of Whisper STT models (tiny, base, small)
+across multiple languages using the whisper.cpp C/C++ implementation, which is
+optimized for mobile and edge device inference.
+
+Key decisions in this implementation:
+- Uses whisper.cpp's existing bench.py (no reinventing the wheel)
+- Validates submodule and build state before running
+- Focuses on 5 core languages: English, Hindi, Spanish, French, German
+- Captures latency, WER/CER, model size, and memory metrics
+
+This script was refined with Claude Opus 4.5 after understanding:
+- whisper.cpp architecture and benchmark tools
+- Community-ai repo structure and dependencies
+- AI-167 requirements for mobile performance evaluation
+- Minimal viable approach (34 lines, maximum clarity)
+
+Usage: python run_multilingual_eval.py
+"""
+
 import subprocess
 import os
 import sys
