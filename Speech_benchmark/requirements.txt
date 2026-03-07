@@ -1,0 +1,6 @@
+openai-whisper
+deepgram-sdk
+hume
+jiwer
+soundfile
+pydub
