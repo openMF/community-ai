@@ -25,14 +25,32 @@ BANKING_TEST_CASES = [
     {
         "language_name": "English",
         "language_code": "en",
-        "expected": "transfer five hundred dollars to bruce",
-        "audio_path": "datasets/english_audio/sample2.wav"
+        "expected": "debit two hundred from arpit's account",
+        "audio_path": "datasets/english_audio/sample3.wav"
     },
     {
         "language_name": "Hindi",
         "language_code": "hi",
-        "expected": "bruce ko paanch sau rupaye bhejo",
-        "audio_path": "datasets/hindi_audio/sample2.wav"
+        "expected": "arpit ke account se do sau rupaye kaato",
+        "audio_path": "datasets/hindi_audio/sample3.wav"
+    },
+    {
+        "language_name": "English",
+        "language_code": "en",
+        "expected": "credit one thousand to my savings account",
+        "audio_path": "datasets/english_audio/sample4.wav"
+    },
+    {
+        "language_name": "Hindi",
+        "language_code": "hi",
+        "expected": "mere savings account mein ek hazaar rupaye dalo",
+        "audio_path": "datasets/hindi_audio/sample4.wav"
+    },
+    {
+        "language_name": "English",
+        "language_code": "en",
+        "expected": "transfer 500 to sanya",
+        "audio_path": "datasets/english_audio/sample5.wav"
     }
 ]
 
@@ -73,6 +91,9 @@ async def run_banking_evaluation():
     # Ensure dataset directories exist for simulation
     os.makedirs("datasets/english_audio", exist_ok=True)
     os.makedirs("datasets/hindi_audio", exist_ok=True)
+    os.makedirs("datasets/tamil_audio", exist_ok=True)
+    os.makedirs("datasets/bengali_audio", exist_ok=True)
+    os.makedirs("datasets/punjabi_audio", exist_ok=True)
 
     for case in BANKING_TEST_CASES:
         lang_code = case["language_code"]

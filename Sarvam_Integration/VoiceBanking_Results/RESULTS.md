@@ -119,10 +119,14 @@ Following the general multilingual evaluation, we performed a targeted test usin
 | :--- | :--- | :--- | :---: | :--- |
 | `english_audio/sample1.wav` | show my loan balance | Show my loan balance | 0.00 | **Perfect** match. |
 | `hindi_audio/sample1.wav` | mera loan balance batao | मेरा लोन बैलेंस बढ़ाओ। | 1.00 | Phonetic drift (बटाओ vs बढ़ाओ). |
-| `english_audio/sample2.wav` | transfer five hundred dollars to bruce | Transfer $500 to Bruce. | 0.67 | **Intelligent Formatting**: Converted words to symbols. |
-| `hindi_audio/sample2.wav` | bruce ko paanch sau rupaye bhejo | ब्रूस को ₹500 भेजो। | 1.00 | **Intelligent Formatting**: Converted words to symbols. |
+| `english_audio/sample3.wav` | debit two hundred from arpit's account | Debit 200 from Arpit's account. | 0.50 | **Accurate**: Correct name and amount formatting. |
+| `hindi_audio/sample3.wav` | arpit ke account se do sau rupaye kaato | अर्पित के अकाउंट से ₹200 काटो। | 1.00 | **Perfect ITN**: Captures name and converts to ₹200. |
+| `english_audio/sample4.wav` | credit one thousand to my savings account | Credit 1000 to my savings account. | 0.43 | **Accurate**: Handled numeric conversion well. |
+| `hindi_audio/sample4.wav` | mere savings account mein ek hazaar rupaye dalo | మీర్ సేవింగ్స్ అకੌంట్ మే ₹1000 దలో. | 1.00 | **Script Mismatch**: Hindi words transcribed in Telugu script. |
+| `english_audio/sample5.wav` | transfer 500 to sanya | Transfer 500 to Sanya. | 0.25 | **Correct**: Accurate name (Sanya) and intent. |
 
 ### 💡 Notable Observations:
-1. **Intelligent Normalization**: Sarvam's `Saaras v3` model automatically normalizes currency and numeric expressions into symbols (e.g., "$500", "₹500"). While this increases technical WER compared to a literal reference transcript, it is highly desirable for UI/UX in a banking app.
-2. **Hindi Phonetics**: The phonetic similarity between "Batao" (tell) and "Badhao" (increase/extend) caused a literal mismatch in one case, though the audio synthesis was clear.
-3. **Low Latency**: Even with the round-trip through TTS, the transcription phase remained stable at sub-second speeds.
+1. **Intelligent Normalization (ITN)**: The `Saaras v3` model consistently converts currency and numbers into symbols (e.g., "$500", "₹500", "1000"). This is highly beneficial for parsing downstream in banking applications.
+2. **Entity Recognition**: The model successfully captured personal names like **Arpit** and **Sanya**, which is critical for P2P transfers.
+3. **Multilingual Script Overlap**: In one instance, a Hindi command (`mere savings account...`) was transcribed using Telugu script (`మీర్...`). This happens occasionally in unified multilingual models and can be mitigated through language-specific STT configuration.
+4. **Action Verbs**: High fidelity in capturing intent-critical verbs like "Debit", "Credit", "Kaato" (cut/debit), and "Dalo" (add/credit).
