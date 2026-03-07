@@ -1,4 +1,5 @@
 import os
+import re
 import logging
 from typing import Optional
 from sarvamai import SarvamAI
@@ -30,13 +31,50 @@ def transcribe_audio_file(file_path: str, language: str = "en", mode: str = "tra
             response = client.speech_to_text.transcribe(
                 file=f,
                 model="saaras:v3",
-                mode=mode # 'transcribe' outputs native script, 'translate' outputs English
+                mode=mode  # 'transcribe' outputs native script, 'translate' outputs English
             )
-            # Response object format usually provides text directly or via a property
-            # For logging and safety, convert to string and return
-            result = str(response) 
-            logger.info(f"Sarvam STT Result: {result}")
-            return result
+
+            # Try to extract transcript robustly from different response shapes.
+            # 1) If response has attribute-like access
+            transcript = None
+            try:
+                if hasattr(response, "transcript"):
+                    transcript = getattr(response, "transcript")
+                elif hasattr(response, "text"):
+                    transcript = getattr(response, "text")
+            except Exception:
+                transcript = None
+
+            # 2) If response is a dict-like
+            if transcript is None:
+                try:
+                    if isinstance(response, dict):
+                        for key in ("transcript", "text", "transcription", "result"):
+                            if key in response and response[key]:
+                                transcript = response[key]
+                                break
+                except Exception:
+                    transcript = None
+
+            # 3) Fallback: parse string representation for patterns like transcript='...'
+            if transcript is None:
+                resp_str = str(response)
+                # pattern: transcript='...'
+                m = re.search(r"transcript=['\"]([^'\"]+)['\"]", resp_str)
+                if m:
+                    transcript = m.group(1)
+                else:
+                    # try simple quoted content after "transcript=" until comma
+                    m2 = re.search(r"transcript=([^,\s]+)", resp_str)
+                    if m2:
+                        transcript = m2.group(1)
+
+            # Final fallback: use entire string
+            if transcript is None:
+                transcript = str(response)
+
+            logger.info(f"Sarvam STT Transcript: {transcript}")
+            return transcript
     except Exception as e:
         logger.error(f"Error calling Sarvam STT: {e}")
         return None
