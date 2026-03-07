@@ -24,6 +24,25 @@ A standalone, fully-functional terminal script that proves the end-to-end integr
 2. **Superior Indic Language Performance**: During testing, the `Bulbul v3` Text-to-Speech pipeline generated flawless localized Hindi audio (`"आपका स्वागत है! यह एक परीक्षण संदेश है।"`) with correct pitch and grammar, avoiding the robotic artifacts commonly found in generic multi-language models.
 3. **Integration Speed**: The transcription loop from the generated output back into the **Saaras v3** STT pipeline processed rapidly with a `language_probability` score of 0.998, returning the exact input script.
 
+### 📈 Measured Evaluation Summary (interpreting `RESULTS.md`)
+
+- **Tested languages**: Hindi (`hi`), Bengali (`bn`), Tamil (`ta`), Punjabi (`pa`)
+- **Observed TTS latencies (Bulbul v3)**: ~1.9–2.7 seconds (per synthesis request in our environment)
+- **Observed STT latencies (Saaras v3)**: ~0.85–1.01 seconds (per transcription request)
+- **Word Error Rate (WER)**: per-language values ranged from 0.125 to 0.200, with an average WER ≈ 0.163.
+- **Character Error Rate (CER)**: per-language values ranged from 0.030 to 0.036, with an average CER ≈ 0.032.
+
+Interpretation:
+- The TTS step dominates the end-to-end time budget; STT is sub-second and stable. These latencies are suitable for server-side or mobile-proxied flows where a ~2s synthesis is acceptable.
+- Low WER and CER (WER ≈ 16.3%, CER ≈ 3.2%) indicate high transcription fidelity for short scripted phrases in native scripts. Character-level error is particularly small, showing strong preservation of exact tokens.
+- Note: initial WER/CER values in earlier runs were inflated due to using the full STT response string; we now extract the raw transcript before scoring, so the values above reflect the corrected evaluation.
+
+Recommended next steps:
+- Expand the test set to longer and more diverse utterances (different speakers, background noise, and real-world recordings) to measure robustness.
+- Collect latency percentiles (p50/p90/p99) and standard deviation for production planning.
+- If on-device interactivity is required, consider asynchronous synthesis + streaming playback to hide TTS latency.
+- Add automated unit tests that assert WER/CER thresholds on CI for regressions.
+
 ## 🚀 How to Run the Demonstration
 
 You can run our extracted audio verification pipeline right from your terminal.
