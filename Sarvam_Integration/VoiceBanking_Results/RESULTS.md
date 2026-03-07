@@ -16,10 +16,10 @@ The results below reflect the end-to-end network operation time (inference + dow
 
 | Language | Locale Code | Target Text | TTS Latency (Bulbul v3) | STT Latency (Saaras v3) | WER | CER | Status |
 | :--- | :--- | :--- | :--- | :--- | :---: | :---: | :--- |
-| **Hindi** | `hi-IN` | आपका स्वागत है! यह एक परीक्षण संदेश है। | 2.98s | 0.89s | 1.000 | 4.938 | ✅ Success |
-| **Bengali** | `bn-IN` | স্বাগতম! এটি একটি পরীক্ষামূলক বার্তা। | 2.09s | 1.08s | 1.400 | 4.788 | ✅ Success |
-| **Tamil** | `ta-IN` | வரவேற்கிறோம்! இது ஒரு சோதனை செய்தி. | 2.08s | 0.97s | 1.400 | 5.097 | ✅ Success |
-| **Punjabi** | `pa-IN` | ਜੀ ਆਇਆਂ ਨੂੰ! ਇਹ ਇੱਕ ਟੈਸਟ ਸੁਨੇਹਾ ਹੈ। | 2.50s | 0.82s | 1.000 | 5.643 | ✅ Success |
+| **Hindi** | `hi-IN` | आपका स्वागत है! यह एक परीक्षण संदेश है। | 2.34s | 0.97s | 0.125 | 0.031 | ✅ Success |
+| **Bengali** | `bn-IN` | স্বাগতম! এটি একটি পরীক্ষামূলক বার্তা। | 2.66s | 0.99s | 0.200 | 0.030 | ✅ Success |
+| **Tamil** | `ta-IN` | வரவேற்கிறோம்! இது ஒரு சோதனை செய்தி. | 2.10s | 0.85s | 0.200 | 0.032 | ✅ Success |
+| **Punjabi** | `pa-IN` | ਜੀ ਆਇਆਂ ਨੂੰ! ਇਹ ਇੱਕ ਟੈਸਟ ਸੁਨੇਹਾ ਹੈ। | 1.90s | 1.01s | 0.125 | 0.036 | ✅ Success |
 
 ## Key Findings 🔍
 
@@ -71,3 +71,41 @@ Date: 2026-03-07 13:05:27
 
 **Average WER:** 1.200
 **Average CER:** 5.116
+
+## Multilingual Evaluation Results
+Date: 2026-03-07 13:15:15
+
+- **Hindi**:
+  - Target: आपका स्वागत है! यह एक परीक्षण संदेश है।
+  - Transcription: आपका स्वागत है, यह एक परीक्षण संदेश है।
+  - TTS latency (s): 2.34
+  - STT latency (s): 0.97
+  - WER: 0.125
+  - CER: 0.031
+
+- **Bengali**:
+  - Target: স্বাগতম! এটি একটি পরীক্ষামূলক বার্তা।
+  - Transcription: স্বাগতম, এটি একটি পরীক্ষামূলক বার্তা।
+  - TTS latency (s): 2.66
+  - STT latency (s): 0.99
+  - WER: 0.200
+  - CER: 0.030
+
+- **Tamil**:
+  - Target: வரவேற்கிறோம்! இது ஒரு சோதனை செய்தி.
+  - Transcription: வரவேற்கிறோம், இது ஒரு சோதனை செய்தி.
+  - TTS latency (s): 2.1
+  - STT latency (s): 0.85
+  - WER: 0.200
+  - CER: 0.032
+
+- **Punjabi**:
+  - Target: ਜੀ ਆਇਆਂ ਨੂੰ! ਇਹ ਇੱਕ ਟੈਸਟ ਸੁਨੇਹਾ ਹੈ।
+  - Transcription: ਜੀ ਆਇਆਂ ਨੂੰ, ਇਹ ਇੱਕ ਟੈਸਟ ਸੁਨੇਹਾ ਹੈ।
+  - TTS latency (s): 1.9
+  - STT latency (s): 1.01
+  - WER: 0.125
+  - CER: 0.036
+
+**Average WER:** 0.163
+**Average CER:** 0.032
