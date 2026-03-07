@@ -32,6 +32,51 @@ TEST_CASES = [
     }
 ]
 
+
+def _levenshtein(a, b):
+    """Compute Levenshtein distance between sequences a and b."""
+    # a and b can be lists (for WER) or strings (for CER)
+    la = len(a)
+    lb = len(b)
+    if la == 0:
+        return lb
+    if lb == 0:
+        return la
+    dp = [[0] * (lb + 1) for _ in range(la + 1)]
+    for i in range(la + 1):
+        dp[i][0] = i
+    for j in range(lb + 1):
+        dp[0][j] = j
+    for i in range(1, la + 1):
+        for j in range(1, lb + 1):
+            cost = 0 if a[i - 1] == b[j - 1] else 1
+            dp[i][j] = min(
+                dp[i - 1][j] + 1,    # deletion
+                dp[i][j - 1] + 1,    # insertion
+                dp[i - 1][j - 1] + cost,  # substitution
+            )
+    return dp[la][lb]
+
+
+def wer(ref, hyp):
+    """Compute Word Error Rate between reference and hypothesis strings."""
+    ref_tokens = ref.strip().split()
+    hyp_tokens = hyp.strip().split()
+    if len(ref_tokens) == 0:
+        return 1.0 if len(hyp_tokens) > 0 else 0.0
+    dist = _levenshtein(ref_tokens, hyp_tokens)
+    return dist / len(ref_tokens)
+
+
+def cer(ref, hyp):
+    """Compute Character Error Rate between reference and hypothesis strings."""
+    ref_chars = list(ref.replace(" ", ""))
+    hyp_chars = list(hyp.replace(" ", ""))
+    if len(ref_chars) == 0:
+        return 1.0 if len(hyp_chars) > 0 else 0.0
+    dist = _levenshtein(ref_chars, hyp_chars)
+    return dist / len(ref_chars)
+
 async def run_evaluation():
     print("🚀 Starting Sarvam AI Multilingual Evaluation...")
     print("-" * 50)
@@ -74,6 +119,10 @@ async def run_evaluation():
             
         print(f"✅ STT Success ({stt_latency}s)")
         print(f"Result: {transcription[:100]}...") # Print first 100 chars
+        # Compute WER and CER
+        wer_score = wer(source_text, transcription)
+        cer_score = cer(source_text, transcription)
+        print(f"WER: {wer_score:.3f}, CER: {cer_score:.3f}")
         
         # Cleanup
         if os.path.exists(output_file):
@@ -84,6 +133,10 @@ async def run_evaluation():
             "Language": lang_name,
             "TTS_Latency_Seconds": tts_latency,
             "STT_Latency_Seconds": stt_latency,
+            "WER": wer_score,
+            "CER": cer_score,
+            "Target_Text": source_text,
+            "Transcription": transcription,
             "Success": True
         })
         
@@ -93,7 +146,33 @@ async def run_evaluation():
     print(f"Successful Pipelines: {len(results)}")
     
     for r in results:
-        print(f"- {r['Language']}: TTS={r['TTS_Latency_Seconds']}s, STT={r['STT_Latency_Seconds']}s")
+        print(f"- {r['Language']}: TTS={r['TTS_Latency_Seconds']}s, STT={r['STT_Latency_Seconds']}s, WER={r['WER']:.3f}, CER={r['CER']:.3f}")
+
+    # Append results to RESULTS.md
+    results_md_path = os.path.join(os.path.dirname(__file__), "RESULTS.md")
+    try:
+        with open(results_md_path, "a", encoding="utf-8") as f:
+            f.write("\n## Multilingual Evaluation Results\n")
+            f.write(f"Date: {time.strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+            total_wer = 0.0
+            total_cer = 0.0
+            for r in results:
+                f.write(f"- **{r['Language']}**:\n")
+                f.write(f"  - Target: {r['Target_Text']}\n")
+                f.write(f"  - Transcription: {r['Transcription']}\n")
+                f.write(f"  - TTS latency (s): {r['TTS_Latency_Seconds']}\n")
+                f.write(f"  - STT latency (s): {r['STT_Latency_Seconds']}\n")
+                f.write(f"  - WER: {r['WER']:.3f}\n")
+                f.write(f"  - CER: {r['CER']:.3f}\n\n")
+                total_wer += r['WER']
+                total_cer += r['CER']
+            if len(results) > 0:
+                avg_wer = total_wer / len(results)
+                avg_cer = total_cer / len(results)
+                f.write(f"**Average WER:** {avg_wer:.3f}\n")
+                f.write(f"**Average CER:** {avg_cer:.3f}\n")
+    except Exception as e:
+        print(f"Failed to write results to {results_md_path}: {e}")
 
 if __name__ == "__main__":
     if not os.getenv("SARVAM_API_KEY"):
