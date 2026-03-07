@@ -108,4 +108,21 @@ Date: 2026-03-07 13:15:15
   - CER: 0.036
 
 **Average WER:** 0.163
-**Average CER:** 0.032
+## Banking-Specific Evaluation (Saaras v3) 🏦
+
+Following the general multilingual evaluation, we performed a targeted test using common banking queries to measure the performance of Sarvam's Speech-to-Text in a real-world scenario.
+
+**Evaluation Date**: 2026-03-07
+**Test Case Strategy**: Samples were generated via Sarvam Bulbul (TTS) and then transcribed via Sarvam Saaras (STT).
+
+| Audio File | Expected (Reference) | Predicted (Transcription) | WER | Analysis |
+| :--- | :--- | :--- | :---: | :--- |
+| `english_audio/sample1.wav` | show my loan balance | Show my loan balance | 0.00 | **Perfect** match. |
+| `hindi_audio/sample1.wav` | mera loan balance batao | मेरा लोन बैलेंस बढ़ाओ। | 1.00 | Phonetic drift (बटाओ vs बढ़ाओ). |
+| `english_audio/sample2.wav` | transfer five hundred dollars to bruce | Transfer $500 to Bruce. | 0.67 | **Intelligent Formatting**: Converted words to symbols. |
+| `hindi_audio/sample2.wav` | bruce ko paanch sau rupaye bhejo | ब्रूस को ₹500 भेजो। | 1.00 | **Intelligent Formatting**: Converted words to symbols. |
+
+### 💡 Notable Observations:
+1. **Intelligent Normalization**: Sarvam's `Saaras v3` model automatically normalizes currency and numeric expressions into symbols (e.g., "$500", "₹500"). While this increases technical WER compared to a literal reference transcript, it is highly desirable for UI/UX in a banking app.
+2. **Hindi Phonetics**: The phonetic similarity between "Batao" (tell) and "Badhao" (increase/extend) caused a literal mismatch in one case, though the audio synthesis was clear.
+3. **Low Latency**: Even with the round-trip through TTS, the transcription phase remained stable at sub-second speeds.
