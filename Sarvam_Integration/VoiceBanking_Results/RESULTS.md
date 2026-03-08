@@ -137,3 +137,27 @@ We expanded the targeted banking evaluation to cover 7 major languages. This tes
 1. **Cross-Language Consistency**: Sarvam's `Saaras v3` maintains high fidelity for banking terminology across all 7 tested languages.
 2. **Unified ITN Logic**: The model's ability to normalize amounts to digits or currency symbols works reliably across diverse scripts (Bengali, Tamil, Marathi, etc.).
 3. **Low CER (Character Error Rate)**: Even when WER is technicaly non-zero due to ITN, the character-level accuracy for names (Arpit) is nearly 100% across languages.
+
+## Enhanced Multilingual Evaluation (2026-03-08 13:14:35)
+
+| Lang | WER | CER | JW | Sem Sim | Entity Acc | STT Latency |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| Hindi | 0.000 | 0.000 | 1.000 | 1.000 | 100.0% | 0.57s |
+| Bengali | 0.600 | 0.303 | 0.900 | 0.672 | 33.3% | 0.76s |
+| Tamil | 0.500 | 0.097 | 0.938 | 0.932 | 100.0% | 0.8s |
+| Marathi | 0.500 | 0.355 | 0.882 | 0.685 | 33.3% | 0.78s |
+| Kannada | 0.250 | 0.042 | 0.993 | 0.958 | 100.0% | 1.23s |
+
+**Summary Score:** Semantic Similarity: **0.850**, Entity Accuracy: **73.3%**
+
+## Enhanced Multilingual Evaluation (2026-03-08 13:15:47)
+
+| Lang | WER | CER | JW | Sem Sim | Entity Acc | STT Latency |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| Hindi | 0.000 | 0.000 | 1.000 | 1.000 | 100.0% | 0.66s |
+| Bengali | 0.800 | 0.333 | 0.841 | 0.675 | 0.0% | 0.85s |
+| Tamil | 0.500 | 0.097 | 0.938 | 0.932 | 100.0% | 0.95s |
+| Marathi | 0.333 | 0.194 | 0.930 | 0.831 | 66.7% | 0.67s |
+| Kannada | 0.250 | 0.042 | 0.993 | 0.958 | 100.0% | 0.71s |
+
+**Summary Score:** Semantic Similarity: **0.879**, Entity Accuracy: **73.3%**
