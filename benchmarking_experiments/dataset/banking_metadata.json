@@ -1,1 +1,7 @@
-{}
+{
+  "languages": ["english", "hindi", "spanish", "french", "portuguese"],
+  "domain": "mobile banking commands",
+  "samples_per_language": 10,
+  "audio_format": "wav",
+  "sample_rate": 16000
+}
