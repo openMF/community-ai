@@ -1,0 +1,7 @@
+aiohttp
+pytest
+jiwer
+soundfile
+numpy
+click
+python-dotenv
