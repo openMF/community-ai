@@ -3,14 +3,14 @@
 Multilingual Evaluation Runner for Whisper.cpp (AI-167)
 
 This script orchestrates benchmarking of Whisper STT models (tiny, base, small)
-across multiple languages using the whisper.cpp C/C++ implementation, which is
-optimized for mobile and edge device inference.
+using the whisper.cpp C/C++ implementation, which is optimized for mobile and
+edge device inference.
 
 Key decisions in this implementation:
 - Uses whisper.cpp's existing bench.py (no reinventing the wheel)
 - Validates submodule and build state before running
-- Focuses on 5 core languages: English, Hindi, Spanish, French, German
-- Captures latency, WER/CER, model size, and memory metrics
+- Delegates language handling and metric computation to bench.py
+- Does not parse or aggregate benchmark metrics; it only runs the benchmarks
 
 This script was refined with Claude Opus 4.5 after understanding:
 - whisper.cpp architecture and benchmark tools
@@ -48,9 +48,10 @@ print("⏳ Running benchmarks...")
 
 try:
     for model in MODELS:
-        print(f"\n--- Benchmarking {model} ---")
-        cmd = [sys.executable, bench_script, "-p", "1", "-t", "4"]
-        subprocess.run(cmd, cwd=whisper_dir, check=True)
+        for lang in LANGUAGES:
+            print(f"\n--- Benchmarking {model} [{lang}] ---")
+            cmd = [sys.executable, bench_script, "-p", "1", "-t", "4", "-m", model, "-l", lang]
+            subprocess.run(cmd, cwd=whisper_dir, check=True)
     print("✅ All benchmarks complete!")
 except subprocess.CalledProcessError as e:
     print(f"❌ Benchmark failed: {e}")

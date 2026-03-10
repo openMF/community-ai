@@ -75,9 +75,9 @@ def calculate_wer(reference: str, hypothesis: str) -> float:
 
 
 def calculate_cer(reference: str, hypothesis: str) -> float:
-    """Character Error Rate (same formula but for characters)"""
-    ref_chars = normalize_text(reference)
-    hyp_chars = normalize_text(hypothesis)
+    """Character Error Rate (same formula but for characters, excluding whitespace)"""
+    ref_chars = re.sub(r'\s+', '', normalize_text(reference))
+    hyp_chars = re.sub(r'\s+', '', normalize_text(hypothesis))
     
     if not ref_chars:
         return 0.0 if not hyp_chars else 1.0

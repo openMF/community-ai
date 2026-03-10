@@ -8,7 +8,7 @@ Minimal implementation focused on:
 """
 
 from typing import AsyncGenerator, Dict, Any, Optional
-from providers.base import STTProvider
+from .base import STTProvider
 
 
 class DeepgramSTTProvider(STTProvider):
@@ -46,10 +46,11 @@ class DeepgramSTTProvider(STTProvider):
         try:
             from deepgram import DeepgramClient, PrerecordedOptions
             
-            # Collect audio chunks
-            audio_buffer = b""
+            # Collect audio chunks efficiently (avoid O(n²) bytes concat)
+            chunks = []
             async for chunk in audio_generator:
-                audio_buffer += chunk
+                chunks.append(chunk)
+            audio_buffer = b"".join(chunks)
             
             if not audio_buffer:
                 return {
@@ -74,7 +75,12 @@ class DeepgramSTTProvider(STTProvider):
                 options
             )
             
-            # Parse response
+            # Convert SDK response object to dict for parsing
+            if hasattr(response, "to_dict"):
+                response = response.to_dict()
+            elif hasattr(response, "model_dump"):
+                response = response.model_dump()
+            
             return self._parse_response(response, language)
             
         except Exception as e:
