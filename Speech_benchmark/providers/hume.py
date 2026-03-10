@@ -2,7 +2,7 @@ from hume import HumeClient
 from hume.models.config import LanguageConfig
 import os
 
-API_KEY = os.getenv("r8xUoG25n3jrxrYyn5GHwFqPiWMjmFyXIW72EtptUBDpBaiU")
+API_KEY = os.getenv("HUME_API")
 
 client = HumeClient(API_KEY)
 
