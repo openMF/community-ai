@@ -1,0 +1,50 @@
+# Mifos Community AI - Benchmarking Experiments
+
+## Project Overview
+Benchmarking framework for evaluating speech models (STT/TTS/STS) for financial inclusion use cases on mobile devices.
+
+## Directory Structure
+- `/providers/` - Speech model provider integrations (Google, AWS, Deepgram, etc.)
+- `/metrics/` - Evaluation metrics (WER, CER, latency, resource usage)
+- `/dataset/` - Test datasets with ground truth for multilingual evaluation
+- `/runners/` - Evaluation orchestration scripts
+- `/results/` - Generated evaluation reports
+
+## Key Concepts
+
+### Speech Tasks
+- **STT** (Speech-to-Text): Convert audio → text for voice commands, financial inquiries
+- **TTS** (Text-to-Speech): Convert text → audio for notifications, account balance reads
+- **STS** (Speech-to-Speech): Process speech → transform audio for voice authentication
+
+### Evaluation Focus for Mifos
+1. **Multilingual Support** - English, Spanish, French, Hindi, Swahili, Portuguese
+2. **Mobile Constraints** - Memory footprint, battery consumption, on-device capability
+3. **Financial Domain** - Account opening, transfers, balance inquiries, dispute resolution
+4. **Accuracy Metrics** - WER (Word Error Rate), CER (Character Error Rate) for each language
+
+### Provider Integration Pattern
+Each provider extends `STTProvider` base class with:
+- `transcribe_stream()` - Async streaming API call
+- Language-specific configuration
+- Error handling and response parsing
+
+### Metric Calculation
+- **WER** = (Substitutions + Deletions + Insertions) / Reference_Words
+- **CER** = Same but for characters (handles languages without word boundaries)
+- Edit distance calculated via Wagner-Fischer algorithm
+
+## Claude Skills Integration
+
+This framework is designed to work with Claude Skills for automated evaluation:
+- `/benchmark-speech` - Run provider benchmarks
+- `/evaluate-language` - Test specific language performance
+- `/compare-providers` - Side-by-side accuracy comparison
+
+Skills can invoke evaluations and generate reports automatically.
+
+## Next Steps
+1. Implement Deepgram provider (AI-172)
+2. Add test dataset with real financial audio samples
+3. Set up CI/CD evaluation pipeline
+4. Create provider comparison matrix
