@@ -42,6 +42,4 @@ from benchmarking_experiments.dataset.ai172_languages import get_languages()
 
 ---
 
-## Next PR
 
-Evaluation runner to orchestrate Deepgram benchmarks against test samples (~150 lines)
