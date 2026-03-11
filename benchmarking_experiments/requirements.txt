@@ -5,3 +5,6 @@ soundfile
 numpy
 click
 python-dotenv
+deepgram-sdk
+huggingface_hub
+datasets
