@@ -1,6 +1,6 @@
 # Mifos Community AI
 
-A comprehensive AI-powered toolkit for the Mifos community, featuring intelligent chatbots, automation tools, translation utilities, and voice-driven banking interfaces. This project aims to provide self-service support, enhance developer productivity, and simplify access to Mifos ecosystem resources through advanced Generative AI technologies.
+A comprehensive AI-powered toolkit for the Mifos community, featuring intelligent chatbots, automation tools, translation utilities, and voice-driven banking interfaces. This project aims to provide AI-powered self-service support, enhance developer productivity, and simplify access to Mifos ecosystem resources through advanced Generative AI technologies.
 
 ## Table of Contents
 
@@ -22,9 +22,13 @@ A comprehensive AI-powered toolkit for the Mifos community, featuring intelligen
 
 ## Overview
 
-As the Mifos community around its core products (Mifos X, Payment Hub EE, Mobile Applications, and Mifos Gazelle) grows rapidly, this repository provides a suite of AI-powered tools to support implementors, developers, and new users. The tools simplify finding relevant content across multiple sources, automate repetitive tasks, and enable innovative interfaces for banking applications.
+As the Mifos community and its core products (Mifos X, Payment Hub EE, Mobile Applications, and Mifos Gazelle) continue to grow rapidly, this repository provides a suite of AI-powered tools to support implementors, developers, and new users. The tools simplify finding relevant content across multiple sources, automate repetitive tasks, and enable innovative interfaces for banking applications.
 
 ---
+## Badges Section
+![Python](https://img.shields.io/badge/python-3.8+-blue)
+![License](https://img.shields.io/badge/license-MPL--2.0-green)
+![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange)
 
 ## Key Components
 
@@ -271,7 +275,7 @@ Tools for extracting, processing, and querying Slack messages.
 
 #### Features
 - **Message Extraction**: Convert Slack JSON exports to clean text
-- **PII Removal**: Automatically redact personal identifiable information
+- **PII Removal**: Automatically redact personally identifiable information
 - **RAG Integration**: Query Slack conversations using vector databases
 - **Trustworthy LLM**: Confidence scoring for generated responses
 
@@ -283,7 +287,7 @@ cd Slack_scraper_bot/scripts
 python extract.py
 
 # Remove PII
-python pii_remocval.py
+python pii_removal.py
 
 # Create vector database
 cd ../../slack_pipeline
@@ -337,10 +341,10 @@ community-ai/
 ├── Android-Client/              # Android Client RAG chatbot
 │   ├── android-client_bot.ipynb
 │   └── android-client_vector_storage/
-├── community_chatbot/           # Agent scripts (GitHub, Jira, Slack)
-│   └── agent/
+|
 ├── community-chatbot/           # Full-stack chatbot platform
-│   ├── app/                    # Next.js frontend pages
+│   ├── app/ 
+|   ├── agent/                    # Next.js frontend pages
 │   ├── components/             # React UI components
 │   ├── scripts/                # FastAPI backend agents
 │   └── package.json
@@ -433,7 +437,8 @@ We welcome contributions from the community! Here's how you can help:
 
 ### Contribution Workflow
 
-1. **Fork the repository**
+1. **Fork the repository on github** 
+    **clone your fork locally** 
    ```bash
    git clone https://github.com/YOUR_USERNAME/community-ai.git
    cd community-ai
