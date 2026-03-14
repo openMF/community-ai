@@ -16,15 +16,17 @@ import json
 import time
 import argparse
 from datetime import datetime
+from typing import Optional
 
 from metrics.accuracy import calculate_wer, calculate_cer, evaluate_sample
 from dataset.create_hf_dataset import GROUND_TRUTH, LANGUAGE_NAMES
 
 
 def generate_report(
-    api_key: str,
+    api_key: Optional[str] = None,
     languages: list = None,
-    output_path: str = "./results/deepgram_report.json"
+    output_path: str = "./results/deepgram_report.json",
+    dry_run: bool = True,
 ):
     """
     Generate evaluation report for Deepgram across languages.
@@ -39,7 +41,7 @@ def generate_report(
         "provider": "deepgram",
         "model": "nova-2",
         "timestamp": datetime.now().isoformat(),
-        "languages_evaluated": languages,
+        "languages_evaluated": [],
         "results": {},
         "summary": {},
     }
@@ -51,6 +53,9 @@ def generate_report(
         if not samples:
             print(f"⚠️  No samples for {lang}, skipping")
             continue
+
+        # mark as evaluated
+        report["languages_evaluated"].append(lang)
 
         lang_results = []
 
@@ -85,10 +90,12 @@ def generate_report(
             "samples": lang_results,
         }
 
-    # Overall summary
+    # Overall summary computed over actually evaluated results
+    total_languages = len(report["results"])
+    total_samples = sum(v["samples_count"] for v in report["results"].values())
     report["summary"] = {
-        "total_languages": len(languages),
-        "total_samples": sum(len(GROUND_TRUTH.get(l, [])) for l in languages),
+        "total_languages": total_languages,
+        "total_samples": total_samples,
         "avg_wer_all": round(sum(all_wers) / len(all_wers), 4) if all_wers else 0,
         "best_language": min(report["results"], key=lambda l: report["results"][l]["avg_wer"]) if report["results"] else None,
         "worst_language": max(report["results"], key=lambda l: report["results"][l]["avg_wer"]) if report["results"] else None,

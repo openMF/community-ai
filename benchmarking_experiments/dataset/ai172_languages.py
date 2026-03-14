@@ -11,10 +11,8 @@ Actual audio samples should be sourced from:
 # Languages for AI-172 evaluation (priority order)
 LANGUAGES = {
     "en": {"name": "English", "native_speakers_billions": 1.5, "priority": 1},
-    "es": {"name": "Spanish", "native_speakers_billions": 0.5, "priority": 2},
     "fr": {"name": "French", "native_speakers_billions": 0.3, "priority": 3},
     "hi": {"name": "Hindi", "native_speakers_billions": 0.3, "priority": 1},  # High for Mifos
-    "sw": {"name": "Swahili", "native_speakers_billions": 0.15, "priority": 2},  # East Africa
     "pt": {"name": "Portuguese", "native_speakers_billions": 0.25, "priority": 3},
 }
 
@@ -39,11 +37,6 @@ SAMPLE_REFERENCES = {
         "Main aapke bank ke saath ek bachat khata khulna chahta hoon",
         "Mera current balance kya hai",
         "Mujhe paanch hazaar rupaye transfer karne hain",
-    ],
-    "sw": [
-        "Ningependa kufungua akaunti ya akiba",
-        "Ni kiasi gani changu sasa",
-        "Ninahitaji kuhamisha shilingi elfu tano",
     ],
 }
 

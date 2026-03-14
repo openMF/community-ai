@@ -161,7 +161,7 @@ To add more languages or samples, see the ground_truth.json file.
 Audio samples should be 16kHz mono WAV files.
 """
     card_path = os.path.join(output_dir, "README.md")
-    with open(card_path, "w") as f:
+    with open(card_path, "w", encoding="utf-8") as f:
         f.write(card)
 
     print(f"✅ Dataset card created at {card_path}")

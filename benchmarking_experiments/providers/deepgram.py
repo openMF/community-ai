@@ -2,7 +2,7 @@
 Deepgram STT Provider - Foundation for AI-172
 
 Minimal implementation focused on:
-1. Streaming transcription with multilingual support
+1. Transcription (from async audio generators) with multilingual support
 2. Clean error handling
 3. Standard metrics extraction for WER/CER calculation
 """
@@ -29,14 +29,17 @@ class DeepgramSTTProvider(STTProvider):
         self.extra_options = kwargs
     
     async def transcribe_stream(
-        self, 
+        self,
         audio_generator: AsyncGenerator[bytes, None],
         language: Optional[str] = None,
         **kwargs
     ) -> Dict[str, Any]:
         """
-        Transcribe audio stream from Deepgram
-        
+        Transcribe audio (from an async generator). Note: current implementation
+        buffers the incoming generator into a single prerecorded request. For
+        long-running streaming use-cases, this should be replaced with true
+        streaming via Deepgram's streaming endpoints.
+
         Returns dict with:
         - transcript: Full text output
         - confidence: Average confidence (0-1)
@@ -61,18 +64,23 @@ class DeepgramSTTProvider(STTProvider):
                     "language": language or "unknown"
                 }
             
-            # Initialize client and transcribe
+            # Initialize client and prepare options
             client = DeepgramClient(api_key=self.api_key)
-            options = PrerecordedOptions(
-                model=self.model,
-                language=language,
-                punctuate=True,
-                **self.extra_options
-            )
-            
+
+            options_kwargs = {
+                "model": self.model,
+                "punctuate": True,
+                **self.extra_options,
+            }
+            # Only include language if explicitly provided to allow auto-detect
+            if language:
+                options_kwargs["language"] = language
+
+            options = PrerecordedOptions(**options_kwargs)
+
             response = await client.listen.prerecorded.v("1").transcribe_async(
                 {"buffer": audio_buffer},
-                options
+                options,
             )
             
             # Convert SDK response object to dict for parsing
