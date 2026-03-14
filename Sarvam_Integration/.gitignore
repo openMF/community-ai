@@ -12,3 +12,9 @@ venv.bak/
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Local datasets and results
+results/
+dataset/*_audio/
+dataset/metadata.json
+hf_dataset_export/
