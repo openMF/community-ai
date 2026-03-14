@@ -19,7 +19,7 @@ export function SubmitButton() {
       type="submit"
       size="icon"
       disabled={!input.trim() || status !== "ready"}
-      className="bg-blue-600 hover:bg-blue-700"
+      className="bg-blue-600 hover:bg-blue-700 mb-2 text-white"
     >
       <Send className="w-4 h-4" />
     </Button>

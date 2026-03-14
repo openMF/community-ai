@@ -26,6 +26,7 @@ export function ModeButton({ mode }: ModeButtonProps) {
 
     return (
         <Button
+            id={isActive ? 'active-assistant' : undefined}
             onClick={handleClick}
             variant={isActive ? 'default' : 'outline'}
             className={cn(

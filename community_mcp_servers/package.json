@@ -1,0 +1,9 @@
+{
+  "name": "mcp-agents",
+  "version": "1.0.0",
+  "description": "Node.js MCP server dependencies for Slack and other stdio-based agents",
+  "private": true,
+  "dependencies": {
+    "slack-mcp-server": "latest"
+  }
+}

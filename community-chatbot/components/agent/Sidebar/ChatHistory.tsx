@@ -53,7 +53,7 @@ export function ChatHistory() {
     }
 
     return (
-        <SidebarGroup className="space-y-4 overflow-y-auto">
+        <SidebarGroup id="chat-history" className="space-y-4 overflow-y-auto">
             {chats?.map((chat) => {
                 const isPending = pendingOperations.includes(chat.id);
                 const isActive = chat.id === activeChat;

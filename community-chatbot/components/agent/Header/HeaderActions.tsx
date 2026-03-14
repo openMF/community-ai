@@ -14,7 +14,7 @@ export function HeaderActions() {
     const { isCreatingConversation } = useAgentStore();
 
     return (
-        <div className="flex items-center gap-2">
+        <div id="header-actions" className="flex items-center gap-2">
             <Button
                 variant="outline"
                 size="sm"
