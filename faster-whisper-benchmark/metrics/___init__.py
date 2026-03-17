@@ -1,0 +1,1 @@
+from .extractor import extract_metrics_from_profile
