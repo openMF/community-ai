@@ -2,13 +2,13 @@
 Deepgram STT Provider - Foundation for AI-172
 
 Minimal implementation focused on:
-1. Streaming transcription with multilingual support
+1. Transcription (from async audio generators) with multilingual support
 2. Clean error handling
 3. Standard metrics extraction for WER/CER calculation
 """
 
 from typing import AsyncGenerator, Dict, Any, Optional
-from providers.base import STTProvider
+from .base import STTProvider
 
 
 class DeepgramSTTProvider(STTProvider):
@@ -29,14 +29,17 @@ class DeepgramSTTProvider(STTProvider):
         self.extra_options = kwargs
     
     async def transcribe_stream(
-        self, 
+        self,
         audio_generator: AsyncGenerator[bytes, None],
         language: Optional[str] = None,
         **kwargs
     ) -> Dict[str, Any]:
         """
-        Transcribe audio stream from Deepgram
-        
+        Transcribe audio (from an async generator). Note: current implementation
+        buffers the incoming generator into a single prerecorded request. For
+        long-running streaming use-cases, this should be replaced with true
+        streaming via Deepgram's streaming endpoints.
+
         Returns dict with:
         - transcript: Full text output
         - confidence: Average confidence (0-1)
@@ -46,10 +49,11 @@ class DeepgramSTTProvider(STTProvider):
         try:
             from deepgram import DeepgramClient, PrerecordedOptions
             
-            # Collect audio chunks
-            audio_buffer = b""
+            # Collect audio chunks efficiently (avoid O(n²) bytes concat)
+            chunks = []
             async for chunk in audio_generator:
-                audio_buffer += chunk
+                chunks.append(chunk)
+            audio_buffer = b"".join(chunks)
             
             if not audio_buffer:
                 return {
@@ -60,21 +64,31 @@ class DeepgramSTTProvider(STTProvider):
                     "language": language or "unknown"
                 }
             
-            # Initialize client and transcribe
+            # Initialize client and prepare options
             client = DeepgramClient(api_key=self.api_key)
-            options = PrerecordedOptions(
-                model=self.model,
-                language=language,
-                punctuate=True,
-                **self.extra_options
-            )
-            
+
+            options_kwargs = {
+                "model": self.model,
+                "punctuate": True,
+                **self.extra_options,
+            }
+            # Only include language if explicitly provided to allow auto-detect
+            if language:
+                options_kwargs["language"] = language
+
+            options = PrerecordedOptions(**options_kwargs)
+
             response = await client.listen.prerecorded.v("1").transcribe_async(
                 {"buffer": audio_buffer},
-                options
+                options,
             )
             
-            # Parse response
+            # Convert SDK response object to dict for parsing
+            if hasattr(response, "to_dict"):
+                response = response.to_dict()
+            elif hasattr(response, "model_dump"):
+                response = response.model_dump()
+            
             return self._parse_response(response, language)
             
         except Exception as e:
