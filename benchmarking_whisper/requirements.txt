@@ -1,0 +1,9 @@
+torch
+transformers
+librosa
+numpy
+pandas
+psutil
+jiwer
+huggingface_hub
+tabulate
