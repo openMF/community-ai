@@ -1,53 +1,23 @@
-import os
-
+from datasets import load_dataset
+import soundfile as sf
 from providers import whisper
-from results.wer import calculate_wer
 
 
-providers = {
-    "whisper": whisper.transcribe
-}
+dataset = load_dataset("keshavagrawal02/multilingual", streaming=True)
 
-datasets = {
-    "english": "dataset/audio/english_audio",
-    "hindi": "dataset/audio/hindi_audio",
-    "spanish": "dataset/audio/spanish_audio",
-    "french": "dataset/audio/french_audio",
-    "portuguese": "dataset/audio/portuguese_audio"
-}
+for sample in dataset["train"]:
 
+    audio = sample["audio"]
 
-for provider_name, transcribe in providers.items():
+    # HF gives dict
+    array = audio["array"]
+    sr = audio["sampling_rate"]
 
-    print("\nProvider:", provider_name)
+    sf.write("temp.wav", array, sr)
 
-    for lang, folder in datasets.items():
+    predicted = whisper.transcribe("temp.wav")
+    
 
-        print("\nLanguage:", lang)
+    print("Predicted:", predicted)
 
-        for file in os.listdir(folder):
-
-            if file.endswith(".wav"):
-
-                audio_path = os.path.join(folder, file)
-
-                # corresponding transcript
-                txt_file = file.replace(".wav", ".txt")
-                txt_path = os.path.join(folder, txt_file)
-
-                if not os.path.exists(txt_path):
-                    print("Transcript missing for:", file)
-                    continue
-
-                with open(txt_path, "r", encoding="utf-8") as f:
-                    expected_text = f.read().strip()
-
-                predicted = transcribe(audio_path)
-
-                error = calculate_wer(expected_text, predicted)
-
-                print("Audio:", file)
-                print("Expected:", expected_text)
-                print("Predicted:", predicted)
-                print("WER:", error)
-                print("-----")
+    print("-----")

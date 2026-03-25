@@ -9,3 +9,6 @@ openai-whisper
 deepgram-sdk
 hume
 pydub
+datasets
+librosa
+scipy
