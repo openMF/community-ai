@@ -1,0 +1,2 @@
+cartesia
+python-dotenv
