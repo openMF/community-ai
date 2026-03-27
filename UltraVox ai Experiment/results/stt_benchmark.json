@@ -1,0 +1,32 @@
+[
+  {
+    "lang": "en",
+    "id": "en_001",
+    "wer": 0.0,
+    "cer": 0.0,
+    "accuracy": 100.0,
+    "latency_ms": 6612.3,
+    "reference": "I would like to check my account balance please",
+    "hypothesis": "I would like to check my account balance, please."
+  },
+  {
+    "lang": "en",
+    "id": "en_002",
+    "wer": 0.3,
+    "cer": 0.3389830508474576,
+    "accuracy": 70.0,
+    "latency_ms": 17853.7,
+    "reference": "Can you transfer five hundred dollars to my savings account",
+    "hypothesis": "Can you transfer $500 to my savings account?"
+  },
+  {
+    "lang": "en",
+    "id": "en_003",
+    "wer": 0.0,
+    "cer": 0.0,
+    "accuracy": 100.0,
+    "latency_ms": 6043.3,
+    "reference": "My credit card was declined at the store",
+    "hypothesis": "My credit card was declined at the store."
+  }
+]
