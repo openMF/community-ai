@@ -5,3 +5,10 @@ soundfile
 numpy
 click
 python-dotenv
+openai-whisper
+deepgram-sdk
+hume
+pydub
+datasets
+librosa
+scipy
