@@ -1,0 +1,20 @@
+# Environment variables
+.env
+
+# Python virtual environments
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local datasets and results
+results/
+dataset/*_audio/
+dataset/metadata.json
+hf_dataset_export/
