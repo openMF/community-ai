@@ -1,0 +1,16 @@
+fastmcp
+jira
+openai
+PyGithub
+slack_sdk
+chromadb
+faiss-cpu
+tiktoken
+pydantic
+jsonschema
+python-dotenv
+requests
+pinecone-client>=3.0.0
+langchain-pinecone
+watchdog
+pydantic-settings
