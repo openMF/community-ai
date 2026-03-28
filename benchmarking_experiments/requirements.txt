@@ -6,3 +6,10 @@ numpy
 click
 python-dotenv
 cartesia
+openai-whisper
+deepgram-sdk
+hume
+pydub
+datasets
+librosa
+scipy
