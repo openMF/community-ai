@@ -5,6 +5,7 @@ soundfile
 numpy
 click
 python-dotenv
+cartesia
 openai-whisper
 deepgram-sdk
 hume
