@@ -8,3 +8,8 @@ python-dotenv
 deepgram-sdk
 huggingface_hub
 datasets
+openai-whisper
+hume
+pydub
+librosa
+scipy
