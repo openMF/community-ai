@@ -15,6 +15,7 @@ export function NewChatButton() {
     return (
         <SidebarGroup className="flex justify-center items-center bg-white dark:bg-gray-800 p-2 dark:border-gray-700 border-b">
             <Button
+                id="new-chat-button"
                 variant="outline"
                 size={open ? "icon" : "default"}
                 className="w-full"

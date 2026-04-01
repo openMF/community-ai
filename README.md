@@ -283,7 +283,7 @@ cd Slack_scraper_bot/scripts
 python extract.py
 
 # Remove PII
-python pii_remocval.py
+python pii_removal.py
 
 # Create vector database
 cd ../../slack_pipeline

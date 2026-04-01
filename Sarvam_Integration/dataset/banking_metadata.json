@@ -1,0 +1,32 @@
+{
+  "project": "Multilingual Banking Voice Dataset",
+  "description": "A collection of common retail banking phrases translated across multiple Indian languages for STT/TTS benchmarking.",
+  "phrases": [
+    {"id": "en_bal_01", "text": "What is my current account balance?", "entities": ["current account", "balance"]},
+    {"id": "en_sav_01", "text": "I want to open a new savings account.", "entities": ["savings account"]},
+    {"id": "en_loan_01", "text": "How can I apply for a personal loan?", "entities": ["personal loan"]},
+    {"id": "en_fd_01", "text": "What are the interest rates for a fixed deposit?", "entities": ["fixed deposit", "interest rates"]},
+    {"id": "en_card_01", "text": "I need to block my credit card immediately.", "entities": ["credit card", "block"]},
+    {"id": "en_tra_01", "text": "Transfer five thousand rupees to my sister's account.", "entities": ["five thousand rupees", "transfer"]},
+    {"id": "en_atm_01", "text": "Where is the nearest ATM located?", "entities": ["ATM"]},
+    {"id": "en_home_01", "text": "What documents are needed for a home loan?", "entities": ["home loan", "documents"]},
+    {"id": "en_mob_01", "text": "I want to update my mobile number in the bank records.", "entities": ["mobile number", "update"]},
+    {"id": "en_trans_01", "text": "Show me my last five transactions.", "entities": ["last five transactions"]},
+    {"id": "en_act_01", "text": "How do I activate mobile banking?", "entities": ["activate", "mobile banking"]},
+    {"id": "en_gold_01", "text": "What is the process for a gold loan?", "entities": ["gold loan", "process"]},
+    {"id": "en_close_01", "text": "I want to close my current account.", "entities": ["close", "current account"]},
+    {"id": "en_stat_01", "text": "Can I get a bank statement for the last six months?", "entities": ["bank statement", "last six months"]},
+    {"id": "en_sal_01", "text": "What is the minimum balance for a salary account?", "entities": ["minimum balance", "salary account"]}
+  ],
+  "supported_languages": [
+    {"name": "English", "code": "en", "sarvam_code": "en-IN"},
+    {"name": "Hindi", "code": "hi", "sarvam_code": "hi-IN"},
+    {"name": "Bengali", "code": "bn", "sarvam_code": "bn-IN"},
+    {"name": "Tamil", "code": "ta", "sarvam_code": "ta-IN"},
+    {"name": "Telugu", "code": "te", "sarvam_code": "te-IN"},
+    {"name": "Marathi", "code": "mr", "sarvam_code": "mr-IN"},
+    {"name": "Kannada", "code": "kn", "sarvam_code": "kn-IN"},
+    {"name": "Gujarati", "code": "gu", "sarvam_code": "gu-IN"}
+  ],
+  "metadata_version": "1.0"
+}

@@ -86,7 +86,7 @@ async def get_llm_nlu_response(prompt: str) -> str | None:
     if not model: return None
     try:
         # Create a separate model instance for NLU without the system prompt
-        nlu_model = genai.GenerativeModel(model_name="gemini-1.5-flash")
+        nlu_model = genai.GenerativeModel(model_name="gemini-2.5-flash")
         config = {"temperature": 0.1, "response_mime_type": "application/json"}
         response = await nlu_model.generate_content_async(prompt, generation_config=config, safety_settings=safety_settings)
         return response.text

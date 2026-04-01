@@ -1,0 +1,30 @@
+# LangChain
+langchain
+langchain-community
+langchain-core
+langchain-google-genai
+langchain-openai
+langchain-text-splitters
+langchain-mcp-adapters
+langsmith
+
+# LangGraph
+langgraph
+langgraph-checkpoint
+langgraph-prebuilt
+langgraph-sdk
+
+google-genai
+
+# External APIs
+pygithub
+slack-sdk
+
+# Utilities
+pydantic
+python-dotenv
+sqlalchemy
+typer
+
+# Groq
+langchain-groq
