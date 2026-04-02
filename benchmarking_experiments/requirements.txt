@@ -5,11 +5,11 @@ soundfile
 numpy
 click
 python-dotenv
-cartesia
-openai-whisper
 deepgram-sdk
+huggingface_hub
+datasets
+openai-whisper
 hume
 pydub
-datasets
 librosa
 scipy
