@@ -1,0 +1,28 @@
+[project]
+name = "mcp_impl"
+version = "0.1.0"
+description = "Community AI MCP Agent"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain",
+    "langchain-community",
+    "langchain-core",
+    "langchain-google-genai",
+    "langchain-text-splitters",
+    "langchain-mcp-adapters",
+    "langsmith",
+    "langgraph",
+    "langgraph-checkpoint",
+    "langgraph-prebuilt",
+    "langgraph-sdk",
+    "google-genai",
+    "pygithub",
+    "slack-sdk",
+    "pydantic",
+    "python-dotenv",
+    "sqlalchemy",
+    "typer",
+    "langchain-groq",
+    "langchain-openai>=1.1.0",
+]

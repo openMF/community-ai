@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 import {
-  Card, CardContent, CardDescription,
-  CardHeader, CardTitle,
+    Card, CardContent, CardDescription,
+    CardHeader, CardTitle,
 } from '@/components/ui/card';
 import { integrationModes } from '@/lib/constants/chat';
 

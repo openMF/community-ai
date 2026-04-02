@@ -1,0 +1,9 @@
+datasets
+sarvamai
+python-dotenv
+asyncio
+logging
+numpy
+scikit-learn
+sentence-transformers
+torch
