@@ -13,3 +13,4 @@ pydub
 datasets
 librosa
 scipy
+elevenlabs

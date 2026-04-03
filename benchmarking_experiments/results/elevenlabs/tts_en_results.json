@@ -1,0 +1,28 @@
+{
+  "language": "en",
+  "avg_latency_ms": 1762.63,
+  "total_samples": 3,
+  "samples": [
+    {
+      "text": "Hello, how can I help you today?",
+      "latency_ms": 1179.06,
+      "audio_size_bytes": 30973,
+      "language": "en",
+      "model": "eleven_flash_v2_5"
+    },
+    {
+      "text": "Please transfer funds to the specified account.",
+      "latency_ms": 3534.34,
+      "audio_size_bytes": 47691,
+      "language": "en",
+      "model": "eleven_flash_v2_5"
+    },
+    {
+      "text": "Your transaction has been processed successfully.",
+      "latency_ms": 574.48,
+      "audio_size_bytes": 42675,
+      "language": "en",
+      "model": "eleven_flash_v2_5"
+    }
+  ]
+}
