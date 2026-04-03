@@ -1,0 +1,32 @@
+{
+  "language": "en",
+  "avg_wer": 0.0,
+  "avg_latency_ms": 748.07,
+  "total_samples": 3,
+  "samples": [
+    {
+      "text": "Hello, how can I help you today?",
+      "language": "en",
+      "latency_ms": 818.65,
+      "model": "scribe_v1",
+      "reference": "Hello, how can I help you today?",
+      "wer": 0.0
+    },
+    {
+      "text": "Please transfer funds to the specified account.",
+      "language": "en",
+      "latency_ms": 685.3,
+      "model": "scribe_v1",
+      "reference": "Please transfer funds to the specified account.",
+      "wer": 0.0
+    },
+    {
+      "text": "Your transaction has been processed successfully.",
+      "language": "en",
+      "latency_ms": 740.25,
+      "model": "scribe_v1",
+      "reference": "Your transaction has been processed successfully.",
+      "wer": 0.0
+    }
+  ]
+}

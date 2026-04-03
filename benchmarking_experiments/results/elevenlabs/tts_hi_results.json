@@ -1,0 +1,28 @@
+{
+  "language": "hi",
+  "avg_latency_ms": 647.62,
+  "total_samples": 3,
+  "samples": [
+    {
+      "text": "नमस्ते, मैं आपकी कैसे मदद कर सकता हूँ?",
+      "latency_ms": 704.87,
+      "audio_size_bytes": 41839,
+      "language": "hi",
+      "model": "eleven_flash_v2_5"
+    },
+    {
+      "text": "कृपया निर्दिष्ट खाते में धनराशि स्थानांतरित करें।",
+      "latency_ms": 622.14,
+      "audio_size_bytes": 53124,
+      "language": "hi",
+      "model": "eleven_flash_v2_5"
+    },
+    {
+      "text": "आपका लेन-देन सफलतापूर्वक संसाधित किया गया है।",
+      "latency_ms": 615.86,
+      "audio_size_bytes": 51453,
+      "language": "hi",
+      "model": "eleven_flash_v2_5"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "language": "es",
+  "avg_wer": 0.0,
+  "avg_latency_ms": 740.59,
+  "total_samples": 3,
+  "samples": [
+    {
+      "text": "Hola, ¿cómo puedo ayudarte hoy?",
+      "language": "es",
+      "latency_ms": 812.59,
+      "model": "scribe_v1",
+      "reference": "Hola, ¿cómo puedo ayudarte hoy?",
+      "wer": 0.0
+    },
+    {
+      "text": "Por favor, transfiera fondos a la cuenta especificada.",
+      "language": "es",
+      "latency_ms": 712.57,
+      "model": "scribe_v1",
+      "reference": "Por favor, transfiera fondos a la cuenta especificada.",
+      "wer": 0.0
+    },
+    {
+      "text": "Su transacción ha sido procesada exitosamente.",
+      "language": "es",
+      "latency_ms": 696.62,
+      "model": "scribe_v1",
+      "reference": "Su transacción ha sido procesada exitosamente.",
+      "wer": 0.0
+    }
+  ]
+}
