@@ -1,11 +1,24 @@
-huggingface_hub==0.22.2
-python-dotenv
-langchain
-langchain-openai
-langchain-community
-langchain-text-splitters
-chromadb
-gradio
-openai
-uvicorn
-pydantic
+# Core AI/LLM
+huggingface-hub==0.22.2
+openai==2.36.0
+langchain==1.2.17
+langchain-openai==1.2.1
+langchain-community==0.4.1
+langchain-text-splitters==1.1.2
+
+# Vector DB
+chromadb==1.5.9
+
+# UI
+# gradio is constrained to 4.44.1 due to huggingface-hub==0.22.2
+# Upgrading huggingface-hub to >=0.30.0 would allow gradio 6.x
+gradio==4.44.1
+
+# Web server
+uvicorn==0.46.0
+
+# Data validation
+pydantic==2.13.4
+
+# Utils
+python-dotenv==1.2.2
