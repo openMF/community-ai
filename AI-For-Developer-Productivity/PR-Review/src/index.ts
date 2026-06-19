@@ -29,8 +29,9 @@ async function run() {
     handlePullRequest({ apiKey, owner, prNumber: pr.number, repo, token })
   );
   if (analysisError) {
-    core.error(`Security analysis failed: ${analysisError.message}`);
-    core.setFailed(analysisError.message);
+    const details = analysisError instanceof Error ? analysisError.message : String(analysisError);
+    core.error(`Security analysis failed: ${details}`);
+    core.setFailed(details);
     return;
   }
   if (!result || (result.comments.length === 0 && !result.summary)) {
@@ -48,8 +49,9 @@ async function run() {
     )
   );
   if (postError) {
-    core.error(`Failed to publish review comments: ${postError.message}`);
-    core.setFailed(postError.message);
+    const details = postError instanceof Error ? postError.message : String(postError);
+    core.error(`Failed to publish review comments: ${details}`);
+    core.setFailed(details);
     return;
   }
 }

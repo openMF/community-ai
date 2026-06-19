@@ -4,17 +4,19 @@ import { z } from "zod/v4";
 export const SeveritySchema = z.enum(["high", "medium", "low"]);
 
 export const ReviewSchema = z.object({
-  comment: z.string(),
   file: z.string(),
   line: z.number(),
+  problem: z.string(),
+  prompt: z.string(),
   severity: SeveritySchema,
+  solution: z.string(),
 });
 export type Review = z.infer<typeof ReviewSchema>;
 
 export const ReviewsSchema = z.object({
   reviews: z.array(ReviewSchema),
 });
-export type Reviews = z.infer<typeof ReviewsSchema>;
+export type Reviews = Review[];
 
 export interface DiffChunk {
   chunkIndex: number;

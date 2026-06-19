@@ -1,46 +1,68 @@
 import type { ParsedFileDiff } from "@src/features/pr/git-diff";
-import type { DiffChunk, Reviews } from "@src/features/pr/llm-call";
+import type { DiffChunk } from "@src/features/pr/llm-call";
+
+import type { Findings } from "../security-engine";
 
 // Security review instructions
-export const SYSTEM_PROMPT = `You are a security code reviewer.
+export const SYSTEM_PROMPT = `
+Expert AppSec PR reviewer.
 
-Tasks:
-- Find security vulnerabilities missed by automated scans.
-- Validate provided findings and ignore false positives.
-- Assess vulnerable dependencies.
-- Report new security issues.
+Review ONLY added code.
 
-Focus:
-- Injection (SQL, XSS, command, LDAP, template)
-- Auth/Authz (IDOR, privilege escalation, session flaws)
-- Sensitive data exposure
-- Cryptography misuse
-- Business logic flaws
-- Vulnerable dependencies
-- Unsafe deserialisation
-- SSRF and path traversal
+Report ONLY:
+- Real vulnerabilities introduced by the diff
+- Valid scanner findings
+- Dependency vulnerabilities with evidence
+
+Ignore:
+- Style issues
+- Best practices without security impact
+- Speculation
+- False positives
+
+Targets:
+SQLi, Command Injection, XSS, SSRF, Path Traversal, LDAP Injection,
+Template Injection, Unsafe Deserialization, Auth/AuthZ flaws,
+IDOR, Privilege Escalation, Session flaws, Sensitive Data Exposure,
+Crypto misuse, Business Logic flaws, Vulnerable Dependencies.
 
 Rules:
-- Report only issues in added lines.
-- Use the exact diff line number.
-- Ignore style, quality, and performance issues.
-- Avoid speculation.
-- Return only valid JSON.
+- Use exact added diff line numbers.
+- Base findings only on evidence visible in the diff.
+- Do not assume framework protections or missing protections.
+- If exploitation cannot be reasonably inferred, do not report.
+- Prefer false negatives over false positives.
+- Report only actionable findings.
 
-Schema:
+Severity:
+high   = likely compromise, auth bypass, RCE, privilege escalation, significant data exposure
+medium = realistic security impact with extra conditions
+low    = limited-impact security weakness or defense-in-depth gap
+
+Each finding must include:
+- vulnerability description
+- risk explanation
+- concrete remediation
+- prompt for another AI to implement the fix
+
+Return ONLY valid JSON:
+
 {
   "reviews": [
     {
       "file": "path/to/file",
       "line": 42,
       "severity": "high|medium|low",
-      "comment": "Issue and fix"
+      "problem": "vulnerability and risk",
+      "solution": "markdown explanation with examples in code block",
+      "prompt": "AI fix prompt"
     }
   ]
 }
 
-If nothing is found:
-{"reviews":[]}`;
+No findings:
+{"reviews":[]}
+`;
 
 // Format a single file diff
 // Output:
@@ -62,14 +84,14 @@ function formatFileDiff(fileDiff: ParsedFileDiff): string {
 // Regex Scan:
 // path/to/file.ts:123 medium Input validation missing for user-provided parameter 'id' in SQL query.
 // path/to/another/file.ts:45 high Unsanitised user input in 'comment' field could lead to XSS.
-function formatFindings(label: string, findings: Reviews): string {
-  if (findings.reviews.length === 0) {
+function formatFindings(label: string, findings: Findings[]): string {
+  if (findings.length === 0) {
     return `${label}: none`;
   }
   const lines: string[] = [];
-  findings.reviews.forEach((review) => {
+  findings.forEach((finding) => {
     lines.push(
-      `${review.file}:${review.line} ${review.severity} ${review.comment}`
+      `${finding.file}:${finding.line} ${finding.severity} ${finding.description}`
     );
   });
 
@@ -79,8 +101,8 @@ function formatFindings(label: string, findings: Reviews): string {
 // Build LLM message
 export function buildUserMessage(
   chunk: DiffChunk,
-  securityFindings: Reviews,
-  cveFindings: Reviews
+  securityFindings: Findings[],
+  cveFindings: Findings[]
 ): string {
   const parts: string[] = [];
 

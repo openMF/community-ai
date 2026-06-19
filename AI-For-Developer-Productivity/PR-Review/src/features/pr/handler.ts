@@ -1,7 +1,6 @@
-import * as core from "@actions/core";
 import { checkVulnerabilities } from "@src/features/pr/cve-detection";
 import { parseGitDiff } from "@src/features/pr/git-diff";
-import { callLLM, LLMCallError } from "@src/features/pr/llm-call";
+import { callLLM } from "@src/features/pr/llm-call";
 import {
   generateSummary,
   getPullRequestDiff,
@@ -27,7 +26,8 @@ export async function handlePullRequest({
     getPullRequestDiff(token, owner, repo, prNumber)
   );
   if (diffError) {
-    throw new Error("Failed to fetch pull request diff.");
+    const details = diffError instanceof Error ? diffError.message : String(diffError);
+    throw new Error(`Failed to fetch pull request diff: ${details}`);
   }
 
   const parsedDiff = parseGitDiff(rawDiff);
@@ -40,42 +40,26 @@ export async function handlePullRequest({
     checkVulnerabilities(parsedDiff)
   );
   if (dependencyError) {
-    core.warning("Dependency vulnerability scan failed.");
-    core.debug(String(dependencyError));
+    const details = dependencyError instanceof Error ? dependencyError.message : String(dependencyError);
+    throw new Error(`Dependency vulnerability scan failed: ${details}`);
   }
-  const dependencyScan = dependencyScanResult ?? { reviews: [] };
+  const dependencyScan = dependencyScanResult ?? [];
 
   // Regex based security scan
   const securityScan = runSecurityEngine(parsedDiff);
 
   // LLM Review
-  const [llmError, llmReviewResult] = await expectError(
+  const [llmError, LLMReviews] = await expectError(
     callLLM(parsedDiff, securityScan, dependencyScan, apiKey)
   );
   if (llmError) {
-    if (llmError instanceof LLMCallError) {
-      core.warning("AI review encountered an unexpected error.");
-      core.debug(
-        JSON.stringify({
-          cause: llmError.cause,
-          message: llmError.message,
-          retryable: llmError.retryable,
-        })
-      );
-    } else {
-      core.warning("AI review encountered an unexpected error.");
-      core.debug(String(llmError));
-    }
+    const details = llmError instanceof Error ? llmError.message : String(llmError);
+    throw new Error(`AI review encountered an unexpected error: ${details}`);
   }
-  const llmReview = llmReviewResult ?? { reviews: [] };
-  const allReviews = [
-    ...dependencyScan.reviews,
-    ...securityScan.reviews,
-    ...llmReview.reviews,
-  ];
-
-  return {
-    comments: allReviews.map(toComment),
-    summary: generateSummary(allReviews),
-  };
+  if (LLMReviews) {
+    return {
+      comments: LLMReviews.map(toComment),
+      summary: generateSummary(LLMReviews),
+    };
+  }
 }

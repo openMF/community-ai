@@ -10,3 +10,10 @@ export interface SecurityRule {
   pattern: RegExp;
   severity: Severity;
 }
+
+export interface Findings {
+  description: string;
+  file: string;
+  line: number;
+  severity: Severity;
+}

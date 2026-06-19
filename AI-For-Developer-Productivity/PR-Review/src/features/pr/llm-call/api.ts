@@ -10,14 +10,19 @@ import { zodTextFormat } from "openai/helpers/zod";
 
 const MAX_RETRIES = 3;
 const INITIAL_RETRY_DELAY_MS = 1000;
-
 const RETRYABLE_STATUS_CODES = new Set([429, 500, 502, 503, 504]);
 
-function isRetryableError(error: unknown): boolean {
-  if (error instanceof Error && "status" in error) {
-    return RETRYABLE_STATUS_CODES.has((error as { status: number }).status);
-  }
-  return false;
+interface ErrorWithStatus extends Error {
+  status: number;
+}
+
+// Using 'error is ErrorWithStatus' eliminates the need for inline casting anywhere else
+function isRetryableError(error: unknown): error is ErrorWithStatus {
+  return (
+    error instanceof Error &&
+    "status" in error &&
+    RETRYABLE_STATUS_CODES.has((error as ErrorWithStatus).status)
+  );
 }
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -33,20 +38,15 @@ export async function callWithRetry(
     try {
       const response = await openai.responses.parse({
         input: [
-          {
-            content: SYSTEM_PROMPT,
-            role: "system",
-          },
-          {
-            content: userMessage,
-            role: "user",
-          },
+          { content: userMessage, role: "user" },
+          { content: SYSTEM_PROMPT, role: "system" },
         ],
         model,
         text: {
           format: zodTextFormat(ReviewsSchema, "reviews"),
         },
       });
+
       if (!response.output_parsed) {
         throw new LLMCallError("LLM returned empty output", {
           attempts: attempt,
@@ -54,22 +54,33 @@ export async function callWithRetry(
           retryable: false,
         });
       }
-      return response.output_parsed;
+
+      return response.output_parsed.reviews;
     } catch (error) {
       lastError = error;
-      if (!isRetryableError(error) || attempt === MAX_RETRIES) {
-        throw new LLMCallError(`LLM call failed after ${attempt} attempt(s)`, {
-          attempts: attempt,
-          cause: error,
-          retryable: isRetryableError(error),
-        });
+      const isRetryable = isRetryableError(error);
+      const isLastAttempt = attempt === MAX_RETRIES;
+
+      if (!isRetryable || isLastAttempt) {
+        const details = error instanceof Error ? error.message : JSON.stringify(error);
+
+        throw new LLMCallError(
+          `LLM call failed after ${attempt} attempt(s): ${details}`,
+          {
+            attempts: attempt,
+            cause: error,
+            retryable: isRetryable,
+          }
+        );
       }
+
       const delay = INITIAL_RETRY_DELAY_MS * Math.pow(2, attempt - 1);
       core.warning(`Error in LLM call. Retrying in ${delay}ms.`);
       await sleep(delay);
     }
   }
 
+  // Explicit fallback throw at the bottom
   throw new LLMCallError(`LLM call failed after ${MAX_RETRIES} attempts`, {
     attempts: MAX_RETRIES,
     cause: lastError,

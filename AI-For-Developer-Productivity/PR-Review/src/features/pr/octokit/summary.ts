@@ -1,84 +1,101 @@
 import type { Review } from "@src/features/pr/llm-call";
+import type { Severity } from "@src/features/pr/security-engine";
 
-export const BADGES = {
-  clean:
-    "![Clean](https://img.shields.io/badge/Security-Clean-2ea44f?style=for-the-badge)",
-  high: "![High](https://img.shields.io/badge/Severity-High-d73a4a?style=flat-square)",
-  issues:
-    "![Issues Found](https://img.shields.io/badge/Security-Issues_Found-d73a4a?style=for-the-badge)",
-  low: "![Low](https://img.shields.io/badge/Severity-Low-0366d6?style=flat-square)",
-  medium:
-    "![Medium](https://img.shields.io/badge/Severity-Medium-fb8532?style=flat-square)",
-} as const;
-
-const severityWeight: Record<Review["severity"], number> = {
-  high: 3,
-  low: 1,
-  medium: 2,
+const SEV_COLOR: Record<Severity, string> = {
+  high: "B60205",
+  low: "0075CA",
+  medium: "E4A11B",
 };
 
+function severityBadge(sev: Severity): string {
+  return `<img src="https://img.shields.io/badge/severity-${sev}-${SEV_COLOR[sev]}?style=flat-square" alt="severity: ${sev}">`;
+}
+
+const STATUS_CLEAN =
+  "![security: clean](https://img.shields.io/badge/security-clean-2EA44F?style=flat-square)";
+const STATUS_ISSUES =
+  "![security: issues found](https://img.shields.io/badge/security-issues_found-B60205?style=flat-square)";
+
+const severityWeight: Record<Severity, number> = { high: 3, low: 1, medium: 2 };
+
 export function generateSummary(reviews: Review[]): string {
-  const highCount = reviews.filter(
-    (review) => review.severity === "high"
-  ).length;
-
-  const mediumCount = reviews.filter(
-    (review) => review.severity === "medium"
-  ).length;
-
-  const lowCount = reviews.filter((review) => review.severity === "low").length;
-
   const total = reviews.length;
-
-  let body = "## 🛡️ Security Review Summary\n\n";
+  const counts: Record<Severity, number> = { high: 0, low: 0, medium: 0 };
+  for (const r of reviews) counts[r.severity]++;
 
   if (total === 0) {
-    body += `${BADGES.clean}\n\n`;
-    body += "> No security issues were detected in the analyzed changes.\n";
-
-    return body;
+    return [
+      "## Security Review",
+      "",
+      STATUS_CLEAN,
+      "",
+      "---",
+      "",
+      "> No security issues were detected in the analyzed changes.",
+      "",
+    ].join("\n");
   }
 
-  body += `${BADGES.issues}\n\n`;
-  body +=
-    `> The security review identified **${total}** potential security ` +
-    `finding${total === 1 ? "" : "s"}. Findings are sorted by severity and ` +
-    `should be reviewed before merging.\n\n`;
+  const severities: Severity[] = ["high", "medium", "low"];
 
-  body += "### Summary\n\n";
-  body += "| Severity | Count |\n";
-  body += "| :--- | ---: |\n";
-
-  if (highCount > 0) {
-    body += `| ${BADGES.high} | **${highCount}** |\n`;
-  }
-
-  if (mediumCount > 0) {
-    body += `| ${BADGES.medium} | **${mediumCount}** |\n`;
-  }
-
-  if (lowCount > 0) {
-    body += `| ${BADGES.low} | **${lowCount}** |\n`;
-  }
-
-  body += "\n";
-  body += "### Detailed Findings\n\n";
-  body += "| Severity | File | Line | Issue |\n";
-  body += "| :--- | :--- | ---: | :--- |\n";
+  const summaryRows = severities
+    .filter((s) => counts[s] > 0)
+    .map(
+      (s) =>
+        `    <tr><td>${severityBadge(s)}</td><td><strong>${counts[s]}</strong></td></tr>`
+    )
+    .join("\n");
 
   const sortedReviews = [...reviews].sort(
     (a, b) => severityWeight[b.severity] - severityWeight[a.severity]
   );
 
-  for (const review of sortedReviews) {
-    const badge = BADGES[review.severity];
-    const fileRef = `\`${review.file.replace(/\|/g, "\\|")}\``;
-    const safeComment = review.comment
-      .replace(/\n/g, " ")
-      .replace(/\|/g, "\\|")
-      .trim();
-    body += `| ${badge} | ${fileRef} | ${review.line} | ${safeComment} |\n`;
-  }
+  const findingRows = sortedReviews
+    .map((r) => {
+      const location = `<code>${r.file}:${r.line}</code>`;
+      const issue = r.problem.replace(/\n/g, " ").trim();
+      return `    <tr><td>${severityBadge(r.severity)}</td><td>${location}</td><td>${issue}</td></tr>`;
+    })
+    .join("\n");
 
-  return body;
+  return [
+    "## Security Review",
+    "",
+    STATUS_ISSUES,
+    "",
+    "---",
+    "",
+    `> **${total} finding${total === 1 ? "" : "s"}** identified.` +
+    " Resolve all high-severity issues before merging.",
+    "",
+    "### Summary",
+    "",
+    "<table>",
+    "  <thead>",
+    "    <tr>",
+    '      <th width="50%">Severity</th>',
+    '      <th width="50%">Count</th>',
+    "    </tr>",
+    "  </thead>",
+    "  <tbody>",
+    summaryRows,
+    "  </tbody>",
+    "</table>",
+    "",
+    "### Findings",
+    "",
+    "<table>",
+    "  <thead>",
+    "    <tr>",
+    '      <th width="25%">Severity</th>',
+    '      <th width="25%">Location</th>',
+    '      <th width="50%">Issue</th>',
+    "    </tr>",
+    "  </thead>",
+    "  <tbody>",
+    findingRows,
+    "  </tbody>",
+    "</table>",
+    "",
+  ].join("\n");
 }

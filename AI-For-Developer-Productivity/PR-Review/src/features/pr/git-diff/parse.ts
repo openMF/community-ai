@@ -77,7 +77,7 @@ export function parseGitDiff(diff: string): ParsedFileDiff[] {
               changesList.push({ content, lineNumber: change.ln, prefix: "-" });
               break;
             case "normal":
-              context.push({ content, lineNumber: change.ln1 });
+              context.push({ content, lineNumber: change.ln2 });
               changesList.push({
                 content,
                 lineNumber: change.ln2,

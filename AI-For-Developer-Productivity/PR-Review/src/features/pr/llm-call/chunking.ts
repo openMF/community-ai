@@ -1,5 +1,6 @@
 import type { ParsedFileDiff } from "@src/features/pr/git-diff";
-import type { DiffChunk, Review, Reviews } from "@src/features/pr/llm-call";
+import type { DiffChunk } from "@src/features/pr/llm-call";
+import type { Findings } from "@src/features/pr/security-engine";
 import { encodingForModel } from "js-tiktoken";
 
 const MAX_TOKENS_PER_CHUNK = 10000;
@@ -51,16 +52,18 @@ export function chunkDiffs(diffs: ParsedFileDiff[]): DiffChunk[] {
 
 // Build lookup table
 // file -> findings
-export function createFindingsTable(findings: Reviews): Map<string, Review[]> {
-  const index = new Map<string, Review[]>();
+export function createFindingsTable(
+  findings: Findings[]
+): Map<string, Findings[]> {
+  const index = new Map<string, Findings[]>();
 
-  findings.reviews.forEach((review) => {
-    const existing = index.get(review.file);
+  findings.forEach((finding) => {
+    const existing = index.get(finding.file);
     if (existing) {
-      existing.push(review);
+      existing.push(finding);
       return;
     }
-    index.set(review.file, [review]);
+    index.set(finding.file, [finding]);
   });
 
   return index;
@@ -69,17 +72,17 @@ export function createFindingsTable(findings: Reviews): Map<string, Review[]> {
 // Get only findings relevant to files in this chunk
 export function getRelevantChunkFindings(
   chunk: DiffChunk,
-  findingsIndex: Map<string, Review[]>
-): Reviews {
-  const reviews: Review[] = [];
+  findingsIndex: Map<string, Findings[]>
+): Findings[] {
+  const findings: Findings[] = [];
 
   chunk.diffs.forEach((diff) => {
-    const fileReviews = findingsIndex.get(diff.file);
-    if (!fileReviews) {
+    const fileFindings = findingsIndex.get(diff.file);
+    if (!fileFindings) {
       return;
     }
-    reviews.push(...fileReviews);
+    findings.push(...fileFindings);
   });
 
-  return { reviews };
+  return findings;
 }

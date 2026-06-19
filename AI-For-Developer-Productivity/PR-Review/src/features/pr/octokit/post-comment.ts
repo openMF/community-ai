@@ -25,5 +25,10 @@ export async function postReviewComment(
     }),
   };
 
-  await octokit.rest.pulls.createReview(payload);
+  try {
+    await octokit.rest.pulls.createReview(payload);
+  } catch (error) {
+    const details = error instanceof Error ? error.message : String(error);
+    throw new Error(`GitHub API error while posting review: ${details}`);
+  }
 }

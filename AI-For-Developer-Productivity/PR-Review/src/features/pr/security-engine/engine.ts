@@ -1,19 +1,19 @@
 import type { ParsedFileDiff } from "@src/features/pr/git-diff";
-import type { Review, Reviews } from "@src/features/pr/llm-call";
 import {
+  type Findings,
   rules as defaultRules,
   type SecurityRule,
 } from "@src/features/pr/security-engine";
 import { getConfig } from "@src/shared";
 
-export function runSecurityEngine(diffs: ParsedFileDiff[]): Reviews {
-  const reviews: Review[] = [];
+export function runSecurityEngine(diffs: ParsedFileDiff[]): Findings[] {
+  const findings: Findings[] = [];
   const config = getConfig();
-  const allRules: SecurityRule[] = [...defaultRules];
+  const rules: SecurityRule[] = [...defaultRules];
 
   if (config.rules) {
     for (const rule of config.rules) {
-      allRules.push({
+      rules.push({
         description: rule.description,
         fileExtensions: rule.fileExtensions,
         id: rule.id,
@@ -27,7 +27,7 @@ export function runSecurityEngine(diffs: ParsedFileDiff[]): Reviews {
     const fileExtension = fileDiff.file.substring(
       fileDiff.file.lastIndexOf(".")
     );
-    const applicableRules = allRules.filter((rule) => {
+    const applicableRules = rules.filter((rule) => {
       if (!rule.fileExtensions) {
         return true;
       }
@@ -39,8 +39,8 @@ export function runSecurityEngine(diffs: ParsedFileDiff[]): Reviews {
         if (!rule.pattern.test(addedLine.content)) {
           continue;
         }
-        reviews.push({
-          comment: rule.description,
+        findings.push({
+          description: rule.description,
           file: fileDiff.file,
           line: addedLine.lineNumber,
           severity: rule.severity,
@@ -49,5 +49,5 @@ export function runSecurityEngine(diffs: ParsedFileDiff[]): Reviews {
     }
   }
 
-  return { reviews };
+  return findings;
 }

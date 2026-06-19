@@ -7,6 +7,7 @@ A GitHub Action that reviews Pull Requests for **security issues** and **vulnera
 ---
 
 ## Table of Contents
+
 1. [Features](#features)
 2. [How It Works](#how-it-works)
 3. [Setup & Usage](#setup--usage)
@@ -34,6 +35,7 @@ A GitHub Action that reviews Pull Requests for **security issues** and **vulnera
 ---
 
 ## How It Works
+
 ![Architechure Diagram](docs/architecture.png)
 
 1. **Trigger & Fetch**: Runs on `pull_request` events and fetches the raw git diff from the GitHub API using `@actions/github` and `@octokit/rest`.
@@ -79,10 +81,10 @@ jobs:
 
 ### 2. Inputs & Secrets
 
-| Input | Description | Required | Default / Note |
-| :--- | :--- | :---: | :--- |
-| `github-token` | GitHub token used to fetch the PR diff and write comments. | **Yes** | Usually `${{ secrets.GITHUB_TOKEN }}` |
-| `openai-api-key` | API key for LLM-based analysis | **Yes** | Save in repository **Secrets** |
+| Input            | Description                                                | Required | Default / Note                        |
+| :--------------- | :--------------------------------------------------------- | :------: | :------------------------------------ |
+| `github-token`   | GitHub token used to fetch the PR diff and write comments. | **Yes**  | Usually `${{ secrets.GITHUB_TOKEN }}` |
+| `openai-api-key` | API key for LLM-based analysis                             | **Yes**  | Save in repository **Secrets**        |
 
 ---
 
