@@ -1,0 +1,20 @@
+name: "Review Owl"
+description: "Reviews pull requests for security issues, vulnerable dependencies, and code quality concerns."
+author: "Mohit Davar"
+
+branding:
+  icon: "shield"
+  color: "blue"
+
+inputs:
+  github-token:
+    description: "GitHub token used to read pull requests and post review comments."
+    required: true
+
+  openai-api-key:
+    description: "OpenAI API key used for AI-powered security review."
+    required: true
+
+runs:
+  using: "node24"
+  main: "dist/index.js"
