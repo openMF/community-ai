@@ -4,7 +4,8 @@ import { callLLM } from "@src/features/pr/llm-call";
 import {
   generateSummary,
   getPullRequestDiff,
-  toComment,
+  loadState,
+  matchFindings,
 } from "@src/features/pr/octokit";
 import { runSecurityEngine } from "@src/features/pr/security-engine";
 import { expectError } from "@src/shared";
@@ -22,44 +23,71 @@ export async function handlePullRequest({
   repo: string;
   token: string;
 }) {
+  // Load findings from the previous run so we can determine which findings are new, active, or resolved.
+  const [loadError, loadedReviewState] = await expectError(
+    loadState(token, owner, repo, prNumber)
+  );
+  if (loadError) {
+    throw new Error("Failed to load previous state from summary", {
+      cause: loadError,
+    });
+  }
+
+  // Fetch the raw git diff for this pull request.
   const [diffError, rawDiff] = await expectError(
     getPullRequestDiff(token, owner, repo, prNumber)
   );
   if (diffError) {
-    const details = diffError instanceof Error ? diffError.message : String(diffError);
-    throw new Error(`Failed to fetch pull request diff: ${details}`);
+    throw new Error("Failed to fetch raw git diff from GitHub API", {
+      cause: diffError,
+    });
   }
 
+  // Convert the git diff into a structured format.
   const parsedDiff = parseGitDiff(rawDiff);
   if (parsedDiff.length === 0) {
     return null;
   }
 
-  // Check for dependency vulnerabilities
-  const [dependencyError, dependencyScanResult] = await expectError(
+  // Scan newly added dependencies for known vulnerabilities.
+  const [dependencyError, dependencyScan] = await expectError(
     checkVulnerabilities(parsedDiff)
   );
   if (dependencyError) {
-    const details = dependencyError instanceof Error ? dependencyError.message : String(dependencyError);
-    throw new Error(`Dependency vulnerability scan failed: ${details}`);
+    throw new Error("Dependency vulnerability scan failed", {
+      cause: dependencyError,
+    });
   }
-  const dependencyScan = dependencyScanResult ?? [];
 
-  // Regex based security scan
+  // Run regex based security rules.
   const securityScan = runSecurityEngine(parsedDiff);
 
-  // LLM Review
-  const [llmError, LLMReviews] = await expectError(
+  // Run LLM review.
+  const [llmError, llmReviews] = await expectError(
     callLLM(parsedDiff, securityScan, dependencyScan, apiKey)
   );
   if (llmError) {
-    const details = llmError instanceof Error ? llmError.message : String(llmError);
-    throw new Error(`AI review encountered an unexpected error: ${details}`);
+    throw new Error("Failed to generate review comments", {
+      cause: llmError,
+    });
   }
-  if (LLMReviews) {
-    return {
-      comments: LLMReviews.map(toComment),
-      summary: generateSummary(LLMReviews),
-    };
-  }
+
+  // Compare current findings against the previous run and classify them as new, active, or resolved.
+  const { fixed, matched } = matchFindings(
+    securityScan,
+    dependencyScan,
+    llmReviews,
+    parsedDiff,
+    loadedReviewState.state
+  );
+
+  // Build the PR summary comment.
+  const summary = generateSummary(matched, fixed);
+
+  return {
+    fixed,
+    matched,
+    summary,
+    summaryCommentId: loadedReviewState.summaryCommentId,
+  };
 }

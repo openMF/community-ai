@@ -7,32 +7,33 @@ const SEV_COLOR: Record<Severity, string> = {
   medium: "E4A11B",
 };
 
-function severityBadge(sev: Severity): string {
-  return `![severity: ${sev}](https://img.shields.io/badge/severity-${sev}-${SEV_COLOR[sev]}?style=flat-square)`;
+function severityBadge(severity: Severity): string {
+  return `![severity: ${severity}](https://img.shields.io/badge/severity-${severity}-${SEV_COLOR[severity]}?style=flat-square)`;
 }
 
-export const toComment = (r: Review) => {
+// Convert an LLM review into a GitHub review comment.
+export const toComment = (review: Review) => {
   const parts: string[] = [
-    `${severityBadge(r.severity)} \`${r.file}:${r.line}\``,
+    `${severityBadge(review.severity)} \`${review.file}:${review.line}\``,
     "",
     "---",
     "",
     "**Problem**",
     "",
-    r.problem,
+    review.problem,
   ];
 
-  if (r.solution) {
-    parts.push("", "**Solution**", "", r.solution);
+  if (review.solution) {
+    parts.push("", "**Solution**", "", review.solution);
   }
 
-  if (r.prompt) {
-    parts.push("", "**AI Prompt**", "", "```text", r.prompt, "```");
+  if (review.prompt) {
+    parts.push("", "**AI Prompt**", "", "```text", review.prompt, "```");
   }
 
   return {
     body: parts.join("\n"),
-    line: r.line,
-    path: r.file,
+    line: review.line,
+    path: review.file,
   };
 };

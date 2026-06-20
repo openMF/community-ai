@@ -1,8 +1,14 @@
 # Review Owl
 
-A GitHub Action that reviews Pull Requests for **security issues** and **vulnerabilities**. This GitHub Action runs on every pull request in your project and automatically flags potential security problems and posts findings directly on PRs. It is easily configurable for your project using a simple `prowl.yml` file.
+A GitHub Action that reviews Pull Requests for **security issues** and **vulnerabilities**. This GitHub Action runs on every pull request in your project and automatically flags potential security problems and posts findings directly on PRs. It is easily configurable for your project using a simple `.reviewowl.yml` file.
 
-![demo](docs/demo.png)
+### Summary View
+
+<img src="docs/summary.png" width="500" />
+
+### Inline Comments
+
+<img src="docs/comment.png" width="500" />
 
 ---
 
@@ -13,7 +19,7 @@ A GitHub Action that reviews Pull Requests for **security issues** and **vulnera
 3. [Setup & Usage](#setup--usage)
    - [GitHub Actions Workflow](#1-github-actions-workflow)
    - [Inputs & Secrets](#2-inputs--secrets)
-4. [Configuration (`prowl.yml`)](#configuration-prowlyml)
+4. [Configuration (`.reviewowl.yml`)](#configuration-reviewowlyml)
 5. [Local Development & Contribution](#local-development--contribution)
    - [Prerequisites](#prerequisites)
    - [Available Scripts](#available-scripts)
@@ -30,7 +36,7 @@ A GitHub Action that reviews Pull Requests for **security issues** and **vulnera
   3. **LLM-based Review**: Uses LLM model to review full diff context, validate findings, and detect deeper issues.
 - **Inline PR Comments**: Adds findings directly to relevant lines in the pull request.
 - **Noise Reduction**: Skips lockfiles, binaries, and generated assets to reduce irrelevant results.
-- **Configurable Behavior**: You can easily adjust this tool for your project using `prowl.yml`, like choosing which files to scan, which ones to ignore, adding your own security rules, and selecting the LLM model.
+- **Configurable Behavior**: You can easily adjust this tool for your project using `.reviewowl.yml`, like choosing which files to scan, which ones to ignore, adding your own security rules, and selecting the LLM model.
 
 ---
 
@@ -54,11 +60,11 @@ A GitHub Action that reviews Pull Requests for **security issues** and **vulnera
 Create a file named `.github/workflows/security-review.yml` in your repository:
 
 ```yaml
-name: AI Security Review
+name: Security Review Action
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, reopened]
 
 jobs:
   review:
@@ -66,12 +72,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write # Required to post comments on the PR
+      pull-requests: write # Required for inline code comments
+      issues: write # Required for the main PR summary comment and state tracking
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
       - name: Run Security Review
         uses: Org/Repo@tag
         with:
@@ -88,9 +92,9 @@ jobs:
 
 ---
 
-## Configuration (`prowl.yml`)
+## Configuration (`.reviewowl.yml`)
 
-You can control behavior using a prowl.yml file:
+You can control behavior using a .reviewowl.yml file:
 
 ```yaml
 # Specify the LLM Model

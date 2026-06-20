@@ -2,7 +2,7 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 import { handlePullRequest } from "@src/features/pr/handler";
 import { postReviewComment } from "@src/features/pr/octokit";
-import { expectError } from "@src/shared";
+import { expectError, failAction } from "@src/shared";
 
 async function run() {
   const token = core.getInput("github-token");
@@ -24,17 +24,17 @@ async function run() {
   }
 
   const { owner, repo } = context.repo;
+  const commitSha = pr["head"].sha as string;
 
   const [analysisError, result] = await expectError(
     handlePullRequest({ apiKey, owner, prNumber: pr.number, repo, token })
   );
   if (analysisError) {
-    const details = analysisError instanceof Error ? analysisError.message : String(analysisError);
-    core.error(`Security analysis failed: ${details}`);
-    core.setFailed(details);
+    failAction("Security analysis failed", analysisError);
     return;
   }
-  if (!result || (result.comments.length === 0 && !result.summary)) {
+  if (!result || (result.matched.length === 0 && result.fixed.length === 0)) {
+    core.warning("Nothing to post about. No findings or comment to update.");
     return;
   }
 
@@ -44,14 +44,15 @@ async function run() {
       owner,
       repo,
       pr.number,
-      result.comments,
-      result.summary
+      commitSha,
+      result.matched,
+      result.fixed,
+      result.summary,
+      result.summaryCommentId
     )
   );
   if (postError) {
-    const details = postError instanceof Error ? postError.message : String(postError);
-    core.error(`Failed to publish review comments: ${details}`);
-    core.setFailed(details);
+    failAction("Failed to publish review comments", postError);
     return;
   }
 }

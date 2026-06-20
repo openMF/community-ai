@@ -16,19 +16,20 @@ export function loadConfig(workspacePath: string | undefined): Config {
     return cachedConfig;
   }
 
-  const configPath = path.join(workspacePath, "prowl.yml");
+  const configPath = path.join(workspacePath, ".reviewowl.yml");
+
   if (!fs.existsSync(configPath)) {
     cachedConfig = {};
     return cachedConfig;
   }
 
   try {
-    const fileContent = fs.readFileSync(configPath, "utf-8");
+    const fileContent = fs.readFileSync(configPath, "utf8");
     const parsed = yaml.parse(fileContent);
     cachedConfig = (parsed as Config) || {};
     return cachedConfig;
   } catch (err) {
-    console.error("Failed to parse prowl.yml:", err);
+    console.error("Failed to parse .reviewowl.yml:", err);
     cachedConfig = {};
     return cachedConfig;
   }
@@ -36,8 +37,7 @@ export function loadConfig(workspacePath: string | undefined): Config {
 
 export function getConfig(): Config {
   if (!cachedConfig) {
-    const workspace = process.env["GITHUB_WORKSPACE"];
-    return loadConfig(workspace);
+    return loadConfig(process.env["GITHUB_WORKSPACE"]);
   }
   return cachedConfig;
 }

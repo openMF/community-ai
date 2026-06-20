@@ -1,4 +1,8 @@
-import type { Review } from "@src/features/pr/llm-call";
+import type {
+  CurrentFinding,
+  ResolvedFinding,
+  SummaryRow,
+} from "@src/features/pr/octokit";
 import type { Severity } from "@src/features/pr/security-engine";
 
 const SEV_COLOR: Record<Severity, string> = {
@@ -18,12 +22,40 @@ const STATUS_ISSUES =
 
 const severityWeight: Record<Severity, number> = { high: 3, low: 1, medium: 2 };
 
-export function generateSummary(reviews: Review[]): string {
-  const total = reviews.length;
-  const counts: Record<Severity, number> = { high: 0, low: 0, medium: 0 };
-  for (const r of reviews) counts[r.severity]++;
+function extractRow(m: CurrentFinding): SummaryRow | null {
+  if (m.source === "llm") {
+    return {
+      file: m.review.file,
+      line: m.review.line,
+      problem: m.review.problem,
+      severity: m.review.severity,
+      status: m.status as "new" | "active",
+    };
+  }
+  return {
+    file: m.finding.file,
+    line: m.finding.line,
+    problem: m.finding.description,
+    severity: m.finding.severity,
+    status: m.status as "new" | "active",
+  };
+}
 
-  if (total === 0) {
+// Generate the PR summary comment.
+// Displays current findings and tracks findings that are new, active, or fixed compared to the previous run.
+export function generateSummary(
+  matched: CurrentFinding[],
+  fixed: ResolvedFinding[]
+): string {
+  const rows = matched
+    .map(extractRow)
+    .filter((r): r is SummaryRow => r !== null);
+  const newCount = matched.filter((m) => m.status === "new").length;
+  const activeCount = matched.filter((m) => m.status === "active").length;
+  const fixedCount = fixed.length;
+  const total = rows.length;
+
+  if (total === 0 && fixedCount === 0) {
     return [
       "## Security Review",
       "",
@@ -31,12 +63,20 @@ export function generateSummary(reviews: Review[]): string {
       "",
       "---",
       "",
-      "> No security issues were detected in the analyzed changes.",
+      "> No security issues were detected in the analysed changes.",
       "",
     ].join("\n");
   }
 
   const severities: Severity[] = ["high", "medium", "low"];
+  const counts: Record<Severity, number> = { high: 0, low: 0, medium: 0 };
+  for (const r of rows) counts[r.severity]++;
+
+  const statusRows = [
+    `    <tr><td>New</td><td><strong>${newCount}</strong></td></tr>`,
+    `    <tr><td>Active</td><td><strong>${activeCount}</strong></td></tr>`,
+    `    <tr><td>Fixed</td><td><strong>${fixedCount}</strong></td></tr>`,
+  ].join("\n");
 
   const summaryRows = severities
     .filter((s) => counts[s] > 0)
@@ -46,56 +86,84 @@ export function generateSummary(reviews: Review[]): string {
     )
     .join("\n");
 
-  const sortedReviews = [...reviews].sort(
+  const sortedRows = [...rows].sort(
     (a, b) => severityWeight[b.severity] - severityWeight[a.severity]
   );
 
-  const findingRows = sortedReviews
+  const findingRows = sortedRows
     .map((r) => {
       const location = `<code>${r.file}:${r.line}</code>`;
       const issue = r.problem.replace(/\n/g, " ").trim();
-      return `    <tr><td>${severityBadge(r.severity)}</td><td>${location}</td><td>${issue}</td></tr>`;
+
+      const status = r.status === "new" ? "New" : "Active";
+
+      return `    <tr><td>${severityBadge(r.severity)}</td><td>${location}</td><td>${issue}</td><td>${status}</td></tr>`;
     })
     .join("\n");
+
+  const intro =
+    total > 0
+      ? `> **${total} finding${total === 1 ? "" : "s"}** detected` +
+        (newCount > 0 ? ` (${newCount} new)` : "") +
+        `. Review and resolve issues before merging.`
+      : `> All previously reported findings have been resolved.`;
 
   return [
     "## Security Review",
     "",
-    STATUS_ISSUES,
+    total > 0 ? STATUS_ISSUES : STATUS_CLEAN,
     "",
     "---",
     "",
-    `> **${total} finding${total === 1 ? "" : "s"}** identified.` +
-    " Resolve all high-severity issues before merging.",
+    intro,
     "",
-    "### Summary",
+    "### Status",
     "",
     "<table>",
     "  <thead>",
     "    <tr>",
-    '      <th width="50%">Severity</th>',
+    '      <th width="50%">State</th>',
     '      <th width="50%">Count</th>',
     "    </tr>",
     "  </thead>",
     "  <tbody>",
-    summaryRows,
+    statusRows,
     "  </tbody>",
     "</table>",
     "",
-    "### Findings",
-    "",
-    "<table>",
-    "  <thead>",
-    "    <tr>",
-    '      <th width="25%">Severity</th>',
-    '      <th width="25%">Location</th>',
-    '      <th width="50%">Issue</th>',
-    "    </tr>",
-    "  </thead>",
-    "  <tbody>",
-    findingRows,
-    "  </tbody>",
-    "</table>",
-    "",
+    ...(total > 0
+      ? [
+          "### Summary",
+          "",
+          "<table>",
+          "  <thead>",
+          "    <tr>",
+          '      <th width="50%">Severity</th>',
+          '      <th width="50%">Count</th>',
+          "    </tr>",
+          "  </thead>",
+          "  <tbody>",
+          summaryRows,
+          "  </tbody>",
+          "</table>",
+          "",
+          "### Findings",
+          "",
+          "<table>",
+          "  <thead>",
+          "    <tr>",
+          '      <th width="20%">Severity</th>',
+          '      <th width="25%">Location</th>',
+          '      <th width="45%">Issue</th>',
+          '      <th width="10%">State</th>',
+          "    </tr>",
+          "  </thead>",
+          "  <tbody>",
+          findingRows,
+          "  </tbody>",
+          "</table>",
+          "",
+        ]
+      : []),
   ].join("\n");
 }

@@ -12,9 +12,9 @@ inputs:
     required: true
 
   openai-api-key:
-    description: "OpenAI API key used for AI-powered review."
+    description: "OpenAI API key used for AI-powered security review."
     required: true
 
 runs:
-  using: "node20"
+  using: "node24"
   main: "dist/index.js"

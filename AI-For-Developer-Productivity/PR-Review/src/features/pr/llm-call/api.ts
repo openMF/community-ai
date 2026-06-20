@@ -1,6 +1,5 @@
 import * as core from "@actions/core";
 import {
-  LLMCallError,
   type Reviews,
   ReviewsSchema,
   SYSTEM_PROMPT,
@@ -48,11 +47,9 @@ export async function callWithRetry(
       });
 
       if (!response.output_parsed) {
-        throw new LLMCallError("LLM returned empty output", {
-          attempts: attempt,
-          cause: null,
-          retryable: false,
-        });
+        throw new Error(
+          "LLM returned an empty output payload without parsing errors"
+        );
       }
 
       return response.output_parsed.reviews;
@@ -62,16 +59,9 @@ export async function callWithRetry(
       const isLastAttempt = attempt === MAX_RETRIES;
 
       if (!isRetryable || isLastAttempt) {
-        const details = error instanceof Error ? error.message : JSON.stringify(error);
-
-        throw new LLMCallError(
-          `LLM call failed after ${attempt} attempt(s): ${details}`,
-          {
-            attempts: attempt,
-            cause: error,
-            retryable: isRetryable,
-          }
-        );
+        throw new Error(`LLM call failed after ${attempt} attempt(s)`, {
+          cause: error,
+        });
       }
 
       const delay = INITIAL_RETRY_DELAY_MS * Math.pow(2, attempt - 1);
@@ -81,9 +71,7 @@ export async function callWithRetry(
   }
 
   // Explicit fallback throw at the bottom
-  throw new LLMCallError(`LLM call failed after ${MAX_RETRIES} attempts`, {
-    attempts: MAX_RETRIES,
+  throw new Error(`LLM call failed after ${MAX_RETRIES} attempts`, {
     cause: lastError,
-    retryable: false,
   });
 }

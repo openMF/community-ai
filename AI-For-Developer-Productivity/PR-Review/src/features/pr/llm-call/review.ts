@@ -8,7 +8,7 @@ import {
   type Reviews,
 } from "@src/features/pr/llm-call";
 import type { Findings } from "@src/features/pr/security-engine";
-import { createLLMClient, getConfig } from "@src/shared";
+import { createLLMClient, expectError, getConfig } from "@src/shared";
 import pLimit from "p-limit";
 
 const MAX_CONCURRENT_CHUNKS = 3;
@@ -36,7 +36,13 @@ export async function callLLM(
       getRelevantChunkFindings(chunk, securityLookupTable),
       getRelevantChunkFindings(chunk, cveLookupTable)
     );
-    return callWithRetry(openai, model, message);
+    const [error, result] = await expectError(
+      callWithRetry(openai, model, message)
+    );
+    if (error) {
+      throw new Error("AI review failed", { cause: error });
+    }
+    return result;
   }
 
   // Large PR → process chunks concurrently
@@ -49,7 +55,15 @@ export async function callLLM(
           getRelevantChunkFindings(chunk, securityLookupTable),
           getRelevantChunkFindings(chunk, cveLookupTable)
         );
-        return callWithRetry(openai, model, message);
+        const [error, result] = await expectError(
+          callWithRetry(openai, model, message)
+        );
+        if (error) {
+          throw new Error("AI review failed", {
+            cause: error,
+          });
+        }
+        return result;
       })
     )
   );
