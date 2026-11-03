@@ -85,6 +85,34 @@ async def update_account_balance(user_id: str, account_number: str, new_balance:
     account_ref = user_doc_ref.collection("accounts").document(account_number)
     await asyncio.to_thread(account_ref.update, {"balance": new_balance})
 
+async def debit_account_atomic(user_id: str, account_number: str, amount: float) -> str:
+    """
+    Atomically debits `amount` from an account inside a Firestore transaction.
+    Returns "success" if debited, "insufficient_funds" if the balance is too low,
+    and "not_found" if the account does not exist.
+    """
+    if not db: return "not_found"
+    user_doc_ref = _get_user_doc_ref(user_id)
+    account_ref = user_doc_ref.collection("accounts").document(account_number)
+
+    def _debit():
+        transaction = db.transaction()
+
+        @firestore.transactional
+        def _update_in_transaction(transaction):
+            snapshot = account_ref.get(transaction=transaction)
+            if not snapshot.exists:
+                return "not_found"
+            balance = snapshot.to_dict().get("balance", 0)
+            if balance < amount:
+                return "insufficient_funds"
+            transaction.update(account_ref, {"balance": balance - amount})
+            return "success"
+
+        return _update_in_transaction(transaction)
+
+    return await asyncio.to_thread(_debit)
+
 async def add_transaction(user_id: str, account_number: str, transaction_data: dict) -> str | None:
     """Adds a new transaction to a specific banking account."""
     if not db: return None

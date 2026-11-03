@@ -8,7 +8,7 @@ import base64
 import os
 import uuid
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timedelta
 
 load_dotenv()
 
@@ -18,7 +18,7 @@ from models.audio_models import AudioInput
 from models.api_models import ConverseResponse
 from fastapi.middleware.cors import CORSMiddleware
 from services.eamil_services import send_otp_email
-import random
+import secrets
 
 # A more robust logging setup
 logging.basicConfig(
@@ -98,7 +98,7 @@ async def converse(audio_input: AudioInput):
         # --- STATE MACHINE LOGIC ---
         if pending_action:
             if pending_action.get("type") == "transfer_confirmation" and intent == "confirm_action":
-                otp = str(random.randint(100000, 999999))
+                otp = f"{secrets.randbelow(1000000):06d}"
                 send_otp_email("vkkumar1763@gmail.com", otp)
                 response_text = await generate_static_response(
                     "request_otp we have send to your email",
@@ -108,22 +108,30 @@ async def converse(audio_input: AudioInput):
                 )
                 pending_action["type"] = "otp_verification"
                 pending_action["otp"] = otp
+                pending_action["otp_attempts"] = 0
+                pending_action["otp_expires_at"] = (datetime.now() + timedelta(minutes=5)).isoformat()
             
             elif pending_action.get("type") == "otp_verification" and intent == "inform_otp":
                 provided_otp = entities.get("otp_code", "").replace(" ", "")
 
-                if provided_otp == pending_action.get("otp"):
+                otp_expires_at = pending_action.get("otp_expires_at")
+                if otp_expires_at and datetime.now() > datetime.fromisoformat(otp_expires_at):
+                    # OTP has expired - invalidate and force the user to start over
+                    response_text = await generate_static_response(
+                        "error_otp_expired the code has expired, please start the transfer again",
+                        audio_input.language,
+                        user_text
+                    )
+                    pending_action = None
+                elif provided_otp == pending_action.get("otp"):
                     # OTP is correct - execute the transfer
                     amount = pending_action.get("amount")
                     recipient = pending_action.get("recipient", "recipient")
                     source_account_number = pending_action.get("source_account_number")
-                    
-                    source_account = await firestore_db.get_user_account(user_id, source_account_number)
-                    
-                    if source_account and source_account.get('balance', 0) >= amount:
-                        new_balance = source_account['balance'] - amount
-                        await firestore_db.update_account_balance(user_id, source_account_number, new_balance)
-                        
+
+                    debit_result = await firestore_db.debit_account_atomic(user_id, source_account_number, amount)
+
+                    if debit_result == "success":
                         debit_transaction = {
                             "date": datetime.now(),
                             "description": f"Transfer to {recipient}",
@@ -132,15 +140,28 @@ async def converse(audio_input: AudioInput):
                             "category": "Transfer",
                             "timestamp":  datetime.now()
                             }
-                        
+
                         await firestore_db.add_transaction(user_id, source_account_number, debit_transaction)
                         response_text = await generate_static_response("transfer_success", audio_input.language, user_text)
                         pending_action = None
-                    else:
+                    elif debit_result == "insufficient_funds":
                         response_text = await generate_static_response("error_insufficient_funds", audio_input.language, user_text)
                         pending_action = None
+                    else:
+                        response_text = await generate_static_response("error_account_not_found", audio_input.language, user_text)
+                        pending_action = None
                 else:
-                    response_text = await generate_static_response("error_otp_incorrect", audio_input.language, user_text)
+                    # Wrong OTP - count the attempt and lock out after too many tries
+                    pending_action["otp_attempts"] = pending_action.get("otp_attempts", 0) + 1
+                    if pending_action["otp_attempts"] >= 3:
+                        response_text = await generate_static_response(
+                            "error_otp_too_many_attempts too many incorrect attempts, please start the transfer again",
+                            audio_input.language,
+                            user_text
+                        )
+                        pending_action = None
+                    else:
+                        response_text = await generate_static_response("error_otp_incorrect", audio_input.language, user_text)
             
             elif pending_action.get("type") == "transfer_confirmation" and intent == "cancel_action":
                 response_text = await generate_static_response(
@@ -160,10 +181,14 @@ async def converse(audio_input: AudioInput):
                 )
 
         elif intent == "transfer_money":
-            amount = entities.get("amount")
             recipient = entities.get("recipient")
 
-            if not amount or not recipient:
+            try:
+                amount = float(entities.get("amount"))
+            except (TypeError, ValueError):
+                amount = None
+
+            if amount is None or amount <= 0 or not recipient:
                 response_text = await generate_static_response("missing_transfer_details", audio_input.language, user_text , history=conversation_history)
             else:
                 all_accounts = await firestore_db.get_all_user_accounts_summary(user_id)
